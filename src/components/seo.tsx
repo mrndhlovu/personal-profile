@@ -2,14 +2,26 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-interface Props {
-  description: string
-  lang: string
-  meta?: string
+type Props = {
+  description?: string
+  lang?: string
+  meta?: Meta
   title: string
 }
 
-function Seo({ description, lang, meta, title }: Props) {
+type Meta = ConcatArray<PropertyMetaObj | NameMetaObj>
+
+type PropertyMetaObj = {
+  property: string
+  content: string
+}
+
+type NameMetaObj = {
+  name: string
+  content: string
+}
+
+function Seo({ description, lang, meta = [], title }: Props) {
   const { site } = useStaticQuery(
     graphql`
       query {

@@ -1,13 +1,14 @@
-import React, { ReactNode } from "react"
+import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
 
 import Header from "./header"
+import { ThemeProvider } from "../providers"
+import { childrenInterface } from "../utils/interfaces"
 
-interface Props {
-  children: ReactNode
-}
+const Content = styled.div``
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children }: childrenInterface) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -19,12 +20,12 @@ const Layout = ({ children }: Props) => {
   `)
 
   return (
-    <>
+    <ThemeProvider>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div>
+      <Content>
         <main>{children}</main>
-      </div>
-    </>
+      </Content>
+    </ThemeProvider>
   )
 }
 
