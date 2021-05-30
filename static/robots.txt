@@ -1,0 +1,6 @@
+
+User-agent: *
+
+sitemap: https://www.loxodonta.me/sitemap.xml
+
+Host: loxodonta.me
