@@ -2,25 +2,12 @@ const sourceGoogleFonts = {
   resolve: `gatsby-plugin-google-fonts`,
   options: {
     fonts: [
-      `Montserrat:200,300,400,400i,500,700,
-      Questrial:200,300,400,400i,500,700,
-      Nunito:300,400,400i,600,700,800,
-      source sans pro\:200,300,400,400i,500,700`, // you can also specify font weights and styles
+      `Nunito:300,400,400i,600,700,800`,
+      `Montserrat:200,300,400,400i,500,700`,
+      `Questrial:200,300,400,400i,500,700`,
+      `source sans pro\:200,300,400,400i,500,700`, // you can also specify font weights and styles
     ],
     display: "swap",
-  },
-}
-
-const sourceManiFest = {
-  resolve: `gatsby-plugin-manifest`,
-  options: {
-    name: `gatsby-starter-default`,
-    short_name: `starter`,
-    start_url: `/`,
-    background_color: `#663399`,
-    theme_color: `#663399`,
-    display: `minimal-ui`,
-    icon: `src/images/favicon.ico`,
   },
 }
 
@@ -115,7 +102,6 @@ const siteMetadata = {
 
 module.exports = {
   sourceGoogleFonts,
-  sourceManiFest,
   sourceCloudinaryContent,
   siteMetadata,
   // sourceWordpress,

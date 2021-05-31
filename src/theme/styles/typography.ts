@@ -61,7 +61,7 @@ const typography = css`
   h4,
   h5,
   h6 {
-    font-family: ${props => props.theme.fonts.secondary};
+    font-family: ${props => props.theme.fonts.primary};
     color: ${props => props.theme.colors.heading};
   }
 
@@ -84,12 +84,12 @@ const typography = css`
     font-size: 2.57rem;
     line-height: 3.2857rem;
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       font-size: 2.37rem;
       line-height: 3.0857rem;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 2.17rem;
       line-height: 2.857rem;
     }
@@ -99,7 +99,7 @@ const typography = css`
     font-size: 2rem;
     line-height: 2.7rem;
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 1.91rem;
       line-height: 2.357rem;
     }
@@ -109,7 +109,7 @@ const typography = css`
     font-size: 1.71rem;
     line-height: 2.43rem;
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 1.51rem;
       line-height: 2.13rem;
     }
@@ -119,7 +119,7 @@ const typography = css`
     font-size: 1.43rem;
     line-height: 2.14rem;
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 1.23rem;
       line-height: 2.04rem;
     }
@@ -129,7 +129,7 @@ const typography = css`
     font-size: 1.14rem;
     line-height: 1.857rem;
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 1.04rem;
       line-height: 1.657rem;
     }
@@ -238,7 +238,7 @@ const typography = css`
       }
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 16px;
       line-height: 25px;
       padding: 20px;

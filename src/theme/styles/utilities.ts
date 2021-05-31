@@ -7,19 +7,19 @@ const utilities = css`
     min-height: 100vh;
     z-index: 1;
 
-    @media #{${props => props.theme.device.laptop}} {
+    @media ${props => props.theme.device.laptop} {
       padding-left: 260px;
     }
 
-    @media #{${props => props.theme.device.notebook}} {
+    @media ${props => props.theme.device.notebook} {
       padding-left: 0;
     }
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       padding-left: 0;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       padding-left: 0;
     }
   }
@@ -47,11 +47,11 @@ const utilities = css`
   .mi-padding-top {
     padding-top: 120px;
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       padding-top: 100px;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       padding-top: 80px;
     }
   }
@@ -59,11 +59,11 @@ const utilities = css`
   .mi-padding-bottom {
     padding-bottom: 120px;
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       padding-bottom: 100px;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       padding-bottom: 80px;
     }
   }
@@ -109,22 +109,22 @@ const utilities = css`
       }
     }
 
-    @media #{${props => props.theme.device.laptop}} {
+    @media ${props => props.theme.device.laptop} {
       left: 260px;
       width: calc(100% - 260px);
     }
 
-    @media #{${props => props.theme.device.notebook}} {
+    @media ${props => props.theme.device.notebook} {
       left: 0;
       width: 100%;
     }
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       left: 0;
       width: 100%;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       left: 0;
       width: 100%;
     }

@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { useGlobalContext } from "../../providers/context"
 
 import { childrenInterface } from "../../utils/interfaces"
-import Footer from "../footer/Footer"
 import Header from "../header/Header"
 import BackgroundLines from "../home/BackgroundLines"
 import ModeSwitch from "./ModeSwitch"
@@ -25,7 +24,6 @@ const Layout = ({ children }: childrenInterface) => {
       <Header />
       <ModeSwitch />
       {children}
-      <Footer />
     </Content>
   )
 }

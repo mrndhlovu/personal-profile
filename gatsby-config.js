@@ -1,6 +1,5 @@
 const {
   sourceGoogleFonts,
-  sourceManiFest,
   sourceCloudinaryContent,
   siteMetadata,
 } = require("./plugins")
@@ -31,7 +30,6 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-typescript`,
-    sourceManiFest,
     sourceGoogleFonts,
     sourceCloudinaryContent,
     `gatsby-plugin-gatsby-cloud`,
