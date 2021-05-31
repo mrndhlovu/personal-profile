@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 
 import Styles from "./Styles"
 import LinkItem from "./LinkItem"
+import { MAIN_IMAGE } from "../../constants/images"
 
 const Header = () => {
   const [navigationVisible, setNavigationVisible] = useState(false)
@@ -11,14 +12,16 @@ const Header = () => {
   const togglerNavigation = () => setNavigationVisible(prev => !prev)
 
   return (
-    <Styles navigationVisible={navigationVisible}>
+    <Styles
+      className={navigationVisible ? "mi-header is-visible" : "mi-header"}
+    >
       <button onClick={togglerNavigation} className="mi-header-toggler">
         {!navigationVisible ? <Menu /> : <X />}
       </button>
       <div className="mi-header-inner">
         <div className="mi-header-image">
           <Link to="/">
-            <img src="" alt="brandimage" />
+            <img src={MAIN_IMAGE} alt="brandimage" />
           </Link>
         </div>
 

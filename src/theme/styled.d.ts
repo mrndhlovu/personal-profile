@@ -1,104 +1,103 @@
 import "styled-components"
-import { CSSProperties, ThemeProps } from "styled-components"
-
-type styleTypes = {
-  light: CSSProperties
-}
 
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
-      primary: string
-      secondary: string
-      body: string
-      heading: string
-      border: string
+      amazon: string
+      android: string
+      behance: string
       bgBody: string
       bgDark: string
-      lightTheme: string
-      lightSecondary: string
-      lightBody: string
-      lightHeading: string
-      lightBorder: string
+      bitbucket: string
+      blogger: string
+      body: string
+      border: string
+      cc: string
+      ccStripe: string
+      delicious: string
+      digg: string
+      dribbble: string
+      dropbox: string
+      drupal: string
+      facebook: string
+      flattr: string
+      flickr: string
+      foursquare: string
+      getPocket: string
+      github: string
+      google: string
+      googlePlus: string
+      heading: string
+      instagram: string
       lightBgBody: string
       lightBgDark: string
-      facebook: string
-      messenger: string
-      twitter: string
-      googlePlus: string
-      pinterest: string
-      linkedin: string
-      flickr: string
-      dribbble: string
-      google: string
-      skype: string
-      behance: string
-      youtube: string
-      vimeo: string
-      yahoo: string
-      paypal: string
-      delicious: string
-      flattr: string
-      android: string
-      tumblr: string
-      wikipedia: string
-      stumbleupon: string
-      foursquare: string
-      digg: string
-      spotify: string
-      reddit: string
-      cc: string
-      vk: string
-      rss: string
-      podcast: string
-      dropbox: string
-      github: string
-      soundcloud: string
-      wordpress: string
-      yelp: string
-      scribd: string
-      ccStripe: string
-      drupal: string
-      slideshare: string
-      getPocket: string
-      bitbucket: string
-      xing: string
-      instagram: string
-      quora: string
-      openid: string
-      steam: string
-      amazon: string
-      weibo: string
-      blogger: string
-      whatsapp: string
-      wechat: string
+      lightBody: string
+      lightBorder: string
+      lightHeading: string
+      lightSecondary: string
+      lightTheme: string
       line: string
+      linkedin: string
       medium: string
-      vine: string
+      messenger: string
+      openid: string
+      paypal: string
+      pinterest: string
+      podcast: string
+      primary: string
+      quora: string
+      reddit: string
+      rss: string
+      scribd: string
+      secondary: string
+      skype: string
       slack: string
+      slideshare: string
       snapchat: string
+      soundcloud: string
+      spotify: string
+      steam: string
+      stumbleupon: string
+      tumblr: string
+      twitter: string
+      vimeo: string
+      vine: string
+      vk: string
+      wechat: string
+      weibo: string
+      whatsapp: string
+      wikipedia: string
+      wordpress: string
+      xing: string
+      yahoo: string
+      yelp: string
+      youtube: string
     }
     fonts: {
       primary: string
+      secondary: string
     }
     styles: {
       light: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      reset: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      typography: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      utilities: FlattenInterpolation<ThemeProps<DefaultTheme>>
     }
     keyframes: {
       fadeInDown: Interpolation<ThemeProps<DefaultTheme>>
-      fadeInUp: Interpolation<ThemeProps<DefaultTheme>>
       fadeInLeft: Interpolation<ThemeProps<DefaultTheme>>
       fadeInRight: Interpolation<ThemeProps<DefaultTheme>>
+      fadeInUp: Interpolation<ThemeProps<DefaultTheme>>
     }
     device: {
       desktop: string
       desktopXs: string
-      notebook: string
       laptop: string
-      tablet: string
       mobileLg: string
       mobileSm: string
       mobileXs: string
+      notebook: string
+      tablet: string
     }
     variables: {
       body: string
@@ -106,12 +105,37 @@ declare module "styled-components" {
       transition: string
     }
     mixins: {
-      grid: (placement?: string, align?: string) => {}
-      flex: (direction?: string, justify?: string, align?: string) => {}
-      textHoverEffect: (color?: string) => {}
-      transitionEffect: (property?: string) => {}
-      lineClamp: (numberOfLines: number) => {}
-      flexGap: (gap: string) => {}
+      clearFix: () => Interpolation<ThemeProps<DefaultTheme>>
+      flex: (
+        direction?: string,
+        justify?: string,
+        align?: string
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      flexGap: (gap: string) => Interpolation<ThemeProps<DefaultTheme>>
+      gradientBg: (
+        value: string,
+        deg: number
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      gradientColor: (
+        value: string,
+        deg: number
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      grid: (
+        placement?: string,
+        align?: string
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      lineClamp: (
+        numberOfLines: number
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      placeholderColor: (
+        placeholderColor: string
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      textHoverEffect: (
+        color?: string
+      ) => Interpolation<ThemeProps<DefaultTheme>>
+      transitionEffect: (
+        property?: string
+      ) => Interpolation<ThemeProps<DefaultTheme>>
     }
   }
 }

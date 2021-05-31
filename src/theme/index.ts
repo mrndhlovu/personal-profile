@@ -1,19 +1,19 @@
 import { DefaultTheme } from "styled-components"
 
 import colors from "./colors"
+import device from "./device"
 import fonts from "./fonts"
 import keyframes from "./keyframes"
 import mixins from "./mixins"
-import device from "./device"
-import variables from "./variables"
 import styles from "./styles"
+import variables from "./variables"
 
 export const theme: DefaultTheme = {
   colors,
+  device,
   fonts,
   keyframes,
   mixins,
-  device,
-  variables,
   styles,
+  variables,
 }

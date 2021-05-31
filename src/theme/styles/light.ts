@@ -28,7 +28,7 @@ const lightStyles = css`
       }
     }
 
-    &-switch {
+    .light-mode-switch {
       display: inline-block;
       height: 20px;
       width: 40px;
@@ -50,7 +50,7 @@ const lightStyles = css`
         transition: ${props => props.theme.variables.transition};
       }
 
-      &.active {
+      .active {
         &::after {
           left: 22px;
           background: ${props => props.theme.colors.primary};
@@ -180,12 +180,6 @@ const lightStyles = css`
         }
       }
 
-      /**
- * Utilities
- *
- * @format
- */
-
       .color-theme {
         color: ${props => props.theme.colors.primary};
       }
@@ -253,10 +247,6 @@ const lightStyles = css`
         }
       }
 
-      /*
- * Pagination
- */
-
       .mi-pagination {
         li {
           a {
@@ -272,10 +262,6 @@ const lightStyles = css`
           }
         }
       }
-
-      /**
- * Header Styles
- */
 
       .mi-header {
         background: darken(${props => props.theme.colors.lightBody}, 5);
@@ -297,7 +283,7 @@ const lightStyles = css`
           }
         }
 
-        &-menu {
+        .mi-header-menu {
           li {
             a {
               color: ${props => props.theme.colors.body};
@@ -321,7 +307,7 @@ const lightStyles = css`
           }
         }
 
-        &-copyright {
+        .mi-header-copyright {
           border-color: ${props => props.theme.colors.lightBorder};
 
           a {
@@ -334,10 +320,6 @@ const lightStyles = css`
         }
       }
 
-      /*
- * Social Icons
- */
-
       .mi-socialicons {
         li {
           a {
@@ -349,7 +331,7 @@ const lightStyles = css`
           }
         }
 
-        &-bordered {
+        .mi-socialicons-bordered {
           li {
             a {
               border-color: ${props => props.theme.colors.lightBorder};
@@ -361,10 +343,6 @@ const lightStyles = css`
           }
         }
       }
-
-      /*
- * Title 
- */
 
       .mi-sectiontitle {
         span {
@@ -388,29 +366,21 @@ const lightStyles = css`
         }
       }
 
-      /*
- * Progress Bar
- */
-
       .mi-progress {
-        &-container {
+        .mi-progress-container {
           background: ${props => props.theme.colors.lightBorder};
         }
 
-        &-active {
+        .mi-progress-active {
           background: ${props => props.theme.colors.primary};
         }
       }
-
-      /**
- * Service
- */
 
       .mi-service {
         border-color: ${props => props.theme.colors.lightBorder};
         background: darken(${props => props.theme.colors.lightBody}, 5);
 
-        &-icon {
+        .mi-service-icon {
           color: ${props => props.theme.colors.primary};
         }
 
@@ -424,10 +394,6 @@ const lightStyles = css`
           border-top-color: ${props => props.theme.colors.primary};
         }
       }
-
-      /*
- * Portfolio
- */
 
       .mi-portfolio {
         &-image {
@@ -469,31 +435,27 @@ const lightStyles = css`
         }
       }
 
-      /*
- * Resume 
- */
-
       .mi-resume {
-        &-wrapper {
+        .mi-resume-wrapper {
           border-color: ${props => props.theme.colors.lightBorder};
         }
 
-        &-summary {
+        .mi-resume-summary {
           &::before {
             background: ${props => props.theme.colors.bgBody};
             border-color: ${props => props.theme.colors.lightBorder};
           }
         }
 
-        &-year {
+        .mi-resume-year {
           color: ${props => props.theme.colors.body};
         }
 
-        &-company {
+        .mi-resume-company {
           color: $light-color-heading;
         }
 
-        &-details {
+        .mi-resume-details {
           &::before {
             background: ${props => props.theme.colors.lightBorder};
           }
@@ -504,12 +466,8 @@ const lightStyles = css`
         }
       }
 
-      /**
- * Service
- */
-
       .mi-testimonial {
-        &-content {
+        .mi-testimonial-content {
           border-color: ${props => props.theme.colors.lightBorder};
           background: darken(${props => props.theme.colors.lightBody}, 5);
 
@@ -520,19 +478,15 @@ const lightStyles = css`
           }
         }
 
-        &-author {
+        .mi-testimonial-author {
           h6 {
             color: ${props => props.theme.colors.body};
           }
         }
       }
 
-      /**
- * Form Styles
- */
-
       .mi-form {
-        &-field {
+        .mi-form -field {
           label {
             background: ${props => props.theme.colors.bgBody};
           }
@@ -544,19 +498,15 @@ const lightStyles = css`
         }
       }
 
-      /**
- * Blog Styels
- */
-
       .mi-blog {
         background: darken(${props => props.theme.colors.lightBody}, 5);
 
-        &-date {
+        .mi-blog-date {
           background: rgba($light-color-theme, 0.8);
           color: #ffffff;
         }
 
-        &-content {
+        .mi-blog-content {
           h5 {
             a {
               color: $light-color-heading;
@@ -570,7 +520,7 @@ const lightStyles = css`
       }
 
       .notfound {
-        &-inner {
+        .notfound-inner {
           background: darken(${props => props.theme.colors.lightBody}, 5);
         }
 
@@ -579,12 +529,8 @@ const lightStyles = css`
         }
       }
 
-      /*
- * About Styles
- */
-
       .mi-about {
-        &-image {
+        .mi-about-image {
           &::before {
             background: rgba($light-color-theme, 0.6);
           }

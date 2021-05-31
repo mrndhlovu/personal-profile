@@ -1,8 +1,8 @@
 import React from "react"
 import { CloudinaryContext } from "cloudinary-react"
 
-import Layout from "./src/components/layout"
 import { ThemeProvider, GlobalContextProvider } from "./src/providers"
+import Layout from "./src/components/layout"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 

@@ -1,10 +1,10 @@
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 
 export type INavProps = {
   navigationVisible: boolean
 }
 
-const Styles = styled.nav<INavProps>`
+const Styles = styled.nav`
   position: fixed;
   left: 0;
   top: 0;
@@ -16,7 +16,7 @@ const Styles = styled.nav<INavProps>`
   z-index: 10;
   transition: ${props => props.theme.variables.transition};
 
-  &-inner {
+  .mi-header-inner {
     width: 100%;
     height: 100%;
     display: flex;
@@ -27,7 +27,7 @@ const Styles = styled.nav<INavProps>`
     overflow-y: auto;
   }
 
-  &-toggler {
+  .mi-header-toggler {
     position: absolute;
     left: 100%;
     top: 20px;
@@ -38,7 +38,6 @@ const Styles = styled.nav<INavProps>`
     font-size: 1.6rem;
     background: lighten(${props => props.theme.colors.bgBody}, 5);
     ${props => props.theme.mixins.flex()};
-
     display: none;
 
     &:focus {
@@ -46,7 +45,7 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  &-image {
+  .mi-header-image {
     padding: 20px 0;
     display: block;
     width: 100%;
@@ -64,7 +63,7 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  &-menu {
+  .mi-header-menu {
     width: 100%;
     padding: 15px 5px;
 
@@ -126,7 +125,7 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  &-copyright {
+  .mi-header-copyright {
     display: block;
     width: 100%;
     text-align: center;
@@ -145,32 +144,30 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  ${props =>
-    props.navigationVisible &&
-    css`
-      transform: translateX(0);
-    `};
+  .mi-header-is-visible {
+    transform: translateX(0);
+  }
 
-  @media #{${props => props.theme.device.laptop}} {
+  @media ${props => props.theme.device.laptop} {
     width: 260px;
   }
 
-  @media #{${props => props.theme.device.notebook}} {
+  @media ${props => props.theme.device.notebook} {
     width: 260px;
     transform: translateX(-100%);
 
-    &-toggler {
+    .mi-header-toggler {
       display: flex;
     }
 
-    &-image {
+    .mi-header-image {
       a {
         height: 150px;
         width: 150px;
       }
     }
 
-    &-menu {
+    .mi-header-menu {
       li {
         a {
           padding: 7px 0;
@@ -179,22 +176,22 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  @media #{${props => props.theme.device.tablet}} {
+  @media ${props => props.theme.device.tablet} {
     width: 250px;
     transform: translateX(-100%);
 
-    &-toggler {
+    .mi-header-toggler {
       display: flex;
     }
 
-    &-image {
+    .mi-header-image {
       a {
         height: 150px;
         width: 150px;
       }
     }
 
-    &-menu {
+    .mi-header-menu {
       li {
         a {
           padding: 7px 0;
@@ -203,22 +200,22 @@ const Styles = styled.nav<INavProps>`
     }
   }
 
-  @media #{${props => props.theme.device.mobileLg}} {
+  @media ${props => props.theme.device.mobileLg} {
     width: 250px;
     transform: translateX(-100%);
 
-    &-toggler {
+    .mi-header-toggler {
       display: flex;
     }
 
-    &-image {
+    .mi-header-image {
       a {
         height: 150px;
         width: 150px;
       }
     }
 
-    &-menu {
+    .mi-header-menu {
       li {
         a {
           padding: 7px 0;
