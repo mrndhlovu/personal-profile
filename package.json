@@ -78,8 +78,8 @@
     "cy:open": "cypress run",
     "open:test": "start-server-and-test start 8888 cy:open",
     "build": "yarn build:app && yarn build:lambda",
-    "build:app": "cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
-    "build:lambda": "netlify-lambda build functions --config ./webpack.functions.js",
+    "build:app": "gatsby build",
+    "build:lambda": "netlify-lambda build functions",
     "postinstall": "cd functions && yarn && cd .."
   },
   "repository": {
