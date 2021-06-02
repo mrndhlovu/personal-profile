@@ -2,7 +2,9 @@ const {
   sourceGoogleFonts,
   sourceCloudinaryContent,
   siteMetadata,
-} = require("./plugins")
+  sourceWordpress,
+  sourceTypescript,
+} = require("./utils/plugins")
 
 module.exports = {
   siteMetadata,
@@ -30,7 +32,9 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-typescript`,
+    sourceTypescript,
     sourceGoogleFonts,
+    sourceWordpress,
     sourceCloudinaryContent,
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-netlify`,

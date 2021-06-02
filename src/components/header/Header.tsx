@@ -2,12 +2,15 @@ import React, { useState } from "react"
 import { Menu, X } from "react-feather"
 import { Link } from "gatsby"
 
-import Styles from "./Styles"
-import LinkItem from "./LinkItem"
 import { MAIN_IMAGE } from "../../constants/images"
+import { useHeaderQuery } from "../../utils/graphql"
+import LinkItem from "./LinkItem"
+import Styles from "./Styles"
 
-const Header = () => {
+const Header: React.FC = () => {
   const [navigationVisible, setNavigationVisible] = useState(false)
+  const { menu, user } = useHeaderQuery()
+  const menuItems = menu?.edges?.[0]?.node?.menuItems?.nodes
 
   const togglerNavigation = () => setNavigationVisible(prev => !prev)
 
@@ -26,12 +29,13 @@ const Header = () => {
         </div>
 
         <ul className="mi-header-menu">
-          <LinkItem text="Home" redirectTo="" />
-          <LinkItem text="About" redirectTo="about" />
-          <LinkItem text="Resume" redirectTo="resume" />
-          <LinkItem text="Projects" redirectTo="projects" />
-          <LinkItem text="Blog" redirectTo="blog" />
-          <LinkItem text="Contact" redirectTo="contact" />
+          {menuItems?.map(item => (
+            <LinkItem
+              key={item?.id}
+              text={item?.label}
+              redirectTo={item?.path}
+            />
+          ))}
         </ul>
         <p className="mi-header-copyright">
           &copy; {new Date().getFullYear()}{" "}
@@ -41,7 +45,7 @@ const Header = () => {
               target="_blank"
               href={process.env.GATSBY_FRONTEND_URL}
             >
-              Mduduzi Ndhlovu
+              {`${user?.firstName} ${user?.lastName}`}
             </a>
           </b>
         </p>

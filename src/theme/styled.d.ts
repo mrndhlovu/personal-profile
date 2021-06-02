@@ -103,6 +103,7 @@ declare module "styled-components" {
       body: string
       inputButtonHeight: string
       transition: string
+      primaryLightRgba: string
     }
     mixins: {
       clearFix: () => Interpolation<ThemeProps<DefaultTheme>>

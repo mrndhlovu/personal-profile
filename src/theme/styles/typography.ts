@@ -156,10 +156,11 @@ const typography = css`
   }
 
   a {
+    text-decoration: none;
+
     &:hover,
     &:focus,
     &:active {
-      text-decoration: none;
       outline: none;
     }
   }

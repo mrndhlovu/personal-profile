@@ -29,26 +29,43 @@ const siteMetadata = {
   author: "@kandhlovu",
 }
 
-// const sourceWordpress = {
-//   resolve: `gatsby-source-wordpress`,
-//   options: {
-//     url: process.env.BACKEND_API_ENDPOINT,
-//     presets: null,
-//     develop: {
-//       nodeUpdateInterval: 300,
-//       hardCacheData: false,
-//     },
-//     production: {
-//       allow404Images: true,
-//     },
-//     schema: {
-//       typePrefix: `wp`,
-//       requestConcurrency: 50,
-//       timeout: 60000,
-//     },
-//     excludeFieldNames: ["User"],
-//   },
-// }
+const sourceWordpress = {
+  resolve: `gatsby-source-wordpress`,
+  options: {
+    url: process.env.BACKEND_API_ENDPOINT,
+    presets: null,
+    develop: {
+      nodeUpdateInterval: 300,
+      hardCacheData: false,
+    },
+    production: {
+      allow404Images: true,
+    },
+    schema: {
+      typePrefix: `wp`,
+      requestConcurrency: 50,
+      timeout: 60000,
+    },
+    excludeFieldNames: ["User"],
+  },
+}
+
+const sourceTypescript = {
+  resolve: `gatsby-plugin-ts`,
+  options: {
+    tsLoader: {
+      logLevel: "warn",
+    },
+    forkTsCheckerPlugin: {
+      eslint: true,
+    },
+    fileName: `types/graphql-types.ts`,
+    codegen: true,
+    codegenDelay: 250,
+    alwaysCheck: false,
+    typeCheck: process.env.NODE_ENV !== "production",
+  },
+}
 
 // const sourceAirtable = {
 //     resolve: `gatsby-source-airtable`,
@@ -104,5 +121,6 @@ module.exports = {
   sourceGoogleFonts,
   sourceCloudinaryContent,
   siteMetadata,
-  // sourceWordpress,
+  sourceWordpress,
+  sourceTypescript,
 }

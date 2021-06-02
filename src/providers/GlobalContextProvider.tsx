@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { childrenInterface } from "../utils/interfaces"
+import { childrenInterface } from "../utils/types/interfaces"
 import { GlobalContext } from "./context"
 
 export type DefaultGlobalContextTypes = {

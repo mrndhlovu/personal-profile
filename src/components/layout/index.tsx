@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import styled from "styled-components"
 import { useGlobalContext } from "../../providers/context"
 
-import { childrenInterface } from "../../utils/interfaces"
+import { childrenInterface } from "../../utils/types/interfaces"
 import Header from "../header/Header"
 import BackgroundLines from "../home/BackgroundLines"
 import ModeSwitch from "./ModeSwitch"

@@ -82,7 +82,7 @@ const Styles = styled.nav`
         letter-spacing: 1px;
         display: block;
         padding: 5px 0;
-        color: $color-body;
+        color: ${props => props.theme.colors.body};
         transition: ${props => props.theme.variables.transition};
         font-weight: 600;
         position: relative;
@@ -97,7 +97,10 @@ const Styles = styled.nav`
           right: 100%;
           height: 100%;
           width: 0;
-          background: rgba(${props => props.theme.colors.primary}, 0.2);
+          background: rgba(
+            ${props => props.theme.variables.primaryLightRgba},
+            0.2
+          );
           visibility: hidden;
           transition: ${props => props.theme.variables.transition};
           z-index: -1;
@@ -135,7 +138,7 @@ const Styles = styled.nav`
     border-top: 1px solid ${props => props.theme.colors.border};
 
     a {
-      color: $color-body;
+      color: ${props => props.theme.colors.primary};
       transition: ${props => props.theme.variables.transition};
 
       &:hover {
