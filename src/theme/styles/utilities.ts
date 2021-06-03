@@ -90,7 +90,7 @@ const utilities = css`
       height: 100%;
       width: 1px;
       min-height: 100vh;
-      background: rgba(${props => props.theme.colors.border}, 0.3);
+      background: ${props => props.theme.colors.border};
 
       &:nth-child(1) {
         left: 20%;
@@ -142,7 +142,7 @@ const utilities = css`
   }
 
   .light-mode {
-    background: rgba(#ffffff, 0.5);
+    background: rgba(255 255 255, 0.5);
     position: fixed;
     z-index: 999;
     height: 40px;

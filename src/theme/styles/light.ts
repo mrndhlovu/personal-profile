@@ -2,7 +2,7 @@ import { css } from "styled-components"
 
 const lightStyles = css`
   .light-mode {
-    background: rgba(#ffffff, 0.5);
+    background: ${props => props.theme.colors.secondary};
     position: fixed;
     z-index: 999;
     height: 40px;
@@ -57,286 +57,361 @@ const lightStyles = css`
         }
       }
     }
+  }
 
-    .light {
-      *::-webkit-scrollbar-track {
-        background-color: #383838;
+  .light {
+    *::-webkit-scrollbar-track {
+      background-color: #383838;
+    }
+
+    *::-webkit-scrollbar {
+      background-color: #383838;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: #6b6b6b;
+    }
+
+    & {
+      color: ${props => props.theme.colors.body};
+      background: ${props => props.theme.colors.bgBody};
+    }
+
+    @include placeholder-color(${props => props.theme.colors.body});
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: ${props => props.theme.colors.heading};
+    }
+
+    ::-moz-selection {
+      background: ${props => props.theme.colors.primary};
+      color: #ffffff;
+    }
+
+    ::-ms-selection {
+      background: ${props => props.theme.colors.primary};
+      color: #ffffff;
+    }
+
+    ::-o-selection {
+      background: ${props => props.theme.colors.primary};
+      color: #ffffff;
+    }
+
+    ::selection {
+      background: ${props => props.theme.colors.primary};
+      color: #ffffff;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+      border-color: ${props => props.theme.colors.lightBorder};
+      color: ${props => props.theme.colors.body};
+      @include placeholder-color(${props => props.theme.colors.lightBody});
+
+      &:focus,
+      &:active {
+        border-color: ${props => props.theme.colors.primary};
       }
+    }
 
-      *::-webkit-scrollbar {
-        background-color: #383838;
+    blockquote {
+      border-color: ${props => props.theme.colors.primary};
+      background: darken(${props => props.theme.colors.lightBody}, 5);
+
+      footer {
+        a {
+          color: ${props => props.theme.colors.primary};
+
+          &:hover {
+            color: ${props => props.theme.colors.primary};
+          }
+        }
       }
+    }
 
-      *::-webkit-scrollbar-thumb {
-        background-color: #6b6b6b;
+    .stylish-list {
+      i {
+        color: ${props => props.theme.colors.primary};
       }
+    }
 
-      & {
-        color: ${props => props.theme.colors.body};
-        background: ${props => props.theme.colors.bgBody};
-      }
-
-      @include placeholder-color(${props => props.theme.colors.body});
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        color: ${props => props.theme.colors.heading};
-      }
-
-      ::-moz-selection {
-        background: ${props => props.theme.colors.primary};
-        color: #ffffff;
-      }
-
-      ::-ms-selection {
-        background: ${props => props.theme.colors.primary};
-        color: #ffffff;
-      }
-
-      ::-o-selection {
-        background: ${props => props.theme.colors.primary};
-        color: #ffffff;
-      }
-
-      ::selection {
-        background: ${props => props.theme.colors.primary};
-        color: #ffffff;
-      }
-
-      input,
-      button,
-      select,
-      textarea {
-        border-color: ${props => props.theme.colors.lightBorder};
-        color: ${props => props.theme.colors.body};
-        @include placeholder-color(${props => props.theme.colors.lightBody});
-
-        &:focus,
-        &:active {
-          border-color: ${props => props.theme.colors.primary};
+    /* Checkbox & Radio Styles */
+    input[type="checkbox"],
+    input[type="radio"] {
+      & ~ label {
+        &:before {
+          border-color: ${props => props.theme.colors.lightBorder};
         }
       }
 
-      blockquote {
-        border-color: ${props => props.theme.colors.primary};
+      &:checked {
+        & ~ label {
+          color: ${props => props.theme.colors.primary};
+
+          &:before {
+            color: ${props => props.theme.colors.primary};
+            border-color: ${props => props.theme.colors.primary};
+          }
+        }
+      }
+    }
+
+    input[type="radio"] {
+      & ~ label {
+        &::before {
+          border: 2px solid ${props => props.theme.colors.lightBorder};
+        }
+      }
+
+      &:checked {
+        & ~ label {
+          &::before {
+            color: ${props => props.theme.colors.primary};
+            border-color: ${props => props.theme.colors.primary};
+          }
+        }
+      }
+    }
+
+    .color-theme {
+      color: ${props => props.theme.colors.primary};
+    }
+
+    .mi-bglines {
+      span {
+        background: ${props => props.theme.colors.lightBorder};
+      }
+    }
+
+    .light-mode {
+      background: ${props => props.theme.colors.lightSecondary};
+
+      .icon {
+        svg {
+          fill: #fff;
+
+          & > * {
+            fill: #fff;
+          }
+        }
+      }
+
+      &-switch {
+        background: ${props => props.theme.colors.lightBorder};
+
+        &::after {
+          background: #ffffff;
+        }
+
+        &.active {
+          &::after {
+            background: ${props => props.theme.colors.primary};
+          }
+        }
+      }
+    }
+
+    /**
+ * Button
+ */
+
+    .mi-button {
+      background: ${props => props.theme.colors.primary};
+      color: #ffffff;
+
+      &::before {
+        background: #ffffff;
+      }
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    .mi-readmore {
+      color: ${props => props.theme.colors.primary};
+
+      &::after {
+        background: ${props => props.theme.colors.primary};
+      }
+
+      &:hover {
+        color: ${props => props.theme.colors.primary};
+      }
+    }
+
+    .mi-pagination {
+      li {
+        a {
+          border-color: ${props => props.theme.colors.primary};
+          color: ${props => props.theme.colors.primary};
+        }
+
+        &.is-active {
+          a {
+            background: ${props => props.theme.colors.primary};
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .mi-header {
+      background: darken(${props => props.theme.colors.lightBody}, 5);
+      border-color: ${props => props.theme.colors.lightBorder};
+
+      &-toggler {
         background: darken(${props => props.theme.colors.lightBody}, 5);
 
-        footer {
+        &:focus {
+          border-color: ${props => props.theme.colors.lightBorder};
+        }
+      }
+
+      &-image {
+        border-color: ${props => props.theme.colors.lightBorder};
+
+        a {
+          border-color: ${props => props.theme.colors.lightBorder};
+        }
+      }
+
+      .mi-header-menu {
+        li {
           a {
-            color: ${props => props.theme.colors.primary};
+            color: ${props => props.theme.colors.body};
+
+            &::before {
+              background: ${props => props.theme.colors.lightBody};
+            }
 
             &:hover {
               color: ${props => props.theme.colors.primary};
             }
+
+            &.active {
+              color: #ffffff;
+
+              &::before {
+                background: ${props => props.theme.colors.primary};
+              }
+            }
           }
         }
       }
 
-      .stylish-list {
-        i {
-          color: ${props => props.theme.colors.primary};
-        }
-      }
+      .mi-header-copyright {
+        border-color: ${props => props.theme.colors.lightBorder};
 
-      /* Checkbox & Radio Styles */
-      input[type="checkbox"],
-      input[type="radio"] {
-        & ~ label {
-          &:before {
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
-        }
+        a {
+          color: ${props => props.theme.colors.body};
 
-        &:checked {
-          & ~ label {
+          &:hover {
             color: ${props => props.theme.colors.primary};
+          }
+        }
+      }
+    }
 
-            &:before {
-              color: ${props => props.theme.colors.primary};
+    .mi-socialicons {
+      li {
+        a {
+          color: ${props => props.theme.colors.body};
+
+          &:hover {
+            color: ${props => props.theme.colors.primary};
+          }
+        }
+      }
+
+      .mi-socialicons-bordered {
+        li {
+          a {
+            border-color: ${props => props.theme.colors.lightBorder};
+
+            &:hover {
               border-color: ${props => props.theme.colors.primary};
             }
           }
         }
       }
+    }
 
-      input[type="radio"] {
-        & ~ label {
-          &::before {
-            border: 2px solid ${props => props.theme.colors.lightBorder};
-          }
-        }
-
-        &:checked {
-          & ~ label {
-            &::before {
-              color: ${props => props.theme.colors.primary};
-              border-color: ${props => props.theme.colors.primary};
-            }
-          }
-        }
+    .mi-sectiontitle {
+      span {
+        color: rgba(215 220 230);
       }
 
-      .color-theme {
-        color: ${props => props.theme.colors.primary};
-      }
-
-      .mi-bglines {
-        span {
-          background: rgba(${props => props.theme.colors.lightBorder}, 0.5);
-        }
-      }
-
-      .light-mode {
-        background: rgba(#000000, 0.5);
-
-        .icon {
-          svg {
-            fill: #fff;
-
-            & > * {
-              fill: #fff;
-            }
-          }
-        }
-
-        &-switch {
-          background: ${props => props.theme.colors.lightBorder};
-
-          &::after {
-            background: #ffffff;
-          }
-
-          &.active {
-            &::after {
-              background: ${props => props.theme.colors.primary};
-            }
-          }
-        }
-      }
-
-      /**
- * Button
- */
-
-      .mi-button {
-        background: ${props => props.theme.colors.primary};
-        color: #ffffff;
-
+      h2 {
         &::before {
-          background: #ffffff;
+          background: ${props => props.theme.colors.lightTheme};
         }
-
-        &:hover {
-          color: #ffffff;
-        }
-      }
-
-      .mi-readmore {
-        color: ${props => props.theme.colors.primary};
 
         &::after {
           background: ${props => props.theme.colors.primary};
         }
+      }
+    }
 
-        &:hover {
-          color: ${props => props.theme.colors.primary};
+    .mi-smalltitle {
+      &-icon {
+        color: ${props => props.theme.colors.body};
+      }
+    }
+
+    .mi-progress {
+      .mi-progress-container {
+        background: ${props => props.theme.colors.lightBorder};
+      }
+
+      .mi-progress-active {
+        background: ${props => props.theme.colors.primary};
+      }
+    }
+
+    .mi-service {
+      border-color: ${props => props.theme.colors.lightBorder};
+      background: darken(${props => props.theme.colors.lightBody}, 5);
+
+      .mi-service-icon {
+        color: ${props => props.theme.colors.primary};
+      }
+
+      h5 {
+        &::before {
+          background: ${props => props.theme.colors.lightBorder};
         }
       }
 
-      .mi-pagination {
-        li {
-          a {
-            border-color: ${props => props.theme.colors.primary};
-            color: ${props => props.theme.colors.primary};
-          }
+      &:hover {
+        border-top-color: ${props => props.theme.colors.primary};
+      }
+    }
 
-          &.is-active {
-            a {
-              background: ${props => props.theme.colors.primary};
+    .mi-portfolio {
+      &-image {
+        &::before {
+          background: rgba(255, 255, 255, 0.9);
+        }
+
+        ul {
+          li {
+            a,
+            button {
+              background: ${props => props.theme.colors.body};
               color: #ffffff;
-            }
-          }
-        }
-      }
-
-      .mi-header {
-        background: darken(${props => props.theme.colors.lightBody}, 5);
-        border-color: ${props => props.theme.colors.lightBorder};
-
-        &-toggler {
-          background: darken(${props => props.theme.colors.lightBody}, 5);
-
-          &:focus {
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
-        }
-
-        &-image {
-          border-color: ${props => props.theme.colors.lightBorder};
-
-          a {
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
-        }
-
-        .mi-header-menu {
-          li {
-            a {
-              color: ${props => props.theme.colors.body};
-
-              &::before {
-                background: rgba($light-color-theme, 0.2);
-              }
+              border: 1px solid ${props => props.theme.colors.body};
 
               &:hover {
-                color: ${props => props.theme.colors.primary};
-              }
-
-              &.active {
-                color: #ffffff;
-
-                &::before {
-                  background: ${props => props.theme.colors.primary};
-                }
-              }
-            }
-          }
-        }
-
-        .mi-header-copyright {
-          border-color: ${props => props.theme.colors.lightBorder};
-
-          a {
-            color: ${props => props.theme.colors.body};
-
-            &:hover {
-              color: ${props => props.theme.colors.primary};
-            }
-          }
-        }
-      }
-
-      .mi-socialicons {
-        li {
-          a {
-            color: ${props => props.theme.colors.body};
-
-            &:hover {
-              color: ${props => props.theme.colors.primary};
-            }
-          }
-        }
-
-        .mi-socialicons-bordered {
-          li {
-            a {
-              border-color: ${props => props.theme.colors.lightBorder};
-
-              &:hover {
+                background: ${props => props.theme.colors.primary};
                 border-color: ${props => props.theme.colors.primary};
               }
             }
@@ -344,230 +419,152 @@ const lightStyles = css`
         }
       }
 
-      .mi-sectiontitle {
-        span {
-          color: rgba(215, 220, 230, 0.44);
-        }
+      h5 {
+        color: $light-color-heading;
 
-        h2 {
-          &::before {
-            background: rgba($light-color-theme, 0.3);
-          }
+        a {
+          color: $light-color-heading;
 
-          &::after {
-            background: ${props => props.theme.colors.primary};
+          &:hover {
+            color: ${props => props.theme.colors.primary};
           }
         }
       }
 
-      .mi-smalltitle {
-        &-icon {
-          color: ${props => props.theme.colors.body};
+      h6 {
+        color: ${props => props.theme.colors.body};
+      }
+    }
+
+    .mi-resume {
+      .mi-resume-wrapper {
+        border-color: ${props => props.theme.colors.lightBorder};
+      }
+
+      .mi-resume-summary {
+        &::before {
+          background: ${props => props.theme.colors.bgBody};
+          border-color: ${props => props.theme.colors.lightBorder};
         }
       }
 
-      .mi-progress {
-        .mi-progress-container {
+      .mi-resume-year {
+        color: ${props => props.theme.colors.body};
+      }
+
+      .mi-resume-company {
+        color: $light-color-heading;
+      }
+
+      .mi-resume-details {
+        &::before {
           background: ${props => props.theme.colors.lightBorder};
         }
 
-        .mi-progress-active {
-          background: ${props => props.theme.colors.primary};
+        h5 {
+          color: ${props => props.theme.colors.primary};
         }
       }
+    }
 
-      .mi-service {
+    .mi-testimonial {
+      .mi-testimonial-content {
         border-color: ${props => props.theme.colors.lightBorder};
         background: darken(${props => props.theme.colors.lightBody}, 5);
 
-        .mi-service-icon {
-          color: ${props => props.theme.colors.primary};
-        }
-
-        h5 {
-          &::before {
-            background: ${props => props.theme.colors.lightBorder};
-          }
-        }
-
-        &:hover {
-          border-top-color: ${props => props.theme.colors.primary};
+        &::after {
+          border-color: darken(${props => props.theme.colors.lightBody}, 5)
+            transparent transparent
+            darken(${props => props.theme.colors.lightBody}, 5);
         }
       }
 
-      .mi-portfolio {
-        &-image {
-          &::before {
-            background: rgba(#ffffff, 0.9);
-          }
+      .mi-testimonial-author {
+        h6 {
+          color: ${props => props.theme.colors.body};
+        }
+      }
+    }
 
-          ul {
-            li {
-              a,
-              button {
-                background: ${props => props.theme.colors.body};
-                color: #ffffff;
-                border: 1px solid ${props => props.theme.colors.body};
-
-                &:hover {
-                  background: ${props => props.theme.colors.primary};
-                  border-color: ${props => props.theme.colors.primary};
-                }
-              }
-            }
-          }
+    .mi-form {
+      .mi-form -field {
+        label {
+          background: ${props => props.theme.colors.bgBody};
         }
 
-        h5 {
-          color: $light-color-heading;
+        input,
+        textarea {
+          border-color: ${props => props.theme.colors.lightBorder};
+        }
+      }
+    }
 
+    .mi-blog {
+      background: darken(${props => props.theme.colors.lightBody}, 5);
+
+      .mi-blog-date {
+        background: ${props => props.theme.colors.lightTheme};
+        color: #ffffff;
+      }
+
+      .mi-blog-content {
+        h5 {
           a {
-            color: $light-color-heading;
+            color: ${props => props.theme.colors.lightHeading};
 
             &:hover {
               color: ${props => props.theme.colors.primary};
             }
           }
         }
-
-        h6 {
-          color: ${props => props.theme.colors.body};
-        }
       }
+    }
 
-      .mi-resume {
-        .mi-resume-wrapper {
-          border-color: ${props => props.theme.colors.lightBorder};
-        }
-
-        .mi-resume-summary {
-          &::before {
-            background: ${props => props.theme.colors.bgBody};
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
-        }
-
-        .mi-resume-year {
-          color: ${props => props.theme.colors.body};
-        }
-
-        .mi-resume-company {
-          color: $light-color-heading;
-        }
-
-        .mi-resume-details {
-          &::before {
-            background: ${props => props.theme.colors.lightBorder};
-          }
-
-          h5 {
-            color: ${props => props.theme.colors.primary};
-          }
-        }
-      }
-
-      .mi-testimonial {
-        .mi-testimonial-content {
-          border-color: ${props => props.theme.colors.lightBorder};
-          background: darken(${props => props.theme.colors.lightBody}, 5);
-
-          &::after {
-            border-color: darken(${props => props.theme.colors.lightBody}, 5)
-              transparent transparent
-              darken(${props => props.theme.colors.lightBody}, 5);
-          }
-        }
-
-        .mi-testimonial-author {
-          h6 {
-            color: ${props => props.theme.colors.body};
-          }
-        }
-      }
-
-      .mi-form {
-        .mi-form -field {
-          label {
-            background: ${props => props.theme.colors.bgBody};
-          }
-
-          input,
-          textarea {
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
-        }
-      }
-
-      .mi-blog {
+    .notfound {
+      .notfound-inner {
         background: darken(${props => props.theme.colors.lightBody}, 5);
+      }
 
-        .mi-blog-date {
-          background: rgba($light-color-theme, 0.8);
+      h1 {
+        color: #fd7171;
+      }
+    }
+
+    .mi-about {
+      .mi-about-image {
+        &::before {
+          background: ${props => props.theme.colors.lightTheme};
+        }
+
+        &::after {
+          background: ${props => props.theme.colors.lightTheme};
+        }
+
+        &-icon {
           color: #ffffff;
         }
-
-        .mi-blog-content {
-          h5 {
-            a {
-              color: $light-color-heading;
-
-              &:hover {
-                color: ${props => props.theme.colors.primary};
-              }
-            }
-          }
-        }
       }
+    }
 
-      .notfound {
-        .notfound-inner {
-          background: darken(${props => props.theme.colors.lightBody}, 5);
-        }
-
-        h1 {
-          color: #fd7171;
-        }
-      }
-
-      .mi-about {
-        .mi-about-image {
-          &::before {
-            background: rgba($light-color-theme, 0.6);
-          }
-
-          &::after {
-            background: rgba($light-color-theme, 0.6);
-          }
-
-          &-icon {
-            color: #ffffff;
-          }
-        }
-      }
-
-      /**
+    /**
  * Contact
  */
 
-      .mi-contact {
-        &-infoblock {
-          background: rgba(
-            darken(${props => props.theme.colors.lightBody}, 5),
-            1
-          );
+    .mi-contact {
+      &-infoblock {
+        background: darken(${props => props.theme.colors.lightBody}, 1);
 
-          &-icon {
-            border-color: ${props => props.theme.colors.lightBorder};
-          }
+        &-icon {
+          border-color: ${props => props.theme.colors.lightBorder};
+        }
 
-          &-content {
-            p {
-              a {
-                color: ${props => props.theme.colors.body};
+        &-content {
+          p {
+            a {
+              color: ${props => props.theme.colors.body};
 
-                &:hover {
-                  color: ${props => props.theme.colors.primary};
-                }
+              &:hover {
+                color: ${props => props.theme.colors.primary};
               }
             }
           }

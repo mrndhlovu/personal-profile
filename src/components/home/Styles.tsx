@@ -34,19 +34,19 @@ const Styles = styled.div`
     }
   }
 
-  @media #{${props => props.theme.device.laptop}} {
+  @media ${props => props.theme.device.laptop} {
     .mi-home-content {
       padding: 50px 0px;
     }
   }
 
-  @media #{${props => props.theme.device.notebook}} {
+  @media ${props => props.theme.device.notebook} {
     .mi-home-content {
       padding: 50px 0px;
     }
   }
 
-  @media #{${props => props.theme.device.tablet}} {
+  @media ${props => props.theme.device.tablet} {
     .mi-home-content {
       padding: 50px 0px;
 
@@ -57,7 +57,7 @@ const Styles = styled.div`
     }
   }
 
-  @media #{${props => props.theme.device.mobileLg}} {
+  @media ${props => props.theme.device.mobileLg} {
     .mi-home-content {
       padding: 50px 0px;
 
@@ -68,7 +68,7 @@ const Styles = styled.div`
     }
   }
 
-  @media #{${props => props.theme.device.mobileSm}} {
+  @media ${props => props.theme.device.mobileSm} {
     .mi-home-content {
       h1 {
         span {
