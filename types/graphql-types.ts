@@ -308,13 +308,13 @@ export type SitePage = Node & {
   internalComponentName: Scalars['String'];
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
-  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
-  pluginCreator?: Maybe<SitePlugin>;
-  pluginCreatorId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  pluginCreator?: Maybe<SitePlugin>;
+  pluginCreatorId?: Maybe<Scalars['String']>;
 };
 
 export type ImageFormat =
@@ -2435,7 +2435,6 @@ export type SitePluginPluginOptions = {
   jsxPragma?: Maybe<Scalars['String']>;
   allExtensions?: Maybe<Scalars['Boolean']>;
   tsLoader?: Maybe<SitePluginPluginOptionsTsLoader>;
-  forkTsCheckerPlugin?: Maybe<SitePluginPluginOptionsForkTsCheckerPlugin>;
   fileName?: Maybe<Scalars['String']>;
   codegen?: Maybe<Scalars['Boolean']>;
   codegenDelay?: Maybe<Scalars['Int']>;
@@ -2459,10 +2458,6 @@ export type SitePluginPluginOptions = {
 
 export type SitePluginPluginOptionsTsLoader = {
   logLevel?: Maybe<Scalars['String']>;
-};
-
-export type SitePluginPluginOptionsForkTsCheckerPlugin = {
-  eslint?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPluginOptionsDevelop = {
@@ -2749,13 +2744,13 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -4682,7 +4677,6 @@ export type SitePluginPluginOptionsFilterInput = {
   jsxPragma?: Maybe<StringQueryOperatorInput>;
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   tsLoader?: Maybe<SitePluginPluginOptionsTsLoaderFilterInput>;
-  forkTsCheckerPlugin?: Maybe<SitePluginPluginOptionsForkTsCheckerPluginFilterInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
   codegen?: Maybe<BooleanQueryOperatorInput>;
   codegenDelay?: Maybe<IntQueryOperatorInput>;
@@ -4706,10 +4700,6 @@ export type SitePluginPluginOptionsFilterInput = {
 
 export type SitePluginPluginOptionsTsLoaderFilterInput = {
   logLevel?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsForkTsCheckerPluginFilterInput = {
-  eslint?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsDevelopFilterInput = {
@@ -4824,112 +4814,6 @@ export type SitePageFieldsEnum =
   | 'internalComponentName'
   | 'componentChunkName'
   | 'matchPath'
-  | 'isCreatedByStatefulCreatePages'
-  | 'pluginCreator___id'
-  | 'pluginCreator___parent___id'
-  | 'pluginCreator___parent___parent___id'
-  | 'pluginCreator___parent___parent___children'
-  | 'pluginCreator___parent___children'
-  | 'pluginCreator___parent___children___id'
-  | 'pluginCreator___parent___children___children'
-  | 'pluginCreator___parent___internal___content'
-  | 'pluginCreator___parent___internal___contentDigest'
-  | 'pluginCreator___parent___internal___description'
-  | 'pluginCreator___parent___internal___fieldOwners'
-  | 'pluginCreator___parent___internal___ignoreType'
-  | 'pluginCreator___parent___internal___mediaType'
-  | 'pluginCreator___parent___internal___owner'
-  | 'pluginCreator___parent___internal___type'
-  | 'pluginCreator___children'
-  | 'pluginCreator___children___id'
-  | 'pluginCreator___children___parent___id'
-  | 'pluginCreator___children___parent___children'
-  | 'pluginCreator___children___children'
-  | 'pluginCreator___children___children___id'
-  | 'pluginCreator___children___children___children'
-  | 'pluginCreator___children___internal___content'
-  | 'pluginCreator___children___internal___contentDigest'
-  | 'pluginCreator___children___internal___description'
-  | 'pluginCreator___children___internal___fieldOwners'
-  | 'pluginCreator___children___internal___ignoreType'
-  | 'pluginCreator___children___internal___mediaType'
-  | 'pluginCreator___children___internal___owner'
-  | 'pluginCreator___children___internal___type'
-  | 'pluginCreator___internal___content'
-  | 'pluginCreator___internal___contentDigest'
-  | 'pluginCreator___internal___description'
-  | 'pluginCreator___internal___fieldOwners'
-  | 'pluginCreator___internal___ignoreType'
-  | 'pluginCreator___internal___mediaType'
-  | 'pluginCreator___internal___owner'
-  | 'pluginCreator___internal___type'
-  | 'pluginCreator___resolve'
-  | 'pluginCreator___name'
-  | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions___output'
-  | 'pluginCreator___pluginOptions___createLinkInHead'
-  | 'pluginCreator___pluginOptions___entryLimit'
-  | 'pluginCreator___pluginOptions___query'
-  | 'pluginCreator___pluginOptions___name'
-  | 'pluginCreator___pluginOptions___path'
-  | 'pluginCreator___pluginOptions___base64Width'
-  | 'pluginCreator___pluginOptions___stripMetadata'
-  | 'pluginCreator___pluginOptions___defaultQuality'
-  | 'pluginCreator___pluginOptions___failOnError'
-  | 'pluginCreator___pluginOptions___isTSX'
-  | 'pluginCreator___pluginOptions___jsxPragma'
-  | 'pluginCreator___pluginOptions___allExtensions'
-  | 'pluginCreator___pluginOptions___tsLoader___logLevel'
-  | 'pluginCreator___pluginOptions___forkTsCheckerPlugin___eslint'
-  | 'pluginCreator___pluginOptions___fileName'
-  | 'pluginCreator___pluginOptions___codegen'
-  | 'pluginCreator___pluginOptions___codegenDelay'
-  | 'pluginCreator___pluginOptions___alwaysCheck'
-  | 'pluginCreator___pluginOptions___typeCheck'
-  | 'pluginCreator___pluginOptions___fonts'
-  | 'pluginCreator___pluginOptions___display'
-  | 'pluginCreator___pluginOptions___url'
-  | 'pluginCreator___pluginOptions___develop___nodeUpdateInterval'
-  | 'pluginCreator___pluginOptions___develop___hardCacheData'
-  | 'pluginCreator___pluginOptions___develop___hardCacheMediaFiles'
-  | 'pluginCreator___pluginOptions___production___allow404Images'
-  | 'pluginCreator___pluginOptions___production___hardCacheMediaFiles'
-  | 'pluginCreator___pluginOptions___schema___typePrefix'
-  | 'pluginCreator___pluginOptions___schema___requestConcurrency'
-  | 'pluginCreator___pluginOptions___schema___timeout'
-  | 'pluginCreator___pluginOptions___schema___queryDepth'
-  | 'pluginCreator___pluginOptions___schema___circularQueryLimit'
-  | 'pluginCreator___pluginOptions___schema___perPage'
-  | 'pluginCreator___pluginOptions___schema___previewRequestConcurrency'
-  | 'pluginCreator___pluginOptions___excludeFieldNames'
-  | 'pluginCreator___pluginOptions___verbose'
-  | 'pluginCreator___pluginOptions___cloudName'
-  | 'pluginCreator___pluginOptions___apiKey'
-  | 'pluginCreator___pluginOptions___apiSecret'
-  | 'pluginCreator___pluginOptions___resourceType'
-  | 'pluginCreator___pluginOptions___prefix'
-  | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___nodeAPIs'
-  | 'pluginCreator___browserAPIs'
-  | 'pluginCreator___ssrAPIs'
-  | 'pluginCreator___pluginFilepath'
-  | 'pluginCreator___packageJson___name'
-  | 'pluginCreator___packageJson___description'
-  | 'pluginCreator___packageJson___version'
-  | 'pluginCreator___packageJson___main'
-  | 'pluginCreator___packageJson___author'
-  | 'pluginCreator___packageJson___license'
-  | 'pluginCreator___packageJson___dependencies'
-  | 'pluginCreator___packageJson___dependencies___name'
-  | 'pluginCreator___packageJson___dependencies___version'
-  | 'pluginCreator___packageJson___devDependencies'
-  | 'pluginCreator___packageJson___devDependencies___name'
-  | 'pluginCreator___packageJson___devDependencies___version'
-  | 'pluginCreator___packageJson___peerDependencies'
-  | 'pluginCreator___packageJson___peerDependencies___name'
-  | 'pluginCreator___packageJson___peerDependencies___version'
-  | 'pluginCreator___packageJson___keywords'
-  | 'pluginCreatorId'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -5015,7 +4899,112 @@ export type SitePageFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'isCreatedByStatefulCreatePages'
+  | 'pluginCreator___id'
+  | 'pluginCreator___parent___id'
+  | 'pluginCreator___parent___parent___id'
+  | 'pluginCreator___parent___parent___children'
+  | 'pluginCreator___parent___children'
+  | 'pluginCreator___parent___children___id'
+  | 'pluginCreator___parent___children___children'
+  | 'pluginCreator___parent___internal___content'
+  | 'pluginCreator___parent___internal___contentDigest'
+  | 'pluginCreator___parent___internal___description'
+  | 'pluginCreator___parent___internal___fieldOwners'
+  | 'pluginCreator___parent___internal___ignoreType'
+  | 'pluginCreator___parent___internal___mediaType'
+  | 'pluginCreator___parent___internal___owner'
+  | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___children'
+  | 'pluginCreator___children___id'
+  | 'pluginCreator___children___parent___id'
+  | 'pluginCreator___children___parent___children'
+  | 'pluginCreator___children___children'
+  | 'pluginCreator___children___children___id'
+  | 'pluginCreator___children___children___children'
+  | 'pluginCreator___children___internal___content'
+  | 'pluginCreator___children___internal___contentDigest'
+  | 'pluginCreator___children___internal___description'
+  | 'pluginCreator___children___internal___fieldOwners'
+  | 'pluginCreator___children___internal___ignoreType'
+  | 'pluginCreator___children___internal___mediaType'
+  | 'pluginCreator___children___internal___owner'
+  | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___internal___content'
+  | 'pluginCreator___internal___contentDigest'
+  | 'pluginCreator___internal___description'
+  | 'pluginCreator___internal___fieldOwners'
+  | 'pluginCreator___internal___ignoreType'
+  | 'pluginCreator___internal___mediaType'
+  | 'pluginCreator___internal___owner'
+  | 'pluginCreator___internal___type'
+  | 'pluginCreator___resolve'
+  | 'pluginCreator___name'
+  | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___output'
+  | 'pluginCreator___pluginOptions___createLinkInHead'
+  | 'pluginCreator___pluginOptions___entryLimit'
+  | 'pluginCreator___pluginOptions___query'
+  | 'pluginCreator___pluginOptions___name'
+  | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___base64Width'
+  | 'pluginCreator___pluginOptions___stripMetadata'
+  | 'pluginCreator___pluginOptions___defaultQuality'
+  | 'pluginCreator___pluginOptions___failOnError'
+  | 'pluginCreator___pluginOptions___isTSX'
+  | 'pluginCreator___pluginOptions___jsxPragma'
+  | 'pluginCreator___pluginOptions___allExtensions'
+  | 'pluginCreator___pluginOptions___tsLoader___logLevel'
+  | 'pluginCreator___pluginOptions___fileName'
+  | 'pluginCreator___pluginOptions___codegen'
+  | 'pluginCreator___pluginOptions___codegenDelay'
+  | 'pluginCreator___pluginOptions___alwaysCheck'
+  | 'pluginCreator___pluginOptions___typeCheck'
+  | 'pluginCreator___pluginOptions___fonts'
+  | 'pluginCreator___pluginOptions___display'
+  | 'pluginCreator___pluginOptions___url'
+  | 'pluginCreator___pluginOptions___develop___nodeUpdateInterval'
+  | 'pluginCreator___pluginOptions___develop___hardCacheData'
+  | 'pluginCreator___pluginOptions___develop___hardCacheMediaFiles'
+  | 'pluginCreator___pluginOptions___production___allow404Images'
+  | 'pluginCreator___pluginOptions___production___hardCacheMediaFiles'
+  | 'pluginCreator___pluginOptions___schema___typePrefix'
+  | 'pluginCreator___pluginOptions___schema___requestConcurrency'
+  | 'pluginCreator___pluginOptions___schema___timeout'
+  | 'pluginCreator___pluginOptions___schema___queryDepth'
+  | 'pluginCreator___pluginOptions___schema___circularQueryLimit'
+  | 'pluginCreator___pluginOptions___schema___perPage'
+  | 'pluginCreator___pluginOptions___schema___previewRequestConcurrency'
+  | 'pluginCreator___pluginOptions___excludeFieldNames'
+  | 'pluginCreator___pluginOptions___verbose'
+  | 'pluginCreator___pluginOptions___cloudName'
+  | 'pluginCreator___pluginOptions___apiKey'
+  | 'pluginCreator___pluginOptions___apiSecret'
+  | 'pluginCreator___pluginOptions___resourceType'
+  | 'pluginCreator___pluginOptions___prefix'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___browserAPIs'
+  | 'pluginCreator___ssrAPIs'
+  | 'pluginCreator___pluginFilepath'
+  | 'pluginCreator___packageJson___name'
+  | 'pluginCreator___packageJson___description'
+  | 'pluginCreator___packageJson___version'
+  | 'pluginCreator___packageJson___main'
+  | 'pluginCreator___packageJson___author'
+  | 'pluginCreator___packageJson___license'
+  | 'pluginCreator___packageJson___dependencies'
+  | 'pluginCreator___packageJson___dependencies___name'
+  | 'pluginCreator___packageJson___dependencies___version'
+  | 'pluginCreator___packageJson___devDependencies'
+  | 'pluginCreator___packageJson___devDependencies___name'
+  | 'pluginCreator___packageJson___devDependencies___version'
+  | 'pluginCreator___packageJson___peerDependencies'
+  | 'pluginCreator___packageJson___peerDependencies___name'
+  | 'pluginCreator___packageJson___peerDependencies___version'
+  | 'pluginCreator___packageJson___keywords'
+  | 'pluginCreatorId';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -5032,13 +5021,13 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageSortInput = {
@@ -14425,7 +14414,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___jsxPragma'
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___tsLoader___logLevel'
-  | 'pluginOptions___forkTsCheckerPlugin___eslint'
   | 'pluginOptions___fileName'
   | 'pluginOptions___codegen'
   | 'pluginOptions___codegenDelay'

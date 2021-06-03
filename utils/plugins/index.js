@@ -56,9 +56,7 @@ const sourceTypescript = {
     tsLoader: {
       logLevel: "warn",
     },
-    forkTsCheckerPlugin: {
-      eslint: true,
-    },
+
     fileName: `types/graphql-types.ts`,
     codegen: true,
     codegenDelay: 250,
