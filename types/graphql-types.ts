@@ -2425,6 +2425,11 @@ export type SitePluginPluginOptions = {
   createLinkInHead?: Maybe<Scalars['Boolean']>;
   entryLimit?: Maybe<Scalars['Int']>;
   query?: Maybe<Scalars['String']>;
+  displayName?: Maybe<Scalars['Boolean']>;
+  minify?: Maybe<Scalars['Boolean']>;
+  namespace?: Maybe<Scalars['String']>;
+  transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
+  pure?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   base64Width?: Maybe<Scalars['Int']>;
@@ -2435,7 +2440,6 @@ export type SitePluginPluginOptions = {
   jsxPragma?: Maybe<Scalars['String']>;
   allExtensions?: Maybe<Scalars['Boolean']>;
   tsLoader?: Maybe<SitePluginPluginOptionsTsLoader>;
-  fileName?: Maybe<Scalars['String']>;
   codegen?: Maybe<Scalars['Boolean']>;
   codegenDelay?: Maybe<Scalars['Int']>;
   alwaysCheck?: Maybe<Scalars['Boolean']>;
@@ -4667,6 +4671,11 @@ export type SitePluginPluginOptionsFilterInput = {
   createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
   entryLimit?: Maybe<IntQueryOperatorInput>;
   query?: Maybe<StringQueryOperatorInput>;
+  displayName?: Maybe<BooleanQueryOperatorInput>;
+  minify?: Maybe<BooleanQueryOperatorInput>;
+  namespace?: Maybe<StringQueryOperatorInput>;
+  transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
+  pure?: Maybe<BooleanQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
@@ -4677,7 +4686,6 @@ export type SitePluginPluginOptionsFilterInput = {
   jsxPragma?: Maybe<StringQueryOperatorInput>;
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   tsLoader?: Maybe<SitePluginPluginOptionsTsLoaderFilterInput>;
-  fileName?: Maybe<StringQueryOperatorInput>;
   codegen?: Maybe<BooleanQueryOperatorInput>;
   codegenDelay?: Maybe<IntQueryOperatorInput>;
   alwaysCheck?: Maybe<BooleanQueryOperatorInput>;
@@ -4946,6 +4954,11 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___createLinkInHead'
   | 'pluginCreator___pluginOptions___entryLimit'
   | 'pluginCreator___pluginOptions___query'
+  | 'pluginCreator___pluginOptions___displayName'
+  | 'pluginCreator___pluginOptions___minify'
+  | 'pluginCreator___pluginOptions___namespace'
+  | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
+  | 'pluginCreator___pluginOptions___pure'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___base64Width'
@@ -4956,7 +4969,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___jsxPragma'
   | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___tsLoader___logLevel'
-  | 'pluginCreator___pluginOptions___fileName'
   | 'pluginCreator___pluginOptions___codegen'
   | 'pluginCreator___pluginOptions___codegenDelay'
   | 'pluginCreator___pluginOptions___alwaysCheck'
@@ -14404,6 +14416,11 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___createLinkInHead'
   | 'pluginOptions___entryLimit'
   | 'pluginOptions___query'
+  | 'pluginOptions___displayName'
+  | 'pluginOptions___minify'
+  | 'pluginOptions___namespace'
+  | 'pluginOptions___transpileTemplateLiterals'
+  | 'pluginOptions___pure'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___base64Width'
@@ -14414,7 +14431,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___jsxPragma'
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___tsLoader___logLevel'
-  | 'pluginOptions___fileName'
   | 'pluginOptions___codegen'
   | 'pluginOptions___codegenDelay'
   | 'pluginOptions___alwaysCheck'

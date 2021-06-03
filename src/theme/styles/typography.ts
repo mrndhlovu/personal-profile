@@ -41,11 +41,11 @@ const typography = css`
     background: ${props => props.theme.colors.bgBody};
 
     @media #{${props => props.theme.device.tablet}} {
-      font-size: ${props => props.theme.variables.body} - 2;
+      font-size: calc(${props => props.theme.variables.body} - 2);
     }
 
     @media #{${props => props.theme.device.mobileLg}} {
-      font-size: ${props => props.theme.variables.body} - 3;
+      font-size: calc(${props => props.theme.variables.body} - 3);
     }
   }
 
