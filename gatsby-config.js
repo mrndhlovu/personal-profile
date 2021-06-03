@@ -17,6 +17,10 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-plugin-styled-components`,
     {
+      resolve: `babel-plugin-styled-components`,
+      options: { ssr: false },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,

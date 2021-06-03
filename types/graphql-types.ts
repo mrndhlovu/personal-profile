@@ -2430,6 +2430,7 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  ssr?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   base64Width?: Maybe<Scalars['Int']>;
@@ -4676,6 +4677,7 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  ssr?: Maybe<BooleanQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
@@ -4959,6 +4961,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___ssr'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___base64Width'
@@ -14421,6 +14424,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___ssr'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___base64Width'

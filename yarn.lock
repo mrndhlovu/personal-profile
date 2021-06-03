@@ -3517,7 +3517,7 @@ babel-plugin-remove-graphql-queries@^3.6.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-remove-graphql-queries/-/babel-plugin-remove-graphql-queries-3.6.0.tgz#20b8094ae319920fb925b1604e837e5f6a987e2f"
   integrity sha512-8BEpm4gnHJhAcQ/K+yvY+/LINPljBgzncYnpLLhXa4rHa5SGsD0EIjWC0yzcP6WtMlIAqUf2cWz2itGci7FrvA==
 
-"babel-plugin-styled-components@>= 1.12.0":
+"babel-plugin-styled-components@>= 1.12.0", babel-plugin-styled-components@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.12.0.tgz#1dec1676512177de6b827211e9eda5a30db4f9b9"
   integrity sha512-FEiD7l5ZABdJPpLssKXjBUJMYqzbcNzBowfXDCdJhOpbhWiewapUaY+LZGT8R4Jg2TwOjGjG4RKeyrO5p9sBkA==
