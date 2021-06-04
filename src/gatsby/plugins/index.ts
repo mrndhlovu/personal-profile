@@ -1,4 +1,4 @@
-const sourceGoogleFonts = {
+export const sourceGoogleFonts = {
   resolve: `gatsby-plugin-google-fonts`,
   options: {
     fonts: [
@@ -11,7 +11,7 @@ const sourceGoogleFonts = {
   },
 }
 
-const sourceCloudinaryContent = {
+export const sourceCloudinaryContent = {
   resolve: `gatsby-transformer-cloudinary`,
   options: {
     cloudName: process.env.GATSBY_CLOUDINARY_CLOUD_NAME,
@@ -22,14 +22,14 @@ const sourceCloudinaryContent = {
   },
 }
 
-const siteMetadata = {
+export const siteMetadata = {
   title: "Hi, Im Mdu Im a Developer",
   description: `Im a Developer`,
   siteUrl: process.env.GATSBY_FRONTEND_URL,
   author: "@kandhlovu",
 }
 
-const sourceWordpress = {
+export const sourceWordpress = {
   resolve: `gatsby-source-wordpress`,
   options: {
     url: process.env.BACKEND_API_ENDPOINT,
@@ -50,7 +50,7 @@ const sourceWordpress = {
   },
 }
 
-const sourceTypescript = {
+export const sourceTypescript = {
   resolve: `gatsby-plugin-ts`,
   options: {
     tsLoader: {
@@ -65,7 +65,7 @@ const sourceTypescript = {
   },
 }
 
-// const sourceAirtable = {
+// export const sourceAirtable = {
 //     resolve: `gatsby-source-airtable`,
 //     options: {
 //       apiKey: process.env.AIRTABLE_API_KEY,
@@ -114,11 +114,3 @@ const sourceTypescript = {
 //       ],
 //     },
 //   }
-
-module.exports = {
-  sourceGoogleFonts,
-  sourceCloudinaryContent,
-  siteMetadata,
-  sourceWordpress,
-  sourceTypescript,
-}

@@ -2458,6 +2458,8 @@ export type SitePluginPluginOptions = {
   apiSecret?: Maybe<Scalars['String']>;
   resourceType?: Maybe<Scalars['String']>;
   prefix?: Maybe<Scalars['String']>;
+  configDir?: Maybe<Scalars['String']>;
+  projectRoot?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -4705,6 +4707,8 @@ export type SitePluginPluginOptionsFilterInput = {
   apiSecret?: Maybe<StringQueryOperatorInput>;
   resourceType?: Maybe<StringQueryOperatorInput>;
   prefix?: Maybe<StringQueryOperatorInput>;
+  configDir?: Maybe<StringQueryOperatorInput>;
+  projectRoot?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -4998,6 +5002,8 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___apiSecret'
   | 'pluginCreator___pluginOptions___resourceType'
   | 'pluginCreator___pluginOptions___prefix'
+  | 'pluginCreator___pluginOptions___configDir'
+  | 'pluginCreator___pluginOptions___projectRoot'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -14461,6 +14467,8 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___apiSecret'
   | 'pluginOptions___resourceType'
   | 'pluginOptions___prefix'
+  | 'pluginOptions___configDir'
+  | 'pluginOptions___projectRoot'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
