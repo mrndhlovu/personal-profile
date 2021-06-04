@@ -68,5 +68,11 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# Local Netlify folder
+
 .netlify
+lambdas
+wordpress-cache
+
+# cypress test coverage
+cypress/screenshots
+cypress/videos

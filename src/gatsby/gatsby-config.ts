@@ -11,11 +11,11 @@ export default {
   flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-robots-txt`,
     `gatsby-plugin-sass`,
-    `gatsby-plugin-styled-components`,
     `gatsby-plugin-scss-typescript`,
     `gatsby-plugin-tsconfig-paths`,
     {

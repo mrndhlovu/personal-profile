@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useGlobalContext } from "../../providers/context"
 
 import { childrenInterface } from "../../utils/types/interfaces"
-import Header from "../header/Header"
+// import Header from "../header/Header"
 import BackgroundLines from "../home/BackgroundLines"
 import ModeSwitch from "./ModeSwitch"
 
@@ -21,7 +21,7 @@ const Layout = ({ children }: childrenInterface) => {
   return (
     <Content className="mi-wrapper">
       <BackgroundLines />
-      <Header />
+      {/* <Header /> */}
       <ModeSwitch />
       {children}
     </Content>
