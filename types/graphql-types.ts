@@ -2421,15 +2421,15 @@ export type SitePlugin = Node & {
 };
 
 export type SitePluginPluginOptions = {
-  output?: Maybe<Scalars['String']>;
-  createLinkInHead?: Maybe<Scalars['Boolean']>;
-  entryLimit?: Maybe<Scalars['Int']>;
-  query?: Maybe<Scalars['String']>;
   displayName?: Maybe<Scalars['Boolean']>;
   minify?: Maybe<Scalars['Boolean']>;
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  output?: Maybe<Scalars['String']>;
+  createLinkInHead?: Maybe<Scalars['Boolean']>;
+  entryLimit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
   ssr?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
@@ -4670,15 +4670,15 @@ export type SitePluginFilterInput = {
 };
 
 export type SitePluginPluginOptionsFilterInput = {
-  output?: Maybe<StringQueryOperatorInput>;
-  createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
-  entryLimit?: Maybe<IntQueryOperatorInput>;
-  query?: Maybe<StringQueryOperatorInput>;
   displayName?: Maybe<BooleanQueryOperatorInput>;
   minify?: Maybe<BooleanQueryOperatorInput>;
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  output?: Maybe<StringQueryOperatorInput>;
+  createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
+  entryLimit?: Maybe<IntQueryOperatorInput>;
+  query?: Maybe<StringQueryOperatorInput>;
   ssr?: Maybe<BooleanQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
@@ -4956,15 +4956,15 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___resolve'
   | 'pluginCreator___name'
   | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions___output'
-  | 'pluginCreator___pluginOptions___createLinkInHead'
-  | 'pluginCreator___pluginOptions___entryLimit'
-  | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___displayName'
   | 'pluginCreator___pluginOptions___minify'
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___output'
+  | 'pluginCreator___pluginOptions___createLinkInHead'
+  | 'pluginCreator___pluginOptions___entryLimit'
+  | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___ssr'
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
@@ -14421,15 +14421,15 @@ export type SitePluginFieldsEnum =
   | 'resolve'
   | 'name'
   | 'version'
-  | 'pluginOptions___output'
-  | 'pluginOptions___createLinkInHead'
-  | 'pluginOptions___entryLimit'
-  | 'pluginOptions___query'
   | 'pluginOptions___displayName'
   | 'pluginOptions___minify'
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___output'
+  | 'pluginOptions___createLinkInHead'
+  | 'pluginOptions___entryLimit'
+  | 'pluginOptions___query'
   | 'pluginOptions___ssr'
   | 'pluginOptions___name'
   | 'pluginOptions___path'
