@@ -115,7 +115,7 @@ const Header: React.FC = () => {
   const togglerNavigation = () => setNavigationVisible(prev => !prev)
 
   return (
-    <Container navigationVisible={navigationVisible}>
+    <Container className="mi-header" navigationVisible={navigationVisible}>
       <TogglerButton
         togglerNavigation={togglerNavigation}
         navigationVisible={navigationVisible}

@@ -1,64 +1,6 @@
 import { css } from "styled-components"
 
 const lightStyles = css`
-  .light-mode {
-    background: ${props => props.theme.colors.secondary};
-    position: fixed;
-    z-index: 999;
-    height: 40px;
-    left: auto;
-    right: 0;
-    top: 60px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-
-    .icon {
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 1;
-      margin-right: 5px;
-
-      svg {
-        fill: #fff;
-
-        & > * {
-          fill: #fff;
-        }
-      }
-    }
-
-    .light-mode-switch {
-      display: inline-block;
-      height: 20px;
-      width: 40px;
-      background: ${props => props.theme.colors.border};
-      border-radius: 100px;
-      position: relative;
-      vertical-align: middle;
-      border: 0;
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: 2px;
-        top: 2px;
-        height: 16px;
-        width: 16px;
-        border-radius: 100px;
-        background: #ffffff;
-        transition: ${props => props.theme.variables.transition};
-      }
-
-      .active {
-        &::after {
-          left: 22px;
-          background: ${props => props.theme.colors.primary};
-        }
-      }
-    }
-  }
-
   .light {
     *::-webkit-scrollbar-track {
       background-color: #383838;
@@ -74,7 +16,7 @@ const lightStyles = css`
 
     & {
       color: ${props => props.theme.colors.body};
-      background: ${props => props.theme.colors.bgBody};
+      background: ${props => props.theme.colors.lightBgBody};
     }
 
     ${props => props.theme.mixins.placeholderColor(props.theme.colors.body)};
@@ -85,7 +27,7 @@ const lightStyles = css`
     h4,
     h5,
     h6 {
-      color: ${props => props.theme.colors.heading};
+      color: ${props => props.theme.colors.lightHeading};
     }
 
     ::-moz-selection {
@@ -205,7 +147,7 @@ const lightStyles = css`
         }
       }
 
-      &-switch {
+      .light-mode-switch {
         background: ${props => props.theme.colors.lightBorder};
 
         &::after {
@@ -266,11 +208,11 @@ const lightStyles = css`
     }
 
     .mi-header {
-      background: darken(${props => props.theme.colors.lightBody}, 5);
+      background: ${props => props.theme.colors.lightBgBody};
       border-color: ${props => props.theme.colors.lightBorder};
 
       &-toggler {
-        background: darken(${props => props.theme.colors.lightBody}, 5);
+        background: ${props => props.theme.colors.lightBody};
 
         &:focus {
           border-color: ${props => props.theme.colors.lightBorder};
@@ -285,7 +227,7 @@ const lightStyles = css`
         }
       }
 
-      .mi-header-menu {
+      &-menu {
         li {
           a {
             color: ${props => props.theme.colors.body};
@@ -309,7 +251,7 @@ const lightStyles = css`
         }
       }
 
-      .mi-header-copyright {
+      &-copyright {
         border-color: ${props => props.theme.colors.lightBorder};
 
         a {
