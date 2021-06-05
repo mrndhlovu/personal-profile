@@ -1,7 +1,8 @@
 import React from "react"
+import { usePagesQuery } from "src/utils/graphql"
 import styled from "styled-components"
 
-import { SocialIcons } from "../shared"
+import { SocialIcons, ParseHtml } from "../shared"
 
 const Content = styled.div`
   text-align: center;
@@ -53,17 +54,14 @@ const Content = styled.div`
 `
 
 const CenterContent = () => {
+  const content = usePagesQuery()?.allWpPage?.edges?.[0]?.node?.content
+
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-10 col-12">
           <Content className="mi-home-content">
-            <h1>
-              Hi, I am <span className="color-theme">Mduduzi</span>
-            </h1>
-            <p>
-              I am a frontend web developer. I love Code and Tech in General.
-            </p>
+            {ParseHtml(content)}
             <SocialIcons bordered />
           </Content>
         </div>
