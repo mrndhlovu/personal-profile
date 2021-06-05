@@ -1,19 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby"
+import { Unnamed_3_Query } from "gatsby/gatsby-graphql"
 
-interface Query {
-  allWpPage: {
-    edges: [
-      {
-        node: {
-          slug: string
-          content: string
-        }
-      }
-    ]
-  }
-}
-
-type queryFunction = () => Query
+type queryFunction = () => Unnamed_3_Query
 
 // const seo: string = `{
 //     title
@@ -46,6 +34,30 @@ const pagesQuery: queryFunction = () =>
           node {
             slug
             content
+          }
+        }
+      }
+
+      aboutPage: allWpPage(filter: { slug: { eq: "about" } }) {
+        edges {
+          node {
+            slug
+            featuredImage {
+              node {
+                altText
+                sourceUrl
+              }
+            }
+            content
+            aboutDetail {
+              data {
+                freelance
+                location
+                name
+                skills
+                resumeUrl
+              }
+            }
           }
         }
       }

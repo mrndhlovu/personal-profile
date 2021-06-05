@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby"
-import { Unnamed_2_Query } from "../../../types/graphql-types"
+import { Unnamed_2_Query } from "gatsby/gatsby-graphql"
 
 type queryFunction = () => Unnamed_2_Query
 

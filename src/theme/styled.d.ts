@@ -4,6 +4,7 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       amazon: string
+      printMaryLightRgba: string
       android: string
       behance: string
       bgBody: string

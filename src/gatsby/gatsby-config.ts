@@ -21,7 +21,12 @@ export default {
     `gatsby-plugin-sass`,
     `gatsby-plugin-scss-typescript`,
     `gatsby-plugin-tsconfig-paths`,
-
+    {
+      resolve: `gatsby-plugin-graphql-codegen`,
+      options: {
+        fileName: `./gatsby/gatsby-graphql.ts`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

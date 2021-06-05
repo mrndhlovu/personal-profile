@@ -54,21 +54,6 @@ export const sourceWordpress = {
   },
 }
 
-export const sourceTypescript = {
-  resolve: `gatsby-plugin-ts`,
-  options: {
-    tsLoader: {
-      logLevel: "warn",
-    },
-
-    fileName: `types/graphql-types.ts`,
-    codegen: true,
-    codegenDelay: 250,
-    alwaysCheck: false,
-    typeCheck: process.env.NODE_ENV !== "production",
-  },
-}
-
 // export const sourceAirtable = {
 //     resolve: `gatsby-source-airtable`,
 //     options: {

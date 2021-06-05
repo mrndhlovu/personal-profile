@@ -3,6 +3,7 @@ import parse, { DOMNode, HTMLReactParserOptions } from "html-react-parser"
 import Link from "gatsby-link"
 import TweetEmbed from "react-tweet-embed"
 import { Element } from "domhandler/lib/node"
+import { Maybe } from "../../../gatsby/gatsby-graphql"
 
 import { useRelativeUrl } from "src/helpers/hooks"
 import { isInternal } from "src/utils"
@@ -61,7 +62,8 @@ const options: HTMLReactParserOptions = {
   },
 }
 
-const ParseHTML = (html: string) => {
+const ParseHTML = (html: Maybe<string> | undefined) => {
+  if (!html) return null
   const clean = parse(html, options)
   return clean
 }

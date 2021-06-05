@@ -1,5 +1,6 @@
 const colors = {
   primary: "#037fff",
+  printMaryLightRgba: "rgb(76 151 228)",
   secondary: "#ffffff",
   body: "#a4acc4",
   heading: "#ffffff",

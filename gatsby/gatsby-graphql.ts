@@ -65,6 +65,7 @@ export type File = Node & {
   birthtimeMs?: Maybe<Scalars['Float']>;
   blksize?: Maybe<Scalars['Int']>;
   blocks?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
   /** Copy file to static directory and return public url to it */
   publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type ImageSharp */
@@ -1352,6 +1353,8 @@ export type WpUserToPageConnection = {
 
 /** The page type */
 export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;About Detail&quot; was set to Show in GraphQL. */
+  aboutDetail?: Maybe<WpPage_Aboutdetail>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnection>;
   /** Connection between the NodeWithAuthor type and the User type */
@@ -1512,6 +1515,29 @@ export type WpNodeWithFeaturedImageToMediaItemConnectionEdge = {
 export type WpNodeWithRevisionsToContentNodeConnectionEdge = {
   /** The nodes of the connection, without the edges */
   node?: Maybe<WpContentNode>;
+};
+
+/** Field Group */
+export type WpPage_Aboutdetail = WpAcfFieldGroup & {
+  data?: Maybe<WpPage_Aboutdetail_Data>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+};
+
+export type WpAcfFieldGroup = {
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+};
+
+/** Field Group */
+export type WpPage_Aboutdetail_Data = WpAcfFieldGroup & {
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  freelance?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  resumeUrl?: Maybe<Scalars['String']>;
+  skills?: Maybe<Scalars['String']>;
 };
 
 /** Connection between the page type and the Comment type */
@@ -2291,9 +2317,21 @@ export type WpWritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']>;
 };
 
-export type WpAcfFieldGroup = {
-  /** The name of the ACF Field Group */
-  fieldGroupName?: Maybe<Scalars['String']>;
+/** A Comment Author object */
+export type WpCommentAuthor = Node & WpNode & WpCommenter & {
+  /** Identifies the primary key from the database. */
+  databaseId: Scalars['Int'];
+  /** The email for the comment author */
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  /** The name for the comment author. */
+  name?: Maybe<Scalars['String']>;
+  /** The url the comment author. */
+  url?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
 };
 
 /** The template assigned to the node */
@@ -2426,6 +2464,7 @@ export type SitePluginPluginOptions = {
   namespace?: Maybe<Scalars['String']>;
   transpileTemplateLiterals?: Maybe<Scalars['Boolean']>;
   pure?: Maybe<Scalars['Boolean']>;
+  ssr?: Maybe<Scalars['Boolean']>;
   output?: Maybe<Scalars['String']>;
   createLinkInHead?: Maybe<Scalars['Boolean']>;
   entryLimit?: Maybe<Scalars['Int']>;
@@ -2439,11 +2478,6 @@ export type SitePluginPluginOptions = {
   isTSX?: Maybe<Scalars['Boolean']>;
   jsxPragma?: Maybe<Scalars['String']>;
   allExtensions?: Maybe<Scalars['Boolean']>;
-  tsLoader?: Maybe<SitePluginPluginOptionsTsLoader>;
-  codegen?: Maybe<Scalars['Boolean']>;
-  codegenDelay?: Maybe<Scalars['Int']>;
-  alwaysCheck?: Maybe<Scalars['Boolean']>;
-  typeCheck?: Maybe<Scalars['Boolean']>;
   fonts?: Maybe<Array<Maybe<Scalars['String']>>>;
   display?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
@@ -2460,10 +2494,6 @@ export type SitePluginPluginOptions = {
   configDir?: Maybe<Scalars['String']>;
   projectRoot?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
-};
-
-export type SitePluginPluginOptionsTsLoader = {
-  logLevel?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsDevelop = {
@@ -2584,6 +2614,8 @@ export type Query = {
   allWpMenu: WpMenuConnection;
   wpMenuItem?: Maybe<WpMenuItem>;
   allWpMenuItem: WpMenuItemConnection;
+  wpCommentAuthor?: Maybe<WpCommentAuthor>;
+  allWpCommentAuthor: WpCommentAuthorConnection;
   wp?: Maybe<Wp>;
   allWp: WpConnection;
   cloudinaryAsset?: Maybe<CloudinaryAsset>;
@@ -2629,6 +2661,7 @@ export type QueryFileArgs = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
@@ -3034,6 +3067,7 @@ export type QueryAllWpMediaItemArgs = {
 
 
 export type QueryWpPageArgs = {
+  aboutDetail?: Maybe<WpPage_AboutdetailFilterInput>;
   ancestors?: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
   author?: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId?: Maybe<IntQueryOperatorInput>;
@@ -3333,6 +3367,27 @@ export type QueryWpMenuItemArgs = {
 export type QueryAllWpMenuItemArgs = {
   filter?: Maybe<WpMenuItemFilterInput>;
   sort?: Maybe<WpMenuItemSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryWpCommentAuthorArgs = {
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  email?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllWpCommentAuthorArgs = {
+  filter?: Maybe<WpCommentAuthorFilterInput>;
+  sort?: Maybe<WpCommentAuthorSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3683,6 +3738,7 @@ export type FileFieldsEnum =
   | 'birthtimeMs'
   | 'blksize'
   | 'blocks'
+  | 'url'
   | 'publicURL'
   | 'childrenImageSharp'
   | 'childrenImageSharp___fixed___base64'
@@ -4062,6 +4118,7 @@ export type FileFilterInput = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
@@ -4674,6 +4731,7 @@ export type SitePluginPluginOptionsFilterInput = {
   namespace?: Maybe<StringQueryOperatorInput>;
   transpileTemplateLiterals?: Maybe<BooleanQueryOperatorInput>;
   pure?: Maybe<BooleanQueryOperatorInput>;
+  ssr?: Maybe<BooleanQueryOperatorInput>;
   output?: Maybe<StringQueryOperatorInput>;
   createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
   entryLimit?: Maybe<IntQueryOperatorInput>;
@@ -4687,11 +4745,6 @@ export type SitePluginPluginOptionsFilterInput = {
   isTSX?: Maybe<BooleanQueryOperatorInput>;
   jsxPragma?: Maybe<StringQueryOperatorInput>;
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
-  tsLoader?: Maybe<SitePluginPluginOptionsTsLoaderFilterInput>;
-  codegen?: Maybe<BooleanQueryOperatorInput>;
-  codegenDelay?: Maybe<IntQueryOperatorInput>;
-  alwaysCheck?: Maybe<BooleanQueryOperatorInput>;
-  typeCheck?: Maybe<BooleanQueryOperatorInput>;
   fonts?: Maybe<StringQueryOperatorInput>;
   display?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
@@ -4708,10 +4761,6 @@ export type SitePluginPluginOptionsFilterInput = {
   configDir?: Maybe<StringQueryOperatorInput>;
   projectRoot?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsTsLoaderFilterInput = {
-  logLevel?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsDevelopFilterInput = {
@@ -4959,6 +5008,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___namespace'
   | 'pluginCreator___pluginOptions___transpileTemplateLiterals'
   | 'pluginCreator___pluginOptions___pure'
+  | 'pluginCreator___pluginOptions___ssr'
   | 'pluginCreator___pluginOptions___output'
   | 'pluginCreator___pluginOptions___createLinkInHead'
   | 'pluginCreator___pluginOptions___entryLimit'
@@ -4972,11 +5022,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___isTSX'
   | 'pluginCreator___pluginOptions___jsxPragma'
   | 'pluginCreator___pluginOptions___allExtensions'
-  | 'pluginCreator___pluginOptions___tsLoader___logLevel'
-  | 'pluginCreator___pluginOptions___codegen'
-  | 'pluginCreator___pluginOptions___codegenDelay'
-  | 'pluginCreator___pluginOptions___alwaysCheck'
-  | 'pluginCreator___pluginOptions___typeCheck'
   | 'pluginCreator___pluginOptions___fonts'
   | 'pluginCreator___pluginOptions___display'
   | 'pluginCreator___pluginOptions___url'
@@ -5466,6 +5511,7 @@ export type WpPageFilterListInput = {
 };
 
 export type WpPageFilterInput = {
+  aboutDetail?: Maybe<WpPage_AboutdetailFilterInput>;
   ancestors?: Maybe<WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput>;
   author?: Maybe<WpNodeWithAuthorToUserConnectionEdgeFilterInput>;
   authorDatabaseId?: Maybe<IntQueryOperatorInput>;
@@ -5508,6 +5554,20 @@ export type WpPageFilterInput = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+};
+
+export type WpPage_AboutdetailFilterInput = {
+  data?: Maybe<WpPage_Aboutdetail_DataFilterInput>;
+  fieldGroupName?: Maybe<StringQueryOperatorInput>;
+};
+
+export type WpPage_Aboutdetail_DataFilterInput = {
+  fieldGroupName?: Maybe<StringQueryOperatorInput>;
+  freelance?: Maybe<BooleanQueryOperatorInput>;
+  location?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  resumeUrl?: Maybe<StringQueryOperatorInput>;
+  skills?: Maybe<StringQueryOperatorInput>;
 };
 
 export type WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput = {
@@ -6873,6 +6933,7 @@ export type WpUserFieldsEnum =
   | 'nicename'
   | 'nickname'
   | 'pages___nodes'
+  | 'pages___nodes___aboutDetail___fieldGroupName'
   | 'pages___nodes___ancestors___nodes'
   | 'pages___nodes___authorDatabaseId'
   | 'pages___nodes___authorId'
@@ -7881,6 +7942,7 @@ export type WpMediaItemFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -7919,6 +7981,7 @@ export type WpMediaItemFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -8044,6 +8107,7 @@ export type WpMediaItemFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -8082,6 +8146,7 @@ export type WpMediaItemFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -8143,6 +8208,7 @@ export type WpMediaItemFieldsEnum =
   | 'remoteFile___birthtimeMs'
   | 'remoteFile___blksize'
   | 'remoteFile___blocks'
+  | 'remoteFile___url'
   | 'remoteFile___publicURL'
   | 'remoteFile___childrenImageSharp'
   | 'remoteFile___childrenImageSharp___fixed___base64'
@@ -8367,6 +8433,7 @@ export type WpMediaItemFieldsEnum =
   | 'localFile___birthtimeMs'
   | 'localFile___blksize'
   | 'localFile___blocks'
+  | 'localFile___url'
   | 'localFile___publicURL'
   | 'localFile___childrenImageSharp'
   | 'localFile___childrenImageSharp___fixed___base64'
@@ -8704,6 +8771,13 @@ export type WpPageEdge = {
 };
 
 export type WpPageFieldsEnum =
+  | 'aboutDetail___data___fieldGroupName'
+  | 'aboutDetail___data___freelance'
+  | 'aboutDetail___data___location'
+  | 'aboutDetail___data___name'
+  | 'aboutDetail___data___resumeUrl'
+  | 'aboutDetail___data___skills'
+  | 'aboutDetail___fieldGroupName'
   | 'ancestors___nodes'
   | 'ancestors___nodes___databaseId'
   | 'ancestors___nodes___date'
@@ -9013,6 +9087,7 @@ export type WpPageFieldsEnum =
   | 'featuredImage___node___remoteFile___birthtimeMs'
   | 'featuredImage___node___remoteFile___blksize'
   | 'featuredImage___node___remoteFile___blocks'
+  | 'featuredImage___node___remoteFile___url'
   | 'featuredImage___node___remoteFile___publicURL'
   | 'featuredImage___node___remoteFile___childrenImageSharp'
   | 'featuredImage___node___remoteFile___childrenCloudinaryAsset'
@@ -9051,6 +9126,7 @@ export type WpPageFieldsEnum =
   | 'featuredImage___node___localFile___birthtimeMs'
   | 'featuredImage___node___localFile___blksize'
   | 'featuredImage___node___localFile___blocks'
+  | 'featuredImage___node___localFile___url'
   | 'featuredImage___node___localFile___publicURL'
   | 'featuredImage___node___localFile___childrenImageSharp'
   | 'featuredImage___node___localFile___childrenCloudinaryAsset'
@@ -9269,6 +9345,7 @@ export type WpPageFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -9307,6 +9384,7 @@ export type WpPageFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -9432,6 +9510,7 @@ export type WpPageFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -9470,6 +9549,7 @@ export type WpPageFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -9945,6 +10025,7 @@ export type WpPostFieldsEnum =
   | 'featuredImage___node___remoteFile___birthtimeMs'
   | 'featuredImage___node___remoteFile___blksize'
   | 'featuredImage___node___remoteFile___blocks'
+  | 'featuredImage___node___remoteFile___url'
   | 'featuredImage___node___remoteFile___publicURL'
   | 'featuredImage___node___remoteFile___childrenImageSharp'
   | 'featuredImage___node___remoteFile___childrenCloudinaryAsset'
@@ -9983,6 +10064,7 @@ export type WpPostFieldsEnum =
   | 'featuredImage___node___localFile___birthtimeMs'
   | 'featuredImage___node___localFile___blksize'
   | 'featuredImage___node___localFile___blocks'
+  | 'featuredImage___node___localFile___url'
   | 'featuredImage___node___localFile___publicURL'
   | 'featuredImage___node___localFile___childrenImageSharp'
   | 'featuredImage___node___localFile___childrenCloudinaryAsset'
@@ -10218,6 +10300,7 @@ export type WpPostFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -10256,6 +10339,7 @@ export type WpPostFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -10381,6 +10465,7 @@ export type WpPostFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -10419,6 +10504,7 @@ export type WpPostFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -11190,6 +11276,7 @@ export type WpCategoryFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -11228,6 +11315,7 @@ export type WpCategoryFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -11350,6 +11438,7 @@ export type WpCategoryFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -11388,6 +11477,7 @@ export type WpCategoryFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -11804,6 +11894,7 @@ export type WpPostFormatFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -11842,6 +11933,7 @@ export type WpPostFormatFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -11964,6 +12056,7 @@ export type WpPostFormatFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -12002,6 +12095,7 @@ export type WpPostFormatFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -12418,6 +12512,7 @@ export type WpTagFieldsEnum =
   | 'seo___opengraphImage___remoteFile___birthtimeMs'
   | 'seo___opengraphImage___remoteFile___blksize'
   | 'seo___opengraphImage___remoteFile___blocks'
+  | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
   | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
@@ -12456,6 +12551,7 @@ export type WpTagFieldsEnum =
   | 'seo___opengraphImage___localFile___birthtimeMs'
   | 'seo___opengraphImage___localFile___blksize'
   | 'seo___opengraphImage___localFile___blocks'
+  | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
   | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
@@ -12578,6 +12674,7 @@ export type WpTagFieldsEnum =
   | 'seo___twitterImage___remoteFile___birthtimeMs'
   | 'seo___twitterImage___remoteFile___blksize'
   | 'seo___twitterImage___remoteFile___blocks'
+  | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
   | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
@@ -12616,6 +12713,7 @@ export type WpTagFieldsEnum =
   | 'seo___twitterImage___localFile___birthtimeMs'
   | 'seo___twitterImage___localFile___blksize'
   | 'seo___twitterImage___localFile___blocks'
+  | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
   | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
@@ -13391,6 +13489,170 @@ export type WpMenuItemGroupConnection = {
 
 export type WpMenuItemSortInput = {
   fields?: Maybe<Array<Maybe<WpMenuItemFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type WpCommentAuthorConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<WpCommentAuthorEdge>;
+  nodes: Array<WpCommentAuthor>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<WpCommentAuthorGroupConnection>;
+};
+
+
+export type WpCommentAuthorConnectionDistinctArgs = {
+  field: WpCommentAuthorFieldsEnum;
+};
+
+
+export type WpCommentAuthorConnectionMaxArgs = {
+  field: WpCommentAuthorFieldsEnum;
+};
+
+
+export type WpCommentAuthorConnectionMinArgs = {
+  field: WpCommentAuthorFieldsEnum;
+};
+
+
+export type WpCommentAuthorConnectionSumArgs = {
+  field: WpCommentAuthorFieldsEnum;
+};
+
+
+export type WpCommentAuthorConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: WpCommentAuthorFieldsEnum;
+};
+
+export type WpCommentAuthorEdge = {
+  next?: Maybe<WpCommentAuthor>;
+  node: WpCommentAuthor;
+  previous?: Maybe<WpCommentAuthor>;
+};
+
+export type WpCommentAuthorFieldsEnum =
+  | 'databaseId'
+  | 'email'
+  | 'id'
+  | 'name'
+  | 'url'
+  | 'nodeType'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type WpCommentAuthorGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<WpCommentAuthorEdge>;
+  nodes: Array<WpCommentAuthor>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type WpCommentAuthorFilterInput = {
+  databaseId?: Maybe<IntQueryOperatorInput>;
+  email?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type WpCommentAuthorSortInput = {
+  fields?: Maybe<Array<Maybe<WpCommentAuthorFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -14423,6 +14685,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___namespace'
   | 'pluginOptions___transpileTemplateLiterals'
   | 'pluginOptions___pure'
+  | 'pluginOptions___ssr'
   | 'pluginOptions___output'
   | 'pluginOptions___createLinkInHead'
   | 'pluginOptions___entryLimit'
@@ -14436,11 +14699,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___isTSX'
   | 'pluginOptions___jsxPragma'
   | 'pluginOptions___allExtensions'
-  | 'pluginOptions___tsLoader___logLevel'
-  | 'pluginOptions___codegen'
-  | 'pluginOptions___codegenDelay'
-  | 'pluginOptions___alwaysCheck'
-  | 'pluginOptions___typeCheck'
   | 'pluginOptions___fonts'
   | 'pluginOptions___display'
   | 'pluginOptions___url'
@@ -14506,7 +14764,20 @@ export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 export type Unnamed_1_Query = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
+export type WpurlQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type WpurlQuery = { wp?: Maybe<{ generalSettings?: Maybe<Pick<WpGeneralSettings, 'url'>> }> };
+
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type Unnamed_2_Query = { menu: { edges: Array<{ node: { menuItems?: Maybe<{ nodes?: Maybe<Array<Maybe<Pick<WpMenuItem, 'id' | 'path' | 'label'>>>> }> } }> }, user?: Maybe<Pick<WpUser, 'firstName' | 'lastName'>> };
+
+export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_3_Query = { allWpPage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
+        Pick<WpPage, 'slug' | 'content'>
+        & { featuredImage?: Maybe<{ node?: Maybe<Pick<WpMediaItem, 'altText' | 'sourceUrl'>> }>, aboutDetail?: Maybe<{ data?: Maybe<Pick<WpPage_Aboutdetail_Data, 'freelance' | 'location' | 'name' | 'skills' | 'resumeUrl'>> }> }
+      ) }> } };
