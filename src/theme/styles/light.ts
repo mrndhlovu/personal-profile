@@ -77,7 +77,7 @@ const lightStyles = css`
       background: ${props => props.theme.colors.bgBody};
     }
 
-    @include placeholder-color(${props => props.theme.colors.body});
+    ${props => props.theme.mixins.placeholderColor(props.theme.colors.body)};
 
     h1,
     h2,
@@ -114,7 +114,8 @@ const lightStyles = css`
     textarea {
       border-color: ${props => props.theme.colors.lightBorder};
       color: ${props => props.theme.colors.body};
-      @include placeholder-color(${props => props.theme.colors.lightBody});
+      ${props =>
+        props.theme.mixins.placeholderColor(props.theme.colors.lightBody)};
 
       &:focus,
       &:active {

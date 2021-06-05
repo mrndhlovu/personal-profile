@@ -16,6 +16,7 @@ type IconProps = {
 }
 
 const Container = styled.ul<IconProps>`
+  margin-top: 20px;
   padding-left: 0;
   margin-bottom: 0;
 
@@ -61,7 +62,7 @@ const Container = styled.ul<IconProps>`
       }
     `};
 
-  @media #{ ${props => props.theme.device.tablet}} {
+  @media ${props => props.theme.device.tablet} {
     ${props =>
       props.bordered &&
       css`
@@ -76,7 +77,7 @@ const Container = styled.ul<IconProps>`
       `};
   }
 
-  @media #{${props => props.theme.device.mobileLg}} {
+  @media ${props => props.theme.device.mobileLg} {
     li {
       a {
         font-size: 1.25rem;
@@ -100,12 +101,7 @@ const Container = styled.ul<IconProps>`
 
 const SocialIcons = ({ bordered }: props) => {
   return (
-    <Container
-      bordered={bordered}
-      className={
-        bordered ? "mi-socialicons mi-socialicons-bordered" : "mi-socialicons"
-      }
-    >
+    <Container bordered={bordered}>
       <SocialIcons.Item redirectTo="github.com" iconName="github" />
       <SocialIcons.Item redirectTo="linkedin.com" iconName="linkedin" />
     </Container>

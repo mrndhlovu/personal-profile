@@ -1,7 +1,7 @@
 import { createContext } from "react"
 import { useContext } from "react"
 
-import { DefaultGlobalContextTypes } from "./GlobalContextProvider"
+import { DefaultGlobalContextTypes } from "../providers/GlobalContextProvider"
 
 const GlobalContext = createContext<DefaultGlobalContextTypes>({
   lightMode: false,

@@ -1,7 +1,8 @@
 import React from "react"
 
 import { Sun } from "react-feather"
-import { useGlobalContext } from "../../providers/context"
+
+import { useGlobalContext } from "src/helpers/context"
 
 const ModeSwitch = () => {
   const { lightMode, handleModeChange } = useGlobalContext()

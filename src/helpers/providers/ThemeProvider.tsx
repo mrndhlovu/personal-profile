@@ -1,10 +1,12 @@
 import React from "react"
 
 import { ThemeProvider } from "styled-components"
-import { GlobalStyles } from "../theme/GlobalStyles"
-import { theme } from "../theme"
 
-import { childrenInterface } from "../utils/types/interfaces"
+import { childrenInterface } from "../../utils/types/interfaces"
+import { GlobalStyles } from "../../theme/GlobalStyles"
+import { theme } from "../../theme"
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const AppThemeProvider = ({ children }: childrenInterface) => {
   return (

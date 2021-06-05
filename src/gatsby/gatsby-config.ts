@@ -3,25 +3,25 @@ import {
   sourceCloudinaryContent,
   siteMetadata,
   sourceWordpress,
-  sourceTypescript,
 } from "./plugins"
 
 export default {
   siteMetadata,
   flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
+    {
+      resolve: `babel-plugin-styled-components`,
+      options: { ssr: false },
+    },
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-robots-txt`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-scss-typescript`,
     `gatsby-plugin-tsconfig-paths`,
-    {
-      resolve: `babel-plugin-styled-components`,
-      options: { ssr: false },
-    },
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -39,7 +39,6 @@ export default {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-typescript`,
-    sourceTypescript,
     sourceGoogleFonts,
     sourceWordpress,
     sourceCloudinaryContent,

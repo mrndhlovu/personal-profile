@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
-import { childrenInterface } from "../utils/types/interfaces"
-import { GlobalContext } from "./context"
+import { childrenInterface } from "../../utils/types/interfaces"
+import { GlobalContext } from "../context"
 
 export type DefaultGlobalContextTypes = {
   lightMode: boolean

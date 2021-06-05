@@ -40,11 +40,11 @@ const typography = css`
     font-weight: 400;
     background: ${props => props.theme.colors.bgBody};
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       font-size: calc(${props => props.theme.variables.body} - 2);
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: calc(${props => props.theme.variables.body} - 3);
     }
   }
@@ -52,8 +52,7 @@ const typography = css`
   img {
     max-width: 100%;
   }
-
-  @include placeholder-color(${props => props.theme.colors.body});
+  ${props => props.theme.mixins.placeholderColor(props.theme.colors.body)};
 
   h1,
   h2,
@@ -69,12 +68,12 @@ const typography = css`
     font-size: 3.2857rem;
     line-height: 4rem;
 
-    @media #{${props => props.theme.device.tablet}} {
+    @media ${props => props.theme.device.tablet} {
       font-size: 2.9857rem;
       line-height: 3.4rem;
     }
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       font-size: 2.6857rem;
       line-height: 3.1rem;
     }
@@ -178,7 +177,7 @@ const typography = css`
     border: 1px solid ${props => props.theme.colors.border};
     font-family: ${props => props.theme.fonts.primary};
     color: ${props => props.theme.colors.body};
-    @include placeholder-color(${props => props.theme.colors.body});
+    ${props => props.theme.mixins.placeholderColor(props.theme.colors.body)};
 
     &:focus,
     &:active {
@@ -201,7 +200,7 @@ const typography = css`
     height: ${props => props.theme.variables.inputButtonHeight};
     padding: 0 15px;
 
-    @media #{${props => props.theme.device.mobileLg}} {
+    @media ${props => props.theme.device.mobileLg} {
       height: 44px;
     }
   }

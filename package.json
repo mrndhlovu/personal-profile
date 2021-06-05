@@ -87,7 +87,6 @@
     "cy:open": "cypress run",
     "open:test": "start-server-and-test start 8888 cy:open",
     "build": "yarn build:app",
-    "build:app": "gatsby build",
-    "build:lambda": "netlify-lambda build functions"
+    "build:app": "gatsby build"
   }
 }

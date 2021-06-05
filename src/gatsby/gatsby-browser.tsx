@@ -1,9 +1,7 @@
 import React from "react"
 import { GatsbyBrowser } from "gatsby"
 
-import "bootstrap/dist/css/bootstrap.min.css"
-
-import { GlobalContextProvider, ThemeProvider } from "../providers"
+import { GlobalContextProvider, ThemeProvider } from "../helpers/providers"
 import Layout from "../components/layout"
 
 export const wrapPageElement: GatsbyBrowser["wrapPageElement"] = ({
