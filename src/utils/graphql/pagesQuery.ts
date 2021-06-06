@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby"
-import { Unnamed_3_Query } from "gatsby/gatsby-graphql"
+import { Unnamed_4_Query } from "gatsby/gatsby-graphql"
 
-type queryFunction = () => Unnamed_3_Query
+type queryFunction = () => Unnamed_4_Query
 
 // const seo: string = `{
 //     title
@@ -29,7 +29,7 @@ type queryFunction = () => Unnamed_3_Query
 const pagesQuery: queryFunction = () =>
   useStaticQuery(graphql`
     {
-      allWpPage(filter: { slug: { eq: "home" } }) {
+      homePage: allWpPage(filter: { slug: { eq: "home" } }) {
         edges {
           node {
             slug

@@ -14477,7 +14477,7 @@ export type Unnamed_3_Query = { menu: { edges: Array<{ node: { menuItems?: Maybe
 export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_4_Query = { allWpPage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
+export type Unnamed_4_Query = { homePage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
         Pick<WpPage, 'slug' | 'content'>
         & { featuredImage?: Maybe<{ node?: Maybe<(
             Pick<WpMediaItem, 'altText'>

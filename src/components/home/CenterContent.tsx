@@ -54,7 +54,7 @@ const Content = styled.div`
 `
 
 const CenterContent = () => {
-  const content = usePagesQuery()?.allWpPage?.edges?.[0]?.node?.content
+  const content = usePagesQuery()?.homePage?.edges?.[0]?.node?.content
 
   return (
     <div className="container">

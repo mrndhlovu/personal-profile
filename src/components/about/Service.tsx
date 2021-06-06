@@ -2,7 +2,7 @@ import React, { ReactElement } from "react"
 import { Maybe } from "gatsby/gatsby-graphql"
 
 import { FiCode } from "react-icons/fi"
-import { FaPalette } from "react-icons/fa"
+import { RiPaletteLine } from "react-icons/ri"
 
 type ServiceProps = {
   title: Maybe<string> | undefined
@@ -17,7 +17,7 @@ const Service = ({ title, details, icon }: ServiceProps): ReactElement => {
         return <FiCode />
 
       case "pallet":
-        return <FaPalette />
+        return <RiPaletteLine />
 
       default:
         return null
