@@ -54,6 +54,13 @@ export const sourceWordpress = {
   },
 }
 
+export const sourceCodeGen = {
+  resolve: `gatsby-plugin-graphql-codegen`,
+  options: {
+    fileName: `./gatsby/gatsby-graphql.ts`,
+  },
+}
+
 // export const sourceAirtable = {
 //     resolve: `gatsby-source-airtable`,
 //     options: {

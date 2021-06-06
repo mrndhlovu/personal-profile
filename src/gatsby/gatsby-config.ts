@@ -3,11 +3,12 @@ import {
   sourceCloudinaryContent,
   siteMetadata,
   sourceWordpress,
+  // sourceCodeGen,
 } from "./plugins"
 
 export default {
-  siteMetadata,
   flags: { PRESERVE_WEBPACK_CACHE: true },
+  siteMetadata,
   plugins: [
     `gatsby-plugin-styled-components`,
     {
@@ -21,12 +22,7 @@ export default {
     `gatsby-plugin-sass`,
     `gatsby-plugin-scss-typescript`,
     `gatsby-plugin-tsconfig-paths`,
-    {
-      resolve: `gatsby-plugin-graphql-codegen`,
-      options: {
-        fileName: `./gatsby/gatsby-graphql.ts`,
-      },
-    },
+    // sourceCodeGen,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

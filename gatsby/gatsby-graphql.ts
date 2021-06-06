@@ -14779,5 +14779,8 @@ export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
 
 export type Unnamed_3_Query = { allWpPage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
         Pick<WpPage, 'slug' | 'content'>
-        & { featuredImage?: Maybe<{ node?: Maybe<Pick<WpMediaItem, 'altText' | 'sourceUrl'>> }>, aboutDetail?: Maybe<{ data?: Maybe<Pick<WpPage_Aboutdetail_Data, 'freelance' | 'location' | 'name' | 'skills' | 'resumeUrl'>> }> }
+        & { featuredImage?: Maybe<{ node?: Maybe<(
+            Pick<WpMediaItem, 'altText'>
+            & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp'>> }> }> }
+          )> }>, aboutDetail?: Maybe<{ data?: Maybe<Pick<WpPage_Aboutdetail_Data, 'freelance' | 'location' | 'name' | 'skills' | 'resumeUrl'>> }> }
       ) }> } };

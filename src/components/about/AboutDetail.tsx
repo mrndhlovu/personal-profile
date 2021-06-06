@@ -3,9 +3,9 @@ import { WpPage_Aboutdetail_Data, Maybe } from "gatsby/gatsby-graphql"
 
 import { usePagesQuery } from "src/utils/graphql"
 import { ParseHtml } from "../shared"
-
 import AboutImage from "./AboutImage"
 import DownloadButton from "./DownloadButton"
+import AboutContent from "./AboutContent"
 
 type dataValues =
   | Maybe<
@@ -19,40 +19,18 @@ type dataValues =
 const AboutDetail = () => {
   const { aboutPage } = usePagesQuery()
   const data: dataValues = aboutPage.edges?.[0]?.node?.aboutDetail?.data
+  const imageData = aboutPage?.edges?.[0]?.node.featuredImage?.node
 
   return (
     <div className="row">
       <AboutImage
-        image={aboutPage?.edges?.[0]?.node.featuredImage?.node?.sourceUrl}
-        imageDetail={aboutPage?.edges?.[0]?.node.featuredImage?.node?.altText}
+        image={imageData?.localFile?.childImageSharp?.fluid?.srcWebp}
+        imageDetail={imageData?.altText}
       />
       <div className="col-lg-6">
         <div className="mi-about-content">
           {ParseHtml(aboutPage.edges?.[0].node.content)}
-          <ul>
-            {data?.name && (
-              <li>
-                <b>Full Name</b> {data.name}
-              </li>
-            )}
-
-            {process.env.GATSBY_DEFAULT_EMAIL && (
-              <li>
-                <b>Email</b> {process.env.GATSBY_DEFAULT_EMAIL}
-              </li>
-            )}
-            {data?.location && (
-              <li>
-                <b>Location</b> {data.location}
-              </li>
-            )}
-            {data?.freelance && (
-              <li>
-                <b>Freelance</b>
-                {data?.freelance ? "Available" : "Not Available"}
-              </li>
-            )}
-          </ul>
+          <AboutContent data={data} />
           {data?.resumeUrl && (
             <DownloadButton downloadSource={data?.resumeUrl} />
           )}

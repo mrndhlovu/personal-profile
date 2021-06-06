@@ -100,6 +100,23 @@ declare module "styled-components" {
       notebook: string
       tablet: string
     }
+    componentStyles: {
+      blog: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      blogdetails: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      button: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      form: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      header: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      pagenotfound: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      pagination: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      porfolio: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      progress: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      resume: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      service: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      socialIcons: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      socialIcons: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      title: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      testimonals: FlattenInterpolation<ThemeProps<DefaultTheme>>
+    }
     variables: {
       body: string
       inputButtonHeight: string

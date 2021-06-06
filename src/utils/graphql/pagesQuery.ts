@@ -45,7 +45,13 @@ const pagesQuery: queryFunction = () =>
             featuredImage {
               node {
                 altText
-                sourceUrl
+                localFile {
+                  childImageSharp {
+                    fluid(maxWidth: 750, maxHeight: 565) {
+                      srcWebp
+                    }
+                  }
+                }
               }
             }
             content
