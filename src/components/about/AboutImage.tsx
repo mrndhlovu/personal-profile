@@ -7,15 +7,12 @@ import styled from "styled-components"
 import { FiZoomIn } from "react-icons/fi"
 
 type ImageProps = {
-  image: any
+  imageLg: any
+  imageSm: any
   imageDetail?: Maybe<string> | undefined
 }
 
 const Container = styled.div`
-  .large-image {
-    object-fit: contain;
-  }
-
   .mi-about-image {
     position: relative;
 
@@ -26,6 +23,7 @@ const Container = styled.div`
       top: 0;
       height: 65%;
       width: 15px;
+      z-index: 1000000;
       background: ${props => props.theme.variables.primaryLightRgba};
     }
 
@@ -41,7 +39,7 @@ const Container = styled.div`
       background: ${props => props.theme.variables.primaryLightRgba};
     }
 
-    .small-image {
+    img {
       width: 100%;
     }
 
@@ -86,17 +84,23 @@ const Container = styled.div`
   }
 `
 
-const AboutImage = ({ image, imageDetail }: ImageProps): ReactElement => {
+const AboutImage = ({
+  imageSm,
+  imageLg,
+  imageDetail,
+}: ImageProps): ReactElement => {
   const [showLargeImage, setShowLargeImage] = useState(false)
 
-  const imageData: ImagesListType = [{ src: image, alt: imageDetail as string }]
+  const imageData: ImagesListType = [
+    { src: imageLg, alt: imageDetail as string },
+  ]
 
   const handleZoomIn = () => setShowLargeImage(prev => !prev)
 
   return (
     <Container className="col-lg-6">
       <div className="mi-about-image">
-        <ProgressiveImage src={image} placeholder={image}>
+        <ProgressiveImage src={imageSm} placeholder={imageSm}>
           {(src: string) => (
             <img className="small-image" onClick={handleZoomIn} src={src} />
           )}

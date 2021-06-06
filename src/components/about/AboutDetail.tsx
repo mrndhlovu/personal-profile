@@ -24,7 +24,8 @@ const AboutDetail = () => {
   return (
     <div className="row">
       <AboutImage
-        image={imageData?.localFile?.childImageSharp?.fluid?.srcWebp}
+        imageSm={imageData?.localFile?.small?.fluid?.srcWebp}
+        imageLg={imageData?.localFile?.large?.fluid?.srcWebp}
         imageDetail={imageData?.altText}
       />
       <div className="col-lg-6">

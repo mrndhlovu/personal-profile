@@ -46,8 +46,13 @@ const pagesQuery: queryFunction = () =>
               node {
                 altText
                 localFile {
-                  childImageSharp {
+                  small: childImageSharp {
                     fluid(maxWidth: 750, maxHeight: 565) {
+                      srcWebp
+                    }
+                  }
+                  large: childImageSharp {
+                    fluid {
                       srcWebp
                     }
                   }

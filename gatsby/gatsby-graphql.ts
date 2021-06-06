@@ -14481,6 +14481,6 @@ export type Unnamed_4_Query = { homePage: { edges: Array<{ node: Pick<WpPage, 's
         Pick<WpPage, 'slug' | 'content'>
         & { featuredImage?: Maybe<{ node?: Maybe<(
             Pick<WpMediaItem, 'altText'>
-            & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp'>> }> }> }
+            & { localFile?: Maybe<{ small?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp'>> }>, large?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp'>> }> }> }
           )> }>, aboutDetail?: Maybe<{ data?: Maybe<Pick<WpPage_Aboutdetail_Data, 'freelance' | 'location' | 'name' | 'skills' | 'resumeUrl'>> }> }
       ) }> } };
