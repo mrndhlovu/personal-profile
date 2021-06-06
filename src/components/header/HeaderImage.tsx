@@ -2,7 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
-import { MAIN_IMAGE } from "src/constants/images"
+import { MAIN_IMAGE, LIGHT_IMAGE } from "src/constants/images"
+import { useGlobalContext } from "src/helpers/context"
 
 const Container = styled.div`
   padding: 20px 0;
@@ -23,10 +24,11 @@ const Container = styled.div`
 `
 
 const HeaderImage = () => {
+  const { lightMode } = useGlobalContext()
   return (
     <Container className="mi-header-image">
       <Link to="/">
-        <img src={MAIN_IMAGE} alt="brandimage" />
+        <img src={lightMode ? LIGHT_IMAGE : MAIN_IMAGE} alt="brandimage" />
       </Link>
     </Container>
   )
