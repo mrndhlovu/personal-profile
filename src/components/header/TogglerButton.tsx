@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { Menu, X } from "react-feather"
+import { FiMenu, FiX } from "react-icons/fi"
 
 interface Props {
   togglerNavigation: () => void
@@ -32,7 +32,7 @@ const TogglerButton: React.FC<Props> = ({
 }) => {
   return (
     <Button onClick={togglerNavigation} className="mi-header-toggler">
-      {!navigationVisible ? <Menu /> : <X />}
+      {!navigationVisible ? <FiMenu /> : <FiX />}
     </Button>
   )
 }

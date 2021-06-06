@@ -1,6 +1,29 @@
 import { css } from "styled-components"
 
 const utilities = css`
+  .mi-wrapper {
+    padding-left: 300px;
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+
+    @media ${props => props.theme.device.laptop} {
+      padding-left: 260px;
+    }
+
+    @media ${props => props.theme.device.notebook} {
+      padding-left: 0;
+    }
+
+    @media ${props => props.theme.device.tablet} {
+      padding-left: 0;
+    }
+
+    @media ${props => props.theme.device.mobileLg} {
+      padding-left: 0;
+    }
+  }
+
   .color-theme {
     color: ${props => props.theme.colors.primary};
   }

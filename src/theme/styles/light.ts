@@ -489,10 +489,6 @@ const lightStyles = css`
       }
     }
 
-    /**
- * Contact
- */
-
     .mi-contact {
       &-infoblock {
         background: darken(${props => props.theme.colors.lightBody}, 1);

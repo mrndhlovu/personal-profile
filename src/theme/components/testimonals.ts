@@ -2,10 +2,15 @@ import { css } from "styled-components"
 
 export default css`
   .mi-testimonial {
-    &-slider {
+    .mi-testimonial-slider {
       .slick-list {
         margin-left: -15px;
         margin-right: -15px;
+      }
+
+      .slick-list > &:nth-child(1) {
+        background: red;
+        display: flex !important;
       }
     }
 
@@ -13,7 +18,7 @@ export default css`
       margin: 0 15px;
     }
 
-    &-content {
+    .mi-testimonial-content {
       min-height: 150px;
       display: flex;
       align-items: center;
@@ -40,7 +45,7 @@ export default css`
       }
     }
 
-    &-author {
+    .mi-testimonial-author {
       h5 {
         margin-bottom: 0;
       }
@@ -52,13 +57,13 @@ export default css`
     }
 
     @media ${props => props.theme.device.laptop} {
-      &-content {
+      .mi-testimonial-content {
         padding: 20px;
       }
     }
 
     @media ${props => props.theme.device.tablet} {
-      &-content {
+      .mi-testimonial-content {
         p {
           font-size: 1.1rem;
         }
@@ -66,7 +71,7 @@ export default css`
     }
 
     @media ${props => props.theme.device.mobileLg} {
-      &-content {
+      .mi-testimonial-content {
         p {
           font-size: 1.1rem;
         }
@@ -74,7 +79,7 @@ export default css`
     }
 
     @media ${props => props.theme.device.mobileSm} {
-      &-content {
+      .mi-testimonial-content {
         padding: 20px;
       }
     }

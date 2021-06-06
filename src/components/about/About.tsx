@@ -1,8 +1,10 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import styled from "styled-components"
 
 import { SectionTitle } from "../shared"
 import AboutDetail from "./AboutDetail"
+import Reviews from "./Reviews"
+import Services from "./Services"
 
 const Container = styled.div`
   .mi-about-image {
@@ -103,47 +105,31 @@ const Container = styled.div`
   }
 `
 
-const About = () => {
+const About = (): ReactElement => {
   return (
-    <>
-      <Container className="mi-about-area mi-section mi-padding-top">
+    <Container className="mi-about-area mi-section mi-padding-top">
+      <div className="container">
+        <SectionTitle title="About Me" />
+        <AboutDetail />
+      </div>
+
+      <div className="mi-service-area mi-section mi-padding-top">
         <div className="container">
-          <SectionTitle title="About Me" />
-          <AboutDetail />
-        </div>
-      </Container>
-      {/* <div className="mi-service-area mi-section mi-padding-top">
-        <div className="container">
-          <Sectiontitle title="Services" />
-          <div className="mi-service-wrapper">
-            <div className="row mt-30-reverse">
-              {services.map(service => (
-                <div
-                  className="col-lg-4 col-md-6 col-12 mt-30"
-                  key={service.title}
-                >
-                  <Service content={service} />
-                </div>
-              ))}
-            </div>
-          </div>
+          <SectionTitle title="Services" />
+          <Services />
         </div>
       </div>
       <div className="mi-review-area mi-section mi-padding-top mi-padding-bottom">
         <div className="container">
-          <Sectiontitle title="Reviews" />
+          <SectionTitle title="Reviews" />
           <div className="row justify-content-center">
             <div className="col-12">
-              <Slider className="mi-testimonial-slider" {...sliderSettings}>
-                {reviews.map(review => (
-                  <Testimonial key={review.id} content={review} />
-                ))}
-              </Slider>
+              <Reviews />
             </div>
           </div>
-        </div> */}
-      {/* </div> */}
-    </>
+        </div>
+      </div>
+    </Container>
   )
 }
 

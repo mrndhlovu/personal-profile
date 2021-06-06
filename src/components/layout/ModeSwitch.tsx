@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-import { Sun } from "react-feather"
+import { FiSun } from "react-icons/fi"
 
 import { useGlobalContext } from "src/helpers/context"
 
@@ -69,7 +69,7 @@ const ModeSwitch = () => {
   return (
     <Container className="light-mode">
       <span className="icon">
-        <Sun />
+        <FiSun />
       </span>
       <button
         className={lightMode ? "light-mode-switch active" : "light-mode-switch"}

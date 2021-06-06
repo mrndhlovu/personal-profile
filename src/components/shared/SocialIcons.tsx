@@ -1,5 +1,5 @@
 import React from "react"
-import { GitHub, Linkedin } from "react-feather"
+import { FiGithub, FiLinkedin } from "react-icons/fi"
 import styled, { css } from "styled-components"
 
 interface linkProps {
@@ -112,9 +112,9 @@ SocialIcons.Item = ({ redirectTo, iconName }: linkProps) => {
   const Icon = () => {
     switch (iconName) {
       case "github":
-        return <GitHub className={`lni-${iconName}`} />
+        return <FiGithub className={`lni-${iconName}`} />
       case "linkedin":
-        return <Linkedin className={`lni-${iconName}`} />
+        return <FiLinkedin className={`lni-${iconName}`} />
       default:
         return null
     }

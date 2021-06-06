@@ -61,52 +61,20 @@ export const sourceCodeGen = {
   },
 }
 
-// export const sourceAirtable = {
-//     resolve: `gatsby-source-airtable`,
-//     options: {
-//       apiKey: process.env.AIRTABLE_API_KEY,
-//       concurrency: 5,
-//       tables: [
-//         {
-//           baseId: process.env.AIRTABLE_RESTART_BASE_ID,
-//           tableName: `Volunteers`,
-//           defaultValues: {
-//             Name: "",
-//             Feature_on_website: false,
-//             Status: "Pending",
-//             End_At: "2-2-2000",
-//             Date_Joined: "1/1/2000",
-//           },
-//         },
-//         {
-//           baseId: process.env.AIRTABLE_RESTART_BASE_ID,
-//           tableName: `Team`,
-//         },
-//         {
-//           baseId: process.env.AIRTABLE_RESTART_BASE_ID,
-//           tableName: `Events`,
-//           defaultValues: {
-//             Postponed: false,
-//             Seat_Total: 1,
-//             Status: "Upcoming",
-//             Contact_Email: "",
-//             Coordinators: "",
-//             Speakers: [],
-//             Event: "Test",
-//             Other_Price_Id: "",
-//           },
-//         },
-//         {
-//           baseId: process.env.AIRTABLE_STATIC_ASSETS_BASE_ID,
-//           tableName: `Supporters List`,
-//         },
-//         {
-//           baseId: process.env.AIRTABLE_STATIC_ASSETS_BASE_ID,
-//           tableName: `Stripe Products`,
-//           defaultValues: {
-//             Other_Price_Id: "",
-//           },
-//         },
-//       ],
-//     },
-//   }
+export const sourceAirtable = {
+  resolve: `gatsby-source-airtable`,
+  options: {
+    apiKey: process.env.AIRTABLE_API_KEY,
+    concurrency: 5,
+    tables: [
+      {
+        baseId: process.env.AIRTABLE_WEBSITE_BASE,
+        tableName: `Services`,
+      },
+      {
+        baseId: process.env.AIRTABLE_WEBSITE_BASE,
+        tableName: `Reviews`,
+      },
+    ],
+  },
+}

@@ -1,9 +1,9 @@
 import {
   sourceGoogleFonts,
-  sourceCloudinaryContent,
   siteMetadata,
   sourceWordpress,
   // sourceCodeGen,
+  sourceAirtable,
 } from "./plugins"
 
 export default {
@@ -42,7 +42,7 @@ export default {
     `gatsby-plugin-typescript`,
     sourceGoogleFonts,
     sourceWordpress,
-    sourceCloudinaryContent,
+    sourceAirtable,
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-client-side-redirect`,

@@ -5,7 +5,7 @@ export default css`
     border: 1px solid ${props => props.theme.colors.border};
     border-top: 5px solid ${props => props.theme.colors.border};
     padding: 30px;
-    background: ${props => props.theme.colors.lightBgBody};
+    background: ${props => props.theme.colors.lightBody};
     transition: ${props => props.theme.variables.transition};
 
     &-icon {

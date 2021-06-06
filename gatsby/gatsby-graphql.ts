@@ -72,10 +72,6 @@ export type File = Node & {
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
   childImageSharp?: Maybe<ImageSharp>;
-  /** Returns all children nodes filtered by type CloudinaryAsset */
-  childrenCloudinaryAsset?: Maybe<Array<Maybe<CloudinaryAsset>>>;
-  /** Returns the first child node of type CloudinaryAsset or null if there are no children of given type on this node */
-  childCloudinaryAsset?: Maybe<CloudinaryAsset>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2375,55 +2371,22 @@ export type Wp = Node & {
   internal: Internal;
 };
 
-export type CloudinaryAsset = Node & {
-  fixed: CloudinaryAssetFixed;
-  fluid: CloudinaryAssetFluid;
+export type Airtable = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  table?: Maybe<Scalars['String']>;
+  recordId?: Maybe<Scalars['String']>;
+  data?: Maybe<AirtableData>;
 };
 
-
-export type CloudinaryAssetFixedArgs = {
-  base64Width?: Maybe<Scalars['Int']>;
-  base64Transformations?: Maybe<Array<Scalars['String']>>;
-  chained?: Maybe<Array<Scalars['String']>>;
-  height?: Maybe<Scalars['Int']>;
-  transformations?: Maybe<Array<Scalars['String']>>;
-  width?: Maybe<Scalars['Int']>;
-  ignoreDefaultBase64?: Maybe<Scalars['Boolean']>;
-};
-
-
-export type CloudinaryAssetFluidArgs = {
-  base64Width?: Maybe<Scalars['Int']>;
-  base64Transformations?: Maybe<Array<Scalars['String']>>;
-  chained?: Maybe<Array<Scalars['String']>>;
-  maxWidth?: Maybe<Scalars['Int']>;
-  transformations?: Maybe<Array<Scalars['String']>>;
-  ignoreDefaultBase64?: Maybe<Scalars['Boolean']>;
-};
-
-export type CloudinaryAssetFixed = {
-  aspectRatio?: Maybe<Scalars['Float']>;
-  base64?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Float']>;
-  src?: Maybe<Scalars['String']>;
-  srcSet?: Maybe<Scalars['String']>;
-  tracedSVG?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Float']>;
-};
-
-export type CloudinaryAssetFluid = {
-  aspectRatio: Scalars['Float'];
-  base64?: Maybe<Scalars['String']>;
-  presentationHeight?: Maybe<Scalars['Float']>;
-  presentationWidth?: Maybe<Scalars['Float']>;
-  sizes: Scalars['String'];
-  src: Scalars['String'];
-  srcSet: Scalars['String'];
-  tracedSVG?: Maybe<Scalars['String']>;
+export type AirtableData = {
+  Detail?: Maybe<Scalars['String']>;
+  Icon_Name?: Maybe<Scalars['String']>;
+  Title?: Maybe<Scalars['String']>;
+  Name?: Maybe<Scalars['String']>;
+  Designation?: Maybe<Scalars['String']>;
 };
 
 export type SiteBuildMetadata = Node & {
@@ -2486,11 +2449,8 @@ export type SitePluginPluginOptions = {
   schema?: Maybe<SitePluginPluginOptionsSchema>;
   excludeFieldNames?: Maybe<Array<Maybe<Scalars['String']>>>;
   verbose?: Maybe<Scalars['Boolean']>;
-  cloudName?: Maybe<Scalars['String']>;
-  apiKey?: Maybe<Scalars['String']>;
-  apiSecret?: Maybe<Scalars['String']>;
-  resourceType?: Maybe<Scalars['String']>;
-  prefix?: Maybe<Scalars['String']>;
+  concurrency?: Maybe<Scalars['Int']>;
+  tables?: Maybe<Array<Maybe<SitePluginPluginOptionsTables>>>;
   configDir?: Maybe<Scalars['String']>;
   projectRoot?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
@@ -2515,6 +2475,11 @@ export type SitePluginPluginOptionsSchema = {
   circularQueryLimit?: Maybe<Scalars['Int']>;
   perPage?: Maybe<Scalars['Int']>;
   previewRequestConcurrency?: Maybe<Scalars['Int']>;
+};
+
+export type SitePluginPluginOptionsTables = {
+  baseId?: Maybe<Scalars['String']>;
+  tableName?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPackageJson = {
@@ -2618,8 +2583,8 @@ export type Query = {
   allWpCommentAuthor: WpCommentAuthorConnection;
   wp?: Maybe<Wp>;
   allWp: WpConnection;
-  cloudinaryAsset?: Maybe<CloudinaryAsset>;
-  allCloudinaryAsset: CloudinaryAssetConnection;
+  airtable?: Maybe<Airtable>;
+  allAirtable: AirtableConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -2665,8 +2630,6 @@ export type QueryFileArgs = {
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
-  childrenCloudinaryAsset?: Maybe<CloudinaryAssetFilterListInput>;
-  childCloudinaryAsset?: Maybe<CloudinaryAssetFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -3417,19 +3380,20 @@ export type QueryAllWpArgs = {
 };
 
 
-export type QueryCloudinaryAssetArgs = {
-  fixed?: Maybe<CloudinaryAssetFixedFilterInput>;
-  fluid?: Maybe<CloudinaryAssetFluidFilterInput>;
+export type QueryAirtableArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  table?: Maybe<StringQueryOperatorInput>;
+  recordId?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<AirtableDataFilterInput>;
 };
 
 
-export type QueryAllCloudinaryAssetArgs = {
-  filter?: Maybe<CloudinaryAssetFilterInput>;
-  sort?: Maybe<CloudinaryAssetSortInput>;
+export type QueryAllAirtableArgs = {
+  filter?: Maybe<AirtableFilterInput>;
+  sort?: Maybe<AirtableSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3613,40 +3577,6 @@ export type BooleanQueryOperatorInput = {
   ne?: Maybe<Scalars['Boolean']>;
   in?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
   nin?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
-};
-
-export type CloudinaryAssetFilterListInput = {
-  elemMatch?: Maybe<CloudinaryAssetFilterInput>;
-};
-
-export type CloudinaryAssetFilterInput = {
-  fixed?: Maybe<CloudinaryAssetFixedFilterInput>;
-  fluid?: Maybe<CloudinaryAssetFluidFilterInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-export type CloudinaryAssetFixedFilterInput = {
-  aspectRatio?: Maybe<FloatQueryOperatorInput>;
-  base64?: Maybe<StringQueryOperatorInput>;
-  height?: Maybe<FloatQueryOperatorInput>;
-  src?: Maybe<StringQueryOperatorInput>;
-  srcSet?: Maybe<StringQueryOperatorInput>;
-  tracedSVG?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<FloatQueryOperatorInput>;
-};
-
-export type CloudinaryAssetFluidFilterInput = {
-  aspectRatio?: Maybe<FloatQueryOperatorInput>;
-  base64?: Maybe<StringQueryOperatorInput>;
-  presentationHeight?: Maybe<FloatQueryOperatorInput>;
-  presentationWidth?: Maybe<FloatQueryOperatorInput>;
-  sizes?: Maybe<StringQueryOperatorInput>;
-  src?: Maybe<StringQueryOperatorInput>;
-  srcSet?: Maybe<StringQueryOperatorInput>;
-  tracedSVG?: Maybe<StringQueryOperatorInput>;
 };
 
 export type FileConnection = {
@@ -3881,113 +3811,6 @@ export type FileFieldsEnum =
   | 'childImageSharp___internal___mediaType'
   | 'childImageSharp___internal___owner'
   | 'childImageSharp___internal___type'
-  | 'childrenCloudinaryAsset'
-  | 'childrenCloudinaryAsset___fixed___aspectRatio'
-  | 'childrenCloudinaryAsset___fixed___base64'
-  | 'childrenCloudinaryAsset___fixed___height'
-  | 'childrenCloudinaryAsset___fixed___src'
-  | 'childrenCloudinaryAsset___fixed___srcSet'
-  | 'childrenCloudinaryAsset___fixed___tracedSVG'
-  | 'childrenCloudinaryAsset___fixed___width'
-  | 'childrenCloudinaryAsset___fluid___aspectRatio'
-  | 'childrenCloudinaryAsset___fluid___base64'
-  | 'childrenCloudinaryAsset___fluid___presentationHeight'
-  | 'childrenCloudinaryAsset___fluid___presentationWidth'
-  | 'childrenCloudinaryAsset___fluid___sizes'
-  | 'childrenCloudinaryAsset___fluid___src'
-  | 'childrenCloudinaryAsset___fluid___srcSet'
-  | 'childrenCloudinaryAsset___fluid___tracedSVG'
-  | 'childrenCloudinaryAsset___id'
-  | 'childrenCloudinaryAsset___parent___id'
-  | 'childrenCloudinaryAsset___parent___parent___id'
-  | 'childrenCloudinaryAsset___parent___parent___children'
-  | 'childrenCloudinaryAsset___parent___children'
-  | 'childrenCloudinaryAsset___parent___children___id'
-  | 'childrenCloudinaryAsset___parent___children___children'
-  | 'childrenCloudinaryAsset___parent___internal___content'
-  | 'childrenCloudinaryAsset___parent___internal___contentDigest'
-  | 'childrenCloudinaryAsset___parent___internal___description'
-  | 'childrenCloudinaryAsset___parent___internal___fieldOwners'
-  | 'childrenCloudinaryAsset___parent___internal___ignoreType'
-  | 'childrenCloudinaryAsset___parent___internal___mediaType'
-  | 'childrenCloudinaryAsset___parent___internal___owner'
-  | 'childrenCloudinaryAsset___parent___internal___type'
-  | 'childrenCloudinaryAsset___children'
-  | 'childrenCloudinaryAsset___children___id'
-  | 'childrenCloudinaryAsset___children___parent___id'
-  | 'childrenCloudinaryAsset___children___parent___children'
-  | 'childrenCloudinaryAsset___children___children'
-  | 'childrenCloudinaryAsset___children___children___id'
-  | 'childrenCloudinaryAsset___children___children___children'
-  | 'childrenCloudinaryAsset___children___internal___content'
-  | 'childrenCloudinaryAsset___children___internal___contentDigest'
-  | 'childrenCloudinaryAsset___children___internal___description'
-  | 'childrenCloudinaryAsset___children___internal___fieldOwners'
-  | 'childrenCloudinaryAsset___children___internal___ignoreType'
-  | 'childrenCloudinaryAsset___children___internal___mediaType'
-  | 'childrenCloudinaryAsset___children___internal___owner'
-  | 'childrenCloudinaryAsset___children___internal___type'
-  | 'childrenCloudinaryAsset___internal___content'
-  | 'childrenCloudinaryAsset___internal___contentDigest'
-  | 'childrenCloudinaryAsset___internal___description'
-  | 'childrenCloudinaryAsset___internal___fieldOwners'
-  | 'childrenCloudinaryAsset___internal___ignoreType'
-  | 'childrenCloudinaryAsset___internal___mediaType'
-  | 'childrenCloudinaryAsset___internal___owner'
-  | 'childrenCloudinaryAsset___internal___type'
-  | 'childCloudinaryAsset___fixed___aspectRatio'
-  | 'childCloudinaryAsset___fixed___base64'
-  | 'childCloudinaryAsset___fixed___height'
-  | 'childCloudinaryAsset___fixed___src'
-  | 'childCloudinaryAsset___fixed___srcSet'
-  | 'childCloudinaryAsset___fixed___tracedSVG'
-  | 'childCloudinaryAsset___fixed___width'
-  | 'childCloudinaryAsset___fluid___aspectRatio'
-  | 'childCloudinaryAsset___fluid___base64'
-  | 'childCloudinaryAsset___fluid___presentationHeight'
-  | 'childCloudinaryAsset___fluid___presentationWidth'
-  | 'childCloudinaryAsset___fluid___sizes'
-  | 'childCloudinaryAsset___fluid___src'
-  | 'childCloudinaryAsset___fluid___srcSet'
-  | 'childCloudinaryAsset___fluid___tracedSVG'
-  | 'childCloudinaryAsset___id'
-  | 'childCloudinaryAsset___parent___id'
-  | 'childCloudinaryAsset___parent___parent___id'
-  | 'childCloudinaryAsset___parent___parent___children'
-  | 'childCloudinaryAsset___parent___children'
-  | 'childCloudinaryAsset___parent___children___id'
-  | 'childCloudinaryAsset___parent___children___children'
-  | 'childCloudinaryAsset___parent___internal___content'
-  | 'childCloudinaryAsset___parent___internal___contentDigest'
-  | 'childCloudinaryAsset___parent___internal___description'
-  | 'childCloudinaryAsset___parent___internal___fieldOwners'
-  | 'childCloudinaryAsset___parent___internal___ignoreType'
-  | 'childCloudinaryAsset___parent___internal___mediaType'
-  | 'childCloudinaryAsset___parent___internal___owner'
-  | 'childCloudinaryAsset___parent___internal___type'
-  | 'childCloudinaryAsset___children'
-  | 'childCloudinaryAsset___children___id'
-  | 'childCloudinaryAsset___children___parent___id'
-  | 'childCloudinaryAsset___children___parent___children'
-  | 'childCloudinaryAsset___children___children'
-  | 'childCloudinaryAsset___children___children___id'
-  | 'childCloudinaryAsset___children___children___children'
-  | 'childCloudinaryAsset___children___internal___content'
-  | 'childCloudinaryAsset___children___internal___contentDigest'
-  | 'childCloudinaryAsset___children___internal___description'
-  | 'childCloudinaryAsset___children___internal___fieldOwners'
-  | 'childCloudinaryAsset___children___internal___ignoreType'
-  | 'childCloudinaryAsset___children___internal___mediaType'
-  | 'childCloudinaryAsset___children___internal___owner'
-  | 'childCloudinaryAsset___children___internal___type'
-  | 'childCloudinaryAsset___internal___content'
-  | 'childCloudinaryAsset___internal___contentDigest'
-  | 'childCloudinaryAsset___internal___description'
-  | 'childCloudinaryAsset___internal___fieldOwners'
-  | 'childCloudinaryAsset___internal___ignoreType'
-  | 'childCloudinaryAsset___internal___mediaType'
-  | 'childCloudinaryAsset___internal___owner'
-  | 'childCloudinaryAsset___internal___type'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -4122,8 +3945,6 @@ export type FileFilterInput = {
   publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
-  childrenCloudinaryAsset?: Maybe<CloudinaryAssetFilterListInput>;
-  childCloudinaryAsset?: Maybe<CloudinaryAssetFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -4753,11 +4574,8 @@ export type SitePluginPluginOptionsFilterInput = {
   schema?: Maybe<SitePluginPluginOptionsSchemaFilterInput>;
   excludeFieldNames?: Maybe<StringQueryOperatorInput>;
   verbose?: Maybe<BooleanQueryOperatorInput>;
-  cloudName?: Maybe<StringQueryOperatorInput>;
-  apiKey?: Maybe<StringQueryOperatorInput>;
-  apiSecret?: Maybe<StringQueryOperatorInput>;
-  resourceType?: Maybe<StringQueryOperatorInput>;
-  prefix?: Maybe<StringQueryOperatorInput>;
+  concurrency?: Maybe<IntQueryOperatorInput>;
+  tables?: Maybe<SitePluginPluginOptionsTablesFilterListInput>;
   configDir?: Maybe<StringQueryOperatorInput>;
   projectRoot?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
@@ -4782,6 +4600,15 @@ export type SitePluginPluginOptionsSchemaFilterInput = {
   circularQueryLimit?: Maybe<IntQueryOperatorInput>;
   perPage?: Maybe<IntQueryOperatorInput>;
   previewRequestConcurrency?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsTablesFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsTablesFilterInput>;
+};
+
+export type SitePluginPluginOptionsTablesFilterInput = {
+  baseId?: Maybe<StringQueryOperatorInput>;
+  tableName?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPackageJsonFilterInput = {
@@ -5039,11 +4866,10 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___schema___previewRequestConcurrency'
   | 'pluginCreator___pluginOptions___excludeFieldNames'
   | 'pluginCreator___pluginOptions___verbose'
-  | 'pluginCreator___pluginOptions___cloudName'
-  | 'pluginCreator___pluginOptions___apiKey'
-  | 'pluginCreator___pluginOptions___apiSecret'
-  | 'pluginCreator___pluginOptions___resourceType'
-  | 'pluginCreator___pluginOptions___prefix'
+  | 'pluginCreator___pluginOptions___concurrency'
+  | 'pluginCreator___pluginOptions___tables'
+  | 'pluginCreator___pluginOptions___tables___baseId'
+  | 'pluginCreator___pluginOptions___tables___tableName'
   | 'pluginCreator___pluginOptions___configDir'
   | 'pluginCreator___pluginOptions___projectRoot'
   | 'pluginCreator___pluginOptions___pathCheck'
@@ -7945,7 +7771,6 @@ export type WpMediaItemFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -7984,7 +7809,6 @@ export type WpMediaItemFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -8110,7 +7934,6 @@ export type WpMediaItemFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -8149,7 +7972,6 @@ export type WpMediaItemFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -8303,65 +8125,6 @@ export type WpMediaItemFieldsEnum =
   | 'remoteFile___childImageSharp___internal___mediaType'
   | 'remoteFile___childImageSharp___internal___owner'
   | 'remoteFile___childImageSharp___internal___type'
-  | 'remoteFile___childrenCloudinaryAsset'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___aspectRatio'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___base64'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___height'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___src'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___srcSet'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___tracedSVG'
-  | 'remoteFile___childrenCloudinaryAsset___fixed___width'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___aspectRatio'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___base64'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___presentationHeight'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___presentationWidth'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___sizes'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___src'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___srcSet'
-  | 'remoteFile___childrenCloudinaryAsset___fluid___tracedSVG'
-  | 'remoteFile___childrenCloudinaryAsset___id'
-  | 'remoteFile___childrenCloudinaryAsset___parent___id'
-  | 'remoteFile___childrenCloudinaryAsset___parent___children'
-  | 'remoteFile___childrenCloudinaryAsset___children'
-  | 'remoteFile___childrenCloudinaryAsset___children___id'
-  | 'remoteFile___childrenCloudinaryAsset___children___children'
-  | 'remoteFile___childrenCloudinaryAsset___internal___content'
-  | 'remoteFile___childrenCloudinaryAsset___internal___contentDigest'
-  | 'remoteFile___childrenCloudinaryAsset___internal___description'
-  | 'remoteFile___childrenCloudinaryAsset___internal___fieldOwners'
-  | 'remoteFile___childrenCloudinaryAsset___internal___ignoreType'
-  | 'remoteFile___childrenCloudinaryAsset___internal___mediaType'
-  | 'remoteFile___childrenCloudinaryAsset___internal___owner'
-  | 'remoteFile___childrenCloudinaryAsset___internal___type'
-  | 'remoteFile___childCloudinaryAsset___fixed___aspectRatio'
-  | 'remoteFile___childCloudinaryAsset___fixed___base64'
-  | 'remoteFile___childCloudinaryAsset___fixed___height'
-  | 'remoteFile___childCloudinaryAsset___fixed___src'
-  | 'remoteFile___childCloudinaryAsset___fixed___srcSet'
-  | 'remoteFile___childCloudinaryAsset___fixed___tracedSVG'
-  | 'remoteFile___childCloudinaryAsset___fixed___width'
-  | 'remoteFile___childCloudinaryAsset___fluid___aspectRatio'
-  | 'remoteFile___childCloudinaryAsset___fluid___base64'
-  | 'remoteFile___childCloudinaryAsset___fluid___presentationHeight'
-  | 'remoteFile___childCloudinaryAsset___fluid___presentationWidth'
-  | 'remoteFile___childCloudinaryAsset___fluid___sizes'
-  | 'remoteFile___childCloudinaryAsset___fluid___src'
-  | 'remoteFile___childCloudinaryAsset___fluid___srcSet'
-  | 'remoteFile___childCloudinaryAsset___fluid___tracedSVG'
-  | 'remoteFile___childCloudinaryAsset___id'
-  | 'remoteFile___childCloudinaryAsset___parent___id'
-  | 'remoteFile___childCloudinaryAsset___parent___children'
-  | 'remoteFile___childCloudinaryAsset___children'
-  | 'remoteFile___childCloudinaryAsset___children___id'
-  | 'remoteFile___childCloudinaryAsset___children___children'
-  | 'remoteFile___childCloudinaryAsset___internal___content'
-  | 'remoteFile___childCloudinaryAsset___internal___contentDigest'
-  | 'remoteFile___childCloudinaryAsset___internal___description'
-  | 'remoteFile___childCloudinaryAsset___internal___fieldOwners'
-  | 'remoteFile___childCloudinaryAsset___internal___ignoreType'
-  | 'remoteFile___childCloudinaryAsset___internal___mediaType'
-  | 'remoteFile___childCloudinaryAsset___internal___owner'
-  | 'remoteFile___childCloudinaryAsset___internal___type'
   | 'remoteFile___id'
   | 'remoteFile___parent___id'
   | 'remoteFile___parent___parent___id'
@@ -8528,65 +8291,6 @@ export type WpMediaItemFieldsEnum =
   | 'localFile___childImageSharp___internal___mediaType'
   | 'localFile___childImageSharp___internal___owner'
   | 'localFile___childImageSharp___internal___type'
-  | 'localFile___childrenCloudinaryAsset'
-  | 'localFile___childrenCloudinaryAsset___fixed___aspectRatio'
-  | 'localFile___childrenCloudinaryAsset___fixed___base64'
-  | 'localFile___childrenCloudinaryAsset___fixed___height'
-  | 'localFile___childrenCloudinaryAsset___fixed___src'
-  | 'localFile___childrenCloudinaryAsset___fixed___srcSet'
-  | 'localFile___childrenCloudinaryAsset___fixed___tracedSVG'
-  | 'localFile___childrenCloudinaryAsset___fixed___width'
-  | 'localFile___childrenCloudinaryAsset___fluid___aspectRatio'
-  | 'localFile___childrenCloudinaryAsset___fluid___base64'
-  | 'localFile___childrenCloudinaryAsset___fluid___presentationHeight'
-  | 'localFile___childrenCloudinaryAsset___fluid___presentationWidth'
-  | 'localFile___childrenCloudinaryAsset___fluid___sizes'
-  | 'localFile___childrenCloudinaryAsset___fluid___src'
-  | 'localFile___childrenCloudinaryAsset___fluid___srcSet'
-  | 'localFile___childrenCloudinaryAsset___fluid___tracedSVG'
-  | 'localFile___childrenCloudinaryAsset___id'
-  | 'localFile___childrenCloudinaryAsset___parent___id'
-  | 'localFile___childrenCloudinaryAsset___parent___children'
-  | 'localFile___childrenCloudinaryAsset___children'
-  | 'localFile___childrenCloudinaryAsset___children___id'
-  | 'localFile___childrenCloudinaryAsset___children___children'
-  | 'localFile___childrenCloudinaryAsset___internal___content'
-  | 'localFile___childrenCloudinaryAsset___internal___contentDigest'
-  | 'localFile___childrenCloudinaryAsset___internal___description'
-  | 'localFile___childrenCloudinaryAsset___internal___fieldOwners'
-  | 'localFile___childrenCloudinaryAsset___internal___ignoreType'
-  | 'localFile___childrenCloudinaryAsset___internal___mediaType'
-  | 'localFile___childrenCloudinaryAsset___internal___owner'
-  | 'localFile___childrenCloudinaryAsset___internal___type'
-  | 'localFile___childCloudinaryAsset___fixed___aspectRatio'
-  | 'localFile___childCloudinaryAsset___fixed___base64'
-  | 'localFile___childCloudinaryAsset___fixed___height'
-  | 'localFile___childCloudinaryAsset___fixed___src'
-  | 'localFile___childCloudinaryAsset___fixed___srcSet'
-  | 'localFile___childCloudinaryAsset___fixed___tracedSVG'
-  | 'localFile___childCloudinaryAsset___fixed___width'
-  | 'localFile___childCloudinaryAsset___fluid___aspectRatio'
-  | 'localFile___childCloudinaryAsset___fluid___base64'
-  | 'localFile___childCloudinaryAsset___fluid___presentationHeight'
-  | 'localFile___childCloudinaryAsset___fluid___presentationWidth'
-  | 'localFile___childCloudinaryAsset___fluid___sizes'
-  | 'localFile___childCloudinaryAsset___fluid___src'
-  | 'localFile___childCloudinaryAsset___fluid___srcSet'
-  | 'localFile___childCloudinaryAsset___fluid___tracedSVG'
-  | 'localFile___childCloudinaryAsset___id'
-  | 'localFile___childCloudinaryAsset___parent___id'
-  | 'localFile___childCloudinaryAsset___parent___children'
-  | 'localFile___childCloudinaryAsset___children'
-  | 'localFile___childCloudinaryAsset___children___id'
-  | 'localFile___childCloudinaryAsset___children___children'
-  | 'localFile___childCloudinaryAsset___internal___content'
-  | 'localFile___childCloudinaryAsset___internal___contentDigest'
-  | 'localFile___childCloudinaryAsset___internal___description'
-  | 'localFile___childCloudinaryAsset___internal___fieldOwners'
-  | 'localFile___childCloudinaryAsset___internal___ignoreType'
-  | 'localFile___childCloudinaryAsset___internal___mediaType'
-  | 'localFile___childCloudinaryAsset___internal___owner'
-  | 'localFile___childCloudinaryAsset___internal___type'
   | 'localFile___id'
   | 'localFile___parent___id'
   | 'localFile___parent___parent___id'
@@ -9090,7 +8794,6 @@ export type WpPageFieldsEnum =
   | 'featuredImage___node___remoteFile___url'
   | 'featuredImage___node___remoteFile___publicURL'
   | 'featuredImage___node___remoteFile___childrenImageSharp'
-  | 'featuredImage___node___remoteFile___childrenCloudinaryAsset'
   | 'featuredImage___node___remoteFile___id'
   | 'featuredImage___node___remoteFile___children'
   | 'featuredImage___node___localFile___sourceInstanceName'
@@ -9129,7 +8832,6 @@ export type WpPageFieldsEnum =
   | 'featuredImage___node___localFile___url'
   | 'featuredImage___node___localFile___publicURL'
   | 'featuredImage___node___localFile___childrenImageSharp'
-  | 'featuredImage___node___localFile___childrenCloudinaryAsset'
   | 'featuredImage___node___localFile___id'
   | 'featuredImage___node___localFile___children'
   | 'featuredImage___node___parent___id'
@@ -9348,7 +9050,6 @@ export type WpPageFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -9387,7 +9088,6 @@ export type WpPageFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -9513,7 +9213,6 @@ export type WpPageFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -9552,7 +9251,6 @@ export type WpPageFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -10028,7 +9726,6 @@ export type WpPostFieldsEnum =
   | 'featuredImage___node___remoteFile___url'
   | 'featuredImage___node___remoteFile___publicURL'
   | 'featuredImage___node___remoteFile___childrenImageSharp'
-  | 'featuredImage___node___remoteFile___childrenCloudinaryAsset'
   | 'featuredImage___node___remoteFile___id'
   | 'featuredImage___node___remoteFile___children'
   | 'featuredImage___node___localFile___sourceInstanceName'
@@ -10067,7 +9764,6 @@ export type WpPostFieldsEnum =
   | 'featuredImage___node___localFile___url'
   | 'featuredImage___node___localFile___publicURL'
   | 'featuredImage___node___localFile___childrenImageSharp'
-  | 'featuredImage___node___localFile___childrenCloudinaryAsset'
   | 'featuredImage___node___localFile___id'
   | 'featuredImage___node___localFile___children'
   | 'featuredImage___node___parent___id'
@@ -10303,7 +9999,6 @@ export type WpPostFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -10342,7 +10037,6 @@ export type WpPostFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -10468,7 +10162,6 @@ export type WpPostFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -10507,7 +10200,6 @@ export type WpPostFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -11279,7 +10971,6 @@ export type WpCategoryFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -11318,7 +11009,6 @@ export type WpCategoryFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -11441,7 +11131,6 @@ export type WpCategoryFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -11480,7 +11169,6 @@ export type WpCategoryFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -11897,7 +11585,6 @@ export type WpPostFormatFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -11936,7 +11623,6 @@ export type WpPostFormatFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -12059,7 +11745,6 @@ export type WpPostFormatFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -12098,7 +11783,6 @@ export type WpPostFormatFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -12515,7 +12199,6 @@ export type WpTagFieldsEnum =
   | 'seo___opengraphImage___remoteFile___url'
   | 'seo___opengraphImage___remoteFile___publicURL'
   | 'seo___opengraphImage___remoteFile___childrenImageSharp'
-  | 'seo___opengraphImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___remoteFile___id'
   | 'seo___opengraphImage___remoteFile___children'
   | 'seo___opengraphImage___localFile___sourceInstanceName'
@@ -12554,7 +12237,6 @@ export type WpTagFieldsEnum =
   | 'seo___opengraphImage___localFile___url'
   | 'seo___opengraphImage___localFile___publicURL'
   | 'seo___opengraphImage___localFile___childrenImageSharp'
-  | 'seo___opengraphImage___localFile___childrenCloudinaryAsset'
   | 'seo___opengraphImage___localFile___id'
   | 'seo___opengraphImage___localFile___children'
   | 'seo___opengraphImage___parent___id'
@@ -12677,7 +12359,6 @@ export type WpTagFieldsEnum =
   | 'seo___twitterImage___remoteFile___url'
   | 'seo___twitterImage___remoteFile___publicURL'
   | 'seo___twitterImage___remoteFile___childrenImageSharp'
-  | 'seo___twitterImage___remoteFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___remoteFile___id'
   | 'seo___twitterImage___remoteFile___children'
   | 'seo___twitterImage___localFile___sourceInstanceName'
@@ -12716,7 +12397,6 @@ export type WpTagFieldsEnum =
   | 'seo___twitterImage___localFile___url'
   | 'seo___twitterImage___localFile___publicURL'
   | 'seo___twitterImage___localFile___childrenImageSharp'
-  | 'seo___twitterImage___localFile___childrenCloudinaryAsset'
   | 'seo___twitterImage___localFile___id'
   | 'seo___twitterImage___localFile___children'
   | 'seo___twitterImage___parent___id'
@@ -14227,67 +13907,60 @@ export type WpSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type CloudinaryAssetConnection = {
+export type AirtableDataFilterInput = {
+  Detail?: Maybe<StringQueryOperatorInput>;
+  Icon_Name?: Maybe<StringQueryOperatorInput>;
+  Title?: Maybe<StringQueryOperatorInput>;
+  Name?: Maybe<StringQueryOperatorInput>;
+  Designation?: Maybe<StringQueryOperatorInput>;
+};
+
+export type AirtableConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<CloudinaryAssetEdge>;
-  nodes: Array<CloudinaryAsset>;
+  edges: Array<AirtableEdge>;
+  nodes: Array<Airtable>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<CloudinaryAssetGroupConnection>;
+  group: Array<AirtableGroupConnection>;
 };
 
 
-export type CloudinaryAssetConnectionDistinctArgs = {
-  field: CloudinaryAssetFieldsEnum;
+export type AirtableConnectionDistinctArgs = {
+  field: AirtableFieldsEnum;
 };
 
 
-export type CloudinaryAssetConnectionMaxArgs = {
-  field: CloudinaryAssetFieldsEnum;
+export type AirtableConnectionMaxArgs = {
+  field: AirtableFieldsEnum;
 };
 
 
-export type CloudinaryAssetConnectionMinArgs = {
-  field: CloudinaryAssetFieldsEnum;
+export type AirtableConnectionMinArgs = {
+  field: AirtableFieldsEnum;
 };
 
 
-export type CloudinaryAssetConnectionSumArgs = {
-  field: CloudinaryAssetFieldsEnum;
+export type AirtableConnectionSumArgs = {
+  field: AirtableFieldsEnum;
 };
 
 
-export type CloudinaryAssetConnectionGroupArgs = {
+export type AirtableConnectionGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
-  field: CloudinaryAssetFieldsEnum;
+  field: AirtableFieldsEnum;
 };
 
-export type CloudinaryAssetEdge = {
-  next?: Maybe<CloudinaryAsset>;
-  node: CloudinaryAsset;
-  previous?: Maybe<CloudinaryAsset>;
+export type AirtableEdge = {
+  next?: Maybe<Airtable>;
+  node: Airtable;
+  previous?: Maybe<Airtable>;
 };
 
-export type CloudinaryAssetFieldsEnum =
-  | 'fixed___aspectRatio'
-  | 'fixed___base64'
-  | 'fixed___height'
-  | 'fixed___src'
-  | 'fixed___srcSet'
-  | 'fixed___tracedSVG'
-  | 'fixed___width'
-  | 'fluid___aspectRatio'
-  | 'fluid___base64'
-  | 'fluid___presentationHeight'
-  | 'fluid___presentationWidth'
-  | 'fluid___sizes'
-  | 'fluid___src'
-  | 'fluid___srcSet'
-  | 'fluid___tracedSVG'
+export type AirtableFieldsEnum =
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -14373,19 +14046,36 @@ export type CloudinaryAssetFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'table'
+  | 'recordId'
+  | 'data___Detail'
+  | 'data___Icon_Name'
+  | 'data___Title'
+  | 'data___Name'
+  | 'data___Designation';
 
-export type CloudinaryAssetGroupConnection = {
+export type AirtableGroupConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<CloudinaryAssetEdge>;
-  nodes: Array<CloudinaryAsset>;
+  edges: Array<AirtableEdge>;
+  nodes: Array<Airtable>;
   pageInfo: PageInfo;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
 };
 
-export type CloudinaryAssetSortInput = {
-  fields?: Maybe<Array<Maybe<CloudinaryAssetFieldsEnum>>>;
+export type AirtableFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  table?: Maybe<StringQueryOperatorInput>;
+  recordId?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<AirtableDataFilterInput>;
+};
+
+export type AirtableSortInput = {
+  fields?: Maybe<Array<Maybe<AirtableFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -14716,11 +14406,10 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___schema___previewRequestConcurrency'
   | 'pluginOptions___excludeFieldNames'
   | 'pluginOptions___verbose'
-  | 'pluginOptions___cloudName'
-  | 'pluginOptions___apiKey'
-  | 'pluginOptions___apiSecret'
-  | 'pluginOptions___resourceType'
-  | 'pluginOptions___prefix'
+  | 'pluginOptions___concurrency'
+  | 'pluginOptions___tables'
+  | 'pluginOptions___tables___baseId'
+  | 'pluginOptions___tables___tableName'
   | 'pluginOptions___configDir'
   | 'pluginOptions___projectRoot'
   | 'pluginOptions___pathCheck'
@@ -14772,12 +14461,23 @@ export type WpurlQuery = { wp?: Maybe<{ generalSettings?: Maybe<Pick<WpGeneralSe
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_2_Query = { menu: { edges: Array<{ node: { menuItems?: Maybe<{ nodes?: Maybe<Array<Maybe<Pick<WpMenuItem, 'id' | 'path' | 'label'>>>> }> } }> }, user?: Maybe<Pick<WpUser, 'firstName' | 'lastName'>> };
+export type Unnamed_2_Query = { services: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Icon_Name' | 'Title' | 'Detail'>> }
+      ) }> }, reviews: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Name' | 'Detail' | 'Designation'>> }
+      ) }> } };
 
 export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_3_Query = { allWpPage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
+export type Unnamed_3_Query = { menu: { edges: Array<{ node: { menuItems?: Maybe<{ nodes?: Maybe<Array<Maybe<Pick<WpMenuItem, 'id' | 'path' | 'label'>>>> }> } }> }, user?: Maybe<Pick<WpUser, 'firstName' | 'lastName'>> };
+
+export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_4_Query = { allWpPage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
         Pick<WpPage, 'slug' | 'content'>
         & { featuredImage?: Maybe<{ node?: Maybe<(
             Pick<WpMediaItem, 'altText'>
