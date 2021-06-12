@@ -1,8 +1,9 @@
 import React from "react"
-import { usePagesQuery } from "src/utils/graphql"
 import styled from "styled-components"
 
-import { SocialIcons, ParseHtml } from "../shared"
+import { usePagesQuery } from "src/utils/graphql"
+import { SocialIcons } from "../shared"
+import TypeWriter from "./TypeWriter"
 
 const Content = styled.div`
   text-align: center;
@@ -16,6 +17,21 @@ const Content = styled.div`
     margin-top: 15px;
     font-size: 1.25rem;
     line-height: 2rem;
+  }
+
+  .experience {
+    min-width: 200px;
+    position: relative;
+    text-decoration: underline;
+    color: ${props => props.theme.colors.whatsapp};
+
+    .blinker {
+      position: absolute;
+      right: -5px;
+      margin: 0 4px;
+      top: -4px;
+      color: ${props => props.theme.colors.whatsapp};
+    }
   }
 
   @media ${props => props.theme.device.laptop} {
@@ -54,14 +70,27 @@ const Content = styled.div`
 `
 
 const CenterContent = () => {
-  const content = usePagesQuery()?.homePage?.edges?.[0]?.node?.content
+  const heading = usePagesQuery()?.homePage?.edges?.[0]?.node?.mainHeading?.text
+
+  const [intro, name, whois, experience, location]: any = heading?.split("-")
+
+  const experienceOptions = experience.split("|")
 
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-10 col-12">
           <Content className="mi-home-content">
-            {ParseHtml(content)}
+            <h1>
+              {`${intro} `}
+              <span className="color-theme">{name}</span>
+            </h1>
+
+            <p>
+              {whois}
+              <TypeWriter options={experienceOptions} />
+              {location}
+            </p>
             <SocialIcons bordered />
           </Content>
         </div>

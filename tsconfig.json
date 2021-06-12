@@ -7,7 +7,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "jsx": "preserve",
-    "lib": ["dom"],
+    "lib": ["es5", "es6", "dom", "dom.iterable"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,

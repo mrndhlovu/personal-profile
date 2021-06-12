@@ -1402,6 +1402,8 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
   link?: Maybe<Scalars['String']>;
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Main Heading&quot; was set to Show in GraphQL. */
+  mainHeading?: Maybe<WpPage_Mainheading>;
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
   menuOrder?: Maybe<Scalars['Int']>;
   /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
@@ -1540,6 +1542,13 @@ export type WpPage_Aboutdetail_Data = WpAcfFieldGroup & {
 export type WpPageToCommentConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<WpComment>>>;
+};
+
+/** Field Group */
+export type WpPage_Mainheading = WpAcfFieldGroup & {
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
 };
 
 /** Connection between the User type and the post type */
@@ -3105,6 +3114,7 @@ export type QueryWpPageArgs = {
   isRevision?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
+  mainHeading?: Maybe<WpPage_MainheadingFilterInput>;
   menuOrder?: Maybe<IntQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
   modifiedGmt?: Maybe<DateQueryOperatorInput>;
@@ -5414,6 +5424,7 @@ export type WpPageFilterInput = {
   isRevision?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
+  mainHeading?: Maybe<WpPage_MainheadingFilterInput>;
   menuOrder?: Maybe<IntQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
   modifiedGmt?: Maybe<DateQueryOperatorInput>;
@@ -5605,6 +5616,11 @@ export type WpSeoPostTypeSchemaFilterInput = {
 
 export type WpContentTemplateFilterInput = {
   templateName?: Maybe<StringQueryOperatorInput>;
+};
+
+export type WpPage_MainheadingFilterInput = {
+  fieldGroupName?: Maybe<StringQueryOperatorInput>;
+  text?: Maybe<StringQueryOperatorInput>;
 };
 
 export type WpUserToPostConnectionFilterInput = {
@@ -6832,6 +6848,8 @@ export type WpUserFieldsEnum =
   | 'pages___nodes___isPrivacyPage'
   | 'pages___nodes___isRevision'
   | 'pages___nodes___link'
+  | 'pages___nodes___mainHeading___fieldGroupName'
+  | 'pages___nodes___mainHeading___text'
   | 'pages___nodes___menuOrder'
   | 'pages___nodes___modified'
   | 'pages___nodes___modifiedGmt'
@@ -8957,6 +8975,8 @@ export type WpPageFieldsEnum =
   | 'lastEditedBy___node___internal___owner'
   | 'lastEditedBy___node___internal___type'
   | 'link'
+  | 'mainHeading___fieldGroupName'
+  | 'mainHeading___text'
   | 'menuOrder'
   | 'modified'
   | 'modifiedGmt'
@@ -14655,7 +14675,10 @@ export type Unnamed_3_Query = { menu: { edges: Array<{ node: { menuItems?: Maybe
 export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_4_Query = { homePage: { edges: Array<{ node: Pick<WpPage, 'slug' | 'content'> }> }, aboutPage: { edges: Array<{ node: (
+export type Unnamed_4_Query = { homePage: { edges: Array<{ node: (
+        Pick<WpPage, 'slug'>
+        & { mainHeading?: Maybe<Pick<WpPage_Mainheading, 'text'>> }
+      ) }> }, aboutPage: { edges: Array<{ node: (
         Pick<WpPage, 'slug' | 'content'>
         & { featuredImage?: Maybe<{ node?: Maybe<(
             Pick<WpMediaItem, 'altText'>

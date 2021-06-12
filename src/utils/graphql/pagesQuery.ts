@@ -33,7 +33,9 @@ const pagesQuery: queryFunction = () =>
         edges {
           node {
             slug
-            content
+            mainHeading {
+              text
+            }
           }
         }
       }
