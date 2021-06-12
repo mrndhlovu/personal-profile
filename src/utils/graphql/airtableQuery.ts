@@ -31,6 +31,96 @@ const airtableQuery: queryFunction = () =>
           }
         }
       }
+
+      projects: allAirtable(filter: { table: { eq: "Projects" } }) {
+        edges {
+          node {
+            data {
+              Name
+              Image {
+                url
+              }
+              Github_Link
+              Live_URL
+              Skills {
+                data {
+                  Name
+                }
+              }
+            }
+            id
+          }
+        }
+      }
+
+      developerSkills: allAirtable(
+        filter: {
+          table: { eq: "Skills" }
+          data: { Field: { eq: "developer" } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            data {
+              Name
+            }
+          }
+        }
+      }
+
+      networkingSkills: allAirtable(
+        filter: {
+          table: { eq: "Skills" }
+          data: { Field: { eq: "networking" } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            data {
+              Name
+            }
+          }
+        }
+      }
+
+      workExperience: allAirtable(
+        filter: {
+          table: { eq: "Resume" }
+          data: { Type: { eq: "experience" } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            data {
+              Title
+              Type
+              Year
+              Location
+              Detail
+            }
+          }
+        }
+      }
+
+      educationQualifications: allAirtable(
+        filter: { table: { eq: "Resume" }, data: { Type: { eq: "education" } } }
+      ) {
+        edges {
+          node {
+            id
+            data {
+              Title
+              Type
+              Year
+              Location
+              Received
+            }
+          }
+        }
+      }
     }
   `)
 

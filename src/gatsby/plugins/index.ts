@@ -65,7 +65,7 @@ export const sourceAirtable = {
   resolve: `gatsby-source-airtable`,
   options: {
     apiKey: process.env.AIRTABLE_API_KEY,
-    concurrency: 5,
+    concurrency: 6,
     tables: [
       {
         baseId: process.env.AIRTABLE_WEBSITE_BASE,
@@ -74,6 +74,22 @@ export const sourceAirtable = {
       {
         baseId: process.env.AIRTABLE_WEBSITE_BASE,
         tableName: `Reviews`,
+      },
+
+      {
+        baseId: process.env.AIRTABLE_WEBSITE_BASE,
+        tableName: `Resume`,
+      },
+
+      {
+        baseId: process.env.AIRTABLE_WEBSITE_BASE,
+        tableName: `Skills`,
+        tableLinks: [`Projects`],
+      },
+      {
+        baseId: process.env.AIRTABLE_WEBSITE_BASE,
+        tableName: `Projects`,
+        tableLinks: [`Skills`],
       },
     ],
   },

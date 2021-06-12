@@ -109,7 +109,7 @@ declare module "styled-components" {
       pagenotfound: FlattenInterpolation<ThemeProps<DefaultTheme>>
       pagination: FlattenInterpolation<ThemeProps<DefaultTheme>>
       porfolio: FlattenInterpolation<ThemeProps<DefaultTheme>>
-      progress: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      skillsChart: FlattenInterpolation<ThemeProps<DefaultTheme>>
       resume: FlattenInterpolation<ThemeProps<DefaultTheme>>
       service: FlattenInterpolation<ThemeProps<DefaultTheme>>
       socialIcons: FlattenInterpolation<ThemeProps<DefaultTheme>>

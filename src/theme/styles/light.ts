@@ -310,12 +310,12 @@ const lightStyles = css`
       }
     }
 
-    .mi-progress {
-      .mi-progress-container {
+    .mi-skills-chart {
+      .mi-skills-chart-container {
         background: ${props => props.theme.colors.lightBorder};
       }
 
-      .mi-progress-active {
+      .mi-skills-chart-active {
         background: ${props => props.theme.colors.primary};
       }
     }

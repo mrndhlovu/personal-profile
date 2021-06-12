@@ -6,7 +6,7 @@ import header from "./header"
 import pagenotfound from "./pagenotfound"
 import pagination from "./pagination"
 import porfolio from "./porfolio"
-import progress from "./progress"
+import skillsChart from "./skillsChart"
 import resume from "./resume"
 import service from "./service"
 import socialIcons from "./socialicons"
@@ -22,7 +22,7 @@ export default {
   pagenotfound,
   pagination,
   porfolio,
-  progress,
+  skillsChart,
   resume,
   service,
   socialIcons,

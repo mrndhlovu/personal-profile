@@ -2387,6 +2387,53 @@ export type AirtableData = {
   Title?: Maybe<Scalars['String']>;
   Name?: Maybe<Scalars['String']>;
   Designation?: Maybe<Scalars['String']>;
+  Location?: Maybe<Scalars['String']>;
+  Type?: Maybe<Scalars['String']>;
+  Year?: Maybe<Scalars['String']>;
+  Description?: Maybe<Scalars['String']>;
+  Technologies?: Maybe<Array<Maybe<Scalars['String']>>>;
+  Role?: Maybe<Array<Maybe<Scalars['String']>>>;
+  Github_Link?: Maybe<Scalars['String']>;
+  Skills?: Maybe<Array<Maybe<Airtable>>>;
+  Live_URL?: Maybe<Scalars['String']>;
+  Image?: Maybe<Array<Maybe<AirtableDataImage>>>;
+  Field?: Maybe<Scalars['String']>;
+  Project?: Maybe<Array<Maybe<Scalars['String']>>>;
+  Name__from_Project_?: Maybe<Array<Maybe<Scalars['String']>>>;
+  Received?: Maybe<Scalars['String']>;
+};
+
+export type AirtableDataImage = {
+  id?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  filename?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+  thumbnails?: Maybe<AirtableDataImageThumbnails>;
+};
+
+export type AirtableDataImageThumbnails = {
+  small?: Maybe<AirtableDataImageThumbnailsSmall>;
+  large?: Maybe<AirtableDataImageThumbnailsLarge>;
+  full?: Maybe<AirtableDataImageThumbnailsFull>;
+};
+
+export type AirtableDataImageThumbnailsSmall = {
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type AirtableDataImageThumbnailsLarge = {
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type AirtableDataImageThumbnailsFull = {
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
 };
 
 export type SiteBuildMetadata = Node & {
@@ -2480,6 +2527,7 @@ export type SitePluginPluginOptionsSchema = {
 export type SitePluginPluginOptionsTables = {
   baseId?: Maybe<Scalars['String']>;
   tableName?: Maybe<Scalars['String']>;
+  tableLinks?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePluginPackageJson = {
@@ -4609,6 +4657,7 @@ export type SitePluginPluginOptionsTablesFilterListInput = {
 export type SitePluginPluginOptionsTablesFilterInput = {
   baseId?: Maybe<StringQueryOperatorInput>;
   tableName?: Maybe<StringQueryOperatorInput>;
+  tableLinks?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPackageJsonFilterInput = {
@@ -4870,6 +4919,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___tables'
   | 'pluginCreator___pluginOptions___tables___baseId'
   | 'pluginCreator___pluginOptions___tables___tableName'
+  | 'pluginCreator___pluginOptions___tables___tableLinks'
   | 'pluginCreator___pluginOptions___configDir'
   | 'pluginCreator___pluginOptions___projectRoot'
   | 'pluginCreator___pluginOptions___pathCheck'
@@ -13913,6 +13963,71 @@ export type AirtableDataFilterInput = {
   Title?: Maybe<StringQueryOperatorInput>;
   Name?: Maybe<StringQueryOperatorInput>;
   Designation?: Maybe<StringQueryOperatorInput>;
+  Location?: Maybe<StringQueryOperatorInput>;
+  Type?: Maybe<StringQueryOperatorInput>;
+  Year?: Maybe<StringQueryOperatorInput>;
+  Description?: Maybe<StringQueryOperatorInput>;
+  Technologies?: Maybe<StringQueryOperatorInput>;
+  Role?: Maybe<StringQueryOperatorInput>;
+  Github_Link?: Maybe<StringQueryOperatorInput>;
+  Skills?: Maybe<AirtableFilterListInput>;
+  Live_URL?: Maybe<StringQueryOperatorInput>;
+  Image?: Maybe<AirtableDataImageFilterListInput>;
+  Field?: Maybe<StringQueryOperatorInput>;
+  Project?: Maybe<StringQueryOperatorInput>;
+  Name__from_Project_?: Maybe<StringQueryOperatorInput>;
+  Received?: Maybe<StringQueryOperatorInput>;
+};
+
+export type AirtableFilterListInput = {
+  elemMatch?: Maybe<AirtableFilterInput>;
+};
+
+export type AirtableFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  table?: Maybe<StringQueryOperatorInput>;
+  recordId?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<AirtableDataFilterInput>;
+};
+
+export type AirtableDataImageFilterListInput = {
+  elemMatch?: Maybe<AirtableDataImageFilterInput>;
+};
+
+export type AirtableDataImageFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  filename?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<IntQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  thumbnails?: Maybe<AirtableDataImageThumbnailsFilterInput>;
+};
+
+export type AirtableDataImageThumbnailsFilterInput = {
+  small?: Maybe<AirtableDataImageThumbnailsSmallFilterInput>;
+  large?: Maybe<AirtableDataImageThumbnailsLargeFilterInput>;
+  full?: Maybe<AirtableDataImageThumbnailsFullFilterInput>;
+};
+
+export type AirtableDataImageThumbnailsSmallFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type AirtableDataImageThumbnailsLargeFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type AirtableDataImageThumbnailsFullFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
 };
 
 export type AirtableConnection = {
@@ -14053,7 +14168,61 @@ export type AirtableFieldsEnum =
   | 'data___Icon_Name'
   | 'data___Title'
   | 'data___Name'
-  | 'data___Designation';
+  | 'data___Designation'
+  | 'data___Location'
+  | 'data___Type'
+  | 'data___Year'
+  | 'data___Description'
+  | 'data___Technologies'
+  | 'data___Role'
+  | 'data___Github_Link'
+  | 'data___Skills'
+  | 'data___Skills___id'
+  | 'data___Skills___parent___id'
+  | 'data___Skills___parent___children'
+  | 'data___Skills___children'
+  | 'data___Skills___children___id'
+  | 'data___Skills___children___children'
+  | 'data___Skills___internal___content'
+  | 'data___Skills___internal___contentDigest'
+  | 'data___Skills___internal___description'
+  | 'data___Skills___internal___fieldOwners'
+  | 'data___Skills___internal___ignoreType'
+  | 'data___Skills___internal___mediaType'
+  | 'data___Skills___internal___owner'
+  | 'data___Skills___internal___type'
+  | 'data___Skills___table'
+  | 'data___Skills___recordId'
+  | 'data___Skills___data___Detail'
+  | 'data___Skills___data___Icon_Name'
+  | 'data___Skills___data___Title'
+  | 'data___Skills___data___Name'
+  | 'data___Skills___data___Designation'
+  | 'data___Skills___data___Location'
+  | 'data___Skills___data___Type'
+  | 'data___Skills___data___Year'
+  | 'data___Skills___data___Description'
+  | 'data___Skills___data___Technologies'
+  | 'data___Skills___data___Role'
+  | 'data___Skills___data___Github_Link'
+  | 'data___Skills___data___Skills'
+  | 'data___Skills___data___Live_URL'
+  | 'data___Skills___data___Image'
+  | 'data___Skills___data___Field'
+  | 'data___Skills___data___Project'
+  | 'data___Skills___data___Name__from_Project_'
+  | 'data___Skills___data___Received'
+  | 'data___Live_URL'
+  | 'data___Image'
+  | 'data___Image___id'
+  | 'data___Image___url'
+  | 'data___Image___filename'
+  | 'data___Image___size'
+  | 'data___Image___type'
+  | 'data___Field'
+  | 'data___Project'
+  | 'data___Name__from_Project_'
+  | 'data___Received';
 
 export type AirtableGroupConnection = {
   totalCount: Scalars['Int'];
@@ -14062,16 +14231,6 @@ export type AirtableGroupConnection = {
   pageInfo: PageInfo;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
-};
-
-export type AirtableFilterInput = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  table?: Maybe<StringQueryOperatorInput>;
-  recordId?: Maybe<StringQueryOperatorInput>;
-  data?: Maybe<AirtableDataFilterInput>;
 };
 
 export type AirtableSortInput = {
@@ -14410,6 +14569,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___tables'
   | 'pluginOptions___tables___baseId'
   | 'pluginOptions___tables___tableName'
+  | 'pluginOptions___tables___tableLinks'
   | 'pluginOptions___configDir'
   | 'pluginOptions___projectRoot'
   | 'pluginOptions___pathCheck'
@@ -14467,6 +14627,24 @@ export type Unnamed_2_Query = { services: { edges: Array<{ node: (
       ) }> }, reviews: { edges: Array<{ node: (
         Pick<Airtable, 'id'>
         & { data?: Maybe<Pick<AirtableData, 'Name' | 'Detail' | 'Designation'>> }
+      ) }> }, projects: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<(
+          Pick<AirtableData, 'Name' | 'Github_Link' | 'Live_URL'>
+          & { Image?: Maybe<Array<Maybe<Pick<AirtableDataImage, 'url'>>>>, Skills?: Maybe<Array<Maybe<{ data?: Maybe<Pick<AirtableData, 'Name'>> }>>> }
+        )> }
+      ) }> }, developerSkills: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Name'>> }
+      ) }> }, networkingSkills: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Name'>> }
+      ) }> }, workExperience: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Title' | 'Type' | 'Year' | 'Location' | 'Detail'>> }
+      ) }> }, educationQualifications: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Title' | 'Type' | 'Year' | 'Location' | 'Received'>> }
       ) }> } };
 
 export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
