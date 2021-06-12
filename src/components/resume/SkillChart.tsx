@@ -3,18 +3,13 @@ import { PieChart } from "react-minimal-pie-chart"
 import { LabelRenderProps } from "react-minimal-pie-chart/types/Label"
 import { Data } from "react-minimal-pie-chart/types/commonTypes"
 
-import SkillsList from "./SkillsList"
 import { useAirtableQuery } from "src/utils/graphql"
+import SkillsList from "./SkillsList"
 
 const SkillChart = () => {
   const developerSkills = useAirtableQuery()?.developerSkills?.edges
   const networkingSkills = useAirtableQuery()?.networkingSkills?.edges
 
-  console.log(
-    "🚀 ~ file: SkillChart.tsx ~ line 13 ~ SkillChart ~ skillsList",
-    networkingSkills,
-    developerSkills
-  )
   const shiftSize = 7
   const skills: Data = [
     { title: "Network Engineer", value: 30, color: "#434343" },
@@ -25,8 +20,9 @@ const SkillChart = () => {
     data: skills,
     label: ({ dataEntry }: LabelRenderProps) => dataEntry.title,
     startAngle: -50,
+    radius: 30,
     labelStyle: {
-      fontSize: "5px",
+      fontSize: "3px",
       fontWeight: 700,
       color: "#fff",
     },
@@ -36,19 +32,22 @@ const SkillChart = () => {
 
   return (
     <div className="mi-skills-content">
-      <SkillsList
-        title="Web Developer"
-        skills={developerSkills}
-        iconName="code"
-      />
       <div className="mi-skills-chart">
-        <PieChart {...options} />
+        <SkillsList
+          title="Web Developer"
+          skills={developerSkills}
+          iconName="code"
+        />
+        <div className="chart">
+          <PieChart {...options} />
+        </div>
+
+        <SkillsList
+          title="Network Engineer"
+          skills={networkingSkills}
+          iconName="network"
+        />
       </div>
-      <SkillsList
-        title="Network Engineer"
-        skills={networkingSkills}
-        iconName="network"
-      />
     </div>
   )
 }
