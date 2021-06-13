@@ -6,6 +6,10 @@ export default css`
     visibility: hidden;
     opacity: 0;
 
+    .mi-skill-badge {
+      /* background-color: ${props => props.theme.colors.amazon}; */
+    }
+
     &-image {
       display: block;
       position: relative;
@@ -77,7 +81,7 @@ export default css`
     }
 
     h5 {
-      color: $color-heading;
+      color: ${props => props.theme.colors.heading};
       margin-top: 15px;
       margin-bottom: 0;
       font-weight: 700;

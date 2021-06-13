@@ -32,13 +32,23 @@ const airtableQuery: queryFunction = () =>
         }
       }
 
-      projects: allAirtable(filter: { table: { eq: "Projects" } }) {
+      projects: allAirtable(
+        filter: { table: { eq: "Projects" } }
+        sort: { fields: data___Item_Number }
+      ) {
         edges {
           node {
             data {
               Name
               Image {
-                url
+                thumbnails {
+                  full {
+                    url
+                  }
+                  large {
+                    url
+                  }
+                }
               }
               Github_Link
               Live_URL

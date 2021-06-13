@@ -2400,12 +2400,13 @@ export type AirtableData = {
   Type?: Maybe<Scalars['String']>;
   Year?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
+  Item_Number?: Maybe<Scalars['Int']>;
   Technologies?: Maybe<Array<Maybe<Scalars['String']>>>;
   Role?: Maybe<Array<Maybe<Scalars['String']>>>;
+  Image?: Maybe<Array<Maybe<AirtableDataImage>>>;
   Github_Link?: Maybe<Scalars['String']>;
   Skills?: Maybe<Array<Maybe<Airtable>>>;
   Live_URL?: Maybe<Scalars['String']>;
-  Image?: Maybe<Array<Maybe<AirtableDataImage>>>;
   Field?: Maybe<Scalars['String']>;
   Project?: Maybe<Array<Maybe<Scalars['String']>>>;
   Name__from_Project_?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -13987,30 +13988,17 @@ export type AirtableDataFilterInput = {
   Type?: Maybe<StringQueryOperatorInput>;
   Year?: Maybe<StringQueryOperatorInput>;
   Description?: Maybe<StringQueryOperatorInput>;
+  Item_Number?: Maybe<IntQueryOperatorInput>;
   Technologies?: Maybe<StringQueryOperatorInput>;
   Role?: Maybe<StringQueryOperatorInput>;
+  Image?: Maybe<AirtableDataImageFilterListInput>;
   Github_Link?: Maybe<StringQueryOperatorInput>;
   Skills?: Maybe<AirtableFilterListInput>;
   Live_URL?: Maybe<StringQueryOperatorInput>;
-  Image?: Maybe<AirtableDataImageFilterListInput>;
   Field?: Maybe<StringQueryOperatorInput>;
   Project?: Maybe<StringQueryOperatorInput>;
   Name__from_Project_?: Maybe<StringQueryOperatorInput>;
   Received?: Maybe<StringQueryOperatorInput>;
-};
-
-export type AirtableFilterListInput = {
-  elemMatch?: Maybe<AirtableFilterInput>;
-};
-
-export type AirtableFilterInput = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  table?: Maybe<StringQueryOperatorInput>;
-  recordId?: Maybe<StringQueryOperatorInput>;
-  data?: Maybe<AirtableDataFilterInput>;
 };
 
 export type AirtableDataImageFilterListInput = {
@@ -14048,6 +14036,20 @@ export type AirtableDataImageThumbnailsFullFilterInput = {
   url?: Maybe<StringQueryOperatorInput>;
   width?: Maybe<IntQueryOperatorInput>;
   height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type AirtableFilterListInput = {
+  elemMatch?: Maybe<AirtableFilterInput>;
+};
+
+export type AirtableFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  table?: Maybe<StringQueryOperatorInput>;
+  recordId?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<AirtableDataFilterInput>;
 };
 
 export type AirtableConnection = {
@@ -14193,8 +14195,15 @@ export type AirtableFieldsEnum =
   | 'data___Type'
   | 'data___Year'
   | 'data___Description'
+  | 'data___Item_Number'
   | 'data___Technologies'
   | 'data___Role'
+  | 'data___Image'
+  | 'data___Image___id'
+  | 'data___Image___url'
+  | 'data___Image___filename'
+  | 'data___Image___size'
+  | 'data___Image___type'
   | 'data___Github_Link'
   | 'data___Skills'
   | 'data___Skills___id'
@@ -14222,23 +14231,18 @@ export type AirtableFieldsEnum =
   | 'data___Skills___data___Type'
   | 'data___Skills___data___Year'
   | 'data___Skills___data___Description'
+  | 'data___Skills___data___Item_Number'
   | 'data___Skills___data___Technologies'
   | 'data___Skills___data___Role'
+  | 'data___Skills___data___Image'
   | 'data___Skills___data___Github_Link'
   | 'data___Skills___data___Skills'
   | 'data___Skills___data___Live_URL'
-  | 'data___Skills___data___Image'
   | 'data___Skills___data___Field'
   | 'data___Skills___data___Project'
   | 'data___Skills___data___Name__from_Project_'
   | 'data___Skills___data___Received'
   | 'data___Live_URL'
-  | 'data___Image'
-  | 'data___Image___id'
-  | 'data___Image___url'
-  | 'data___Image___filename'
-  | 'data___Image___size'
-  | 'data___Image___type'
   | 'data___Field'
   | 'data___Project'
   | 'data___Name__from_Project_'
@@ -14651,7 +14655,7 @@ export type Unnamed_2_Query = { services: { edges: Array<{ node: (
         Pick<Airtable, 'id'>
         & { data?: Maybe<(
           Pick<AirtableData, 'Name' | 'Github_Link' | 'Live_URL'>
-          & { Image?: Maybe<Array<Maybe<Pick<AirtableDataImage, 'url'>>>>, Skills?: Maybe<Array<Maybe<{ data?: Maybe<Pick<AirtableData, 'Name'>> }>>> }
+          & { Image?: Maybe<Array<Maybe<{ thumbnails?: Maybe<{ full?: Maybe<Pick<AirtableDataImageThumbnailsFull, 'url'>>, large?: Maybe<Pick<AirtableDataImageThumbnailsLarge, 'url'>> }> }>>>, Skills?: Maybe<Array<Maybe<{ data?: Maybe<Pick<AirtableData, 'Name'>> }>>> }
         )> }
       ) }> }, developerSkills: { edges: Array<{ node: (
         Pick<Airtable, 'id'>
