@@ -1,6 +1,7 @@
 import { createContext } from "react"
 import { useContext } from "react"
 
+import { BlogContextTypes } from "../providers/BlogProvider"
 import { DefaultGlobalContextTypes } from "../providers/GlobalContextProvider"
 
 const GlobalContext = createContext<DefaultGlobalContextTypes>({
@@ -8,6 +9,18 @@ const GlobalContext = createContext<DefaultGlobalContextTypes>({
   handleModeChange: () => {},
 })
 
-const useGlobalContext = () => useContext(GlobalContext)
+const BlogContext = createContext<BlogContextTypes>({
+  handleSearch: () => {},
+  searchTerm: "",
+  paginationProps: {},
+  hasPosts: false,
+  paginatedPosts: {},
+  handleSearchInput: () => {},
+  resetSearch: () => {},
+  posts: [],
+})
 
-export { useGlobalContext, GlobalContext }
+const useGlobalContext = () => useContext(GlobalContext)
+const useBlogContext = () => useContext(BlogContext)
+
+export { useGlobalContext, GlobalContext, useBlogContext, BlogContext }

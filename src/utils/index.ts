@@ -44,3 +44,8 @@ export const isInternal = (url: string) => {
   if (url.startsWith("http")) return false
   return true
 }
+
+export const routes = {
+  blog: "/blog",
+  blogDetail: "/blog-detail",
+}
