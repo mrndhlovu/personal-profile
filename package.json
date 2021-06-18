@@ -20,6 +20,7 @@
     "cloudinary-react": "^1.7.0",
     "cross-env": "^7.0.3",
     "date-fns": "^2.22.1",
+    "disqus-react": "^1.1.0",
     "formik": "^2.2.8",
     "framer-motion": "^4.1.17",
     "gatsby": "^3.6.2",

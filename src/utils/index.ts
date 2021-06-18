@@ -47,5 +47,5 @@ export const isInternal = (url: string) => {
 
 export const routes = {
   blog: "/blog",
-  blogDetail: "/blog-detail",
+  blogDetail: "/blog",
 }

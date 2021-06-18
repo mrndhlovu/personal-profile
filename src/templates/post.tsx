@@ -1,13 +1,18 @@
 import React from "react"
 
 import { Seo } from "src/components/shared"
-// import { BlogProvider } from "src/helpers/providers"
+import BlogPost from "src/components/blog/BlogPost"
+import { Maybe, SitePageContextGroup } from "gatsby/gatsby-graphql"
 
-const Post = ({ pageContext }: any) => {
+type SitePageContextNode = {
+  pageContext?: Maybe<SitePageContextGroup>
+}
+
+const Post = ({ pageContext }: SitePageContextNode) => {
   return (
     <>
-      <Seo title={`Blog | ${pageContext?.node.title}`} />
-      {/* <BlogPost post={pageContext.node} /> */}
+      <Seo title={`Blog | ${pageContext?.node?.title}`} />
+      <BlogPost content={pageContext?.node?.content} />
     </>
   )
 }

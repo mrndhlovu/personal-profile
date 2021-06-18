@@ -36,7 +36,7 @@ const BlogCard = ({ id, featuredImage, title, date }: Props): ReactElement => {
       </div>
       <div className="mi-blog-content">
         <h5>
-          <Link to={`${routes.blogDetail}/${id}}`}>{title}</Link>
+          <Link to={`${routes.blogDetail}/${id}`}>{title}</Link>
         </h5>
       </div>
     </div>
