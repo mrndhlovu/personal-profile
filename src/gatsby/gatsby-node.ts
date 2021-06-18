@@ -1,7 +1,7 @@
 import path from "path"
 import slash from "slash"
 import createPaginatedPages from "gatsby-paginate"
-import { CreatePagesArgs, GatsbyNode } from "gatsby"
+import { GatsbyNode } from "gatsby"
 import { WpTermNodeGroupConnection } from "gatsby/gatsby-graphql"
 
 import queries from "./plugins/queries"
@@ -23,7 +23,7 @@ export const onCreatePage: GatsbyNode["onCreatePage"] = async ({ actions }) => {
 export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
   actions,
-}: CreatePagesArgs) => {
+}) => {
   const { createPage } = actions
 
   const blogTemplate = path.resolve("./src/templates/blog.tsx")

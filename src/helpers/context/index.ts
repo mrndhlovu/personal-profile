@@ -14,7 +14,6 @@ const BlogContext = createContext<BlogContextTypes>({
   searchTerm: "",
   paginationProps: {},
   hasPosts: false,
-  paginatedPosts: {},
   handleSearchInput: () => {},
   resetSearch: () => {},
   posts: [],

@@ -1,34 +1,36 @@
-import React, { ReactNode, useCallback, useState } from "react"
+import React, { ReactElement, ReactNode, useCallback, useState } from "react"
 import { isEmpty } from "lodash"
+import { Maybe, WpPost, SitePageContextGroup } from "gatsby/gatsby-graphql"
 
 import { BlogContext } from "../context"
+
+type PaginatedPosts = Array<{
+  node?: WpPost | undefined
+}>
 
 export type BlogContextTypes = {
   handleSearch: (data: object) => void
   searchTerm: string
   paginationProps: object
   hasPosts: boolean
-  paginatedPosts: object
+  posts?: PaginatedPosts
   handleSearchInput: (term: string) => void
   resetSearch: () => void
-  posts?: []
 }
 
 interface Props {
   children: ReactNode
-  paginatedPosts: object
-  paginationProps: object
-  posts?: []
+  paginatedPosts: Maybe<Maybe<SitePageContextGroup>[]> | undefined
+  paginationProps: BlogContextTypes["paginationProps"]
 }
 
 const BlogProvider = ({
   children,
   paginatedPosts,
   paginationProps,
-  posts,
-}: Props) => {
-  const postsInitialState = paginatedPosts || posts?.edges
-  const [postList, setPostList] = useState(postsInitialState)
+}: Props): ReactElement => {
+  const postsData = paginatedPosts as PaginatedPosts
+  const [postList, setPostList] = useState(postsData)
   const [searchTerm, setSearchTerm] = useState("")
 
   const hasPosts = !isEmpty(postList)
@@ -40,21 +42,23 @@ const BlogProvider = ({
 
   const handleSearch = useCallback(
     data => {
-      const filteredPosts = postList?.filter(post => {
+      const filteredPosts = postList?.filter((post: any) => {
         return Object.values(post.node)
           .join(" ")
           .toLowerCase()
           .includes(data.search.toLowerCase())
       })
 
-      return setPostList(filteredPosts)
+      setPostList(filteredPosts)
+
+      return
     },
     [postList]
   )
 
   const resetSearch = useCallback(() => {
-    setPostList(postsInitialState)
-  }, [postsInitialState])
+    setPostList(postsData)
+  }, [postsData])
 
   return (
     <BlogContext.Provider
@@ -64,7 +68,6 @@ const BlogProvider = ({
         searchTerm,
         paginationProps,
         hasPosts,
-        paginatedPosts,
         handleSearchInput,
         resetSearch,
       }}

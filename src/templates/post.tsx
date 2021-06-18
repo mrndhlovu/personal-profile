@@ -3,7 +3,7 @@ import React from "react"
 import { Seo } from "src/components/shared"
 // import { BlogProvider } from "src/helpers/providers"
 
-const Post = ({ pageContext }) => {
+const Post = ({ pageContext }: any) => {
   return (
     <>
       <Seo title={`Blog | ${pageContext?.node.title}`} />

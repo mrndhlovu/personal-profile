@@ -12,7 +12,7 @@ const createPage: <any>(
 
 declare module "gatsby-paginate" {
   type CreatePaginationTypes = {
-    edges: Array<SitePluginEdge>
+    edges: Array<WpTermNodeEdge>
     createPage: createPage
     pageTemplate: string
     pageLength: number

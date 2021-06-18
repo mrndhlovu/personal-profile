@@ -1,15 +1,17 @@
 import React from "react"
+import { SitePageContext } from "gatsby/gatsby-graphql"
 
 import { BlogProvider } from "src/helpers/providers"
 import BlogPage from "src/components/blog/BlogPage"
 
-const Blog = ({ pageContext }) => {
+export interface PaginationProps {
+  pageContext: SitePageContext
+}
+
+const Blog = ({ pageContext }: PaginationProps) => {
   return (
     <BlogProvider
-      paginatedPosts={pageContext?.group?.filter(
-        key => key.node.slug !== "placeholder"
-      )}
-      posts={[]}
+      paginatedPosts={pageContext?.group}
       paginationProps={{
         isFirst: pageContext?.first,
         isLast: pageContext?.last,
