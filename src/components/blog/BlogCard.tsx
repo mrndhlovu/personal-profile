@@ -29,10 +29,8 @@ const BlogCard = ({ id, featuredImage, title, date }: Props): ReactElement => {
           </ProgressiveImage>
         </Link>
         <div className="mi-blog-date">
-          {day?.split(" ")?.map((dateString: string) => (
-            <span className="date">{dateString}</span>
-          ))}
-          <br />
+          <span className="date">{day}</span>
+
           <span className="month">{month}</span>
         </div>
       </div>
