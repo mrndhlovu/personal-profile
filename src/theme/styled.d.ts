@@ -116,6 +116,7 @@ declare module "styled-components" {
       socialIcons: FlattenInterpolation<ThemeProps<DefaultTheme>>
       title: FlattenInterpolation<ThemeProps<DefaultTheme>>
       testimonals: FlattenInterpolation<ThemeProps<DefaultTheme>>
+      contact: FlattenInterpolation<ThemeProps<DefaultTheme>>
     }
     variables: {
       body: string

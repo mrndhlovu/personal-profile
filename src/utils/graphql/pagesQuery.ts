@@ -40,6 +40,20 @@ const pagesQuery: queryFunction = () =>
         }
       }
 
+      contactPage: allWpPage(filter: { slug: { eq: "contact" } }) {
+        edges {
+          node {
+            slug
+            contactDetails {
+              github
+              location
+              linkedin
+              email
+            }
+          }
+        }
+      }
+
       aboutPage: allWpPage(filter: { slug: { eq: "about" } }) {
         edges {
           node {

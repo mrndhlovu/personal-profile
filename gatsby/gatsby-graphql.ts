@@ -336,9 +336,20 @@ export type SitePageContextGroupNode = {
   excerpt?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
+  featuredImage?: Maybe<SitePageContextGroupNodeFeaturedImage>;
   author?: Maybe<SitePageContextGroupNodeAuthor>;
   date?: Maybe<Scalars['String']>;
   categories?: Maybe<SitePageContextGroupNodeCategories>;
+  tags?: Maybe<SitePageContextGroupNodeTags>;
+};
+
+export type SitePageContextGroupNodeFeaturedImage = {
+  node?: Maybe<SitePageContextGroupNodeFeaturedImageNode>;
+};
+
+export type SitePageContextGroupNodeFeaturedImageNode = {
+  sourceUrl?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextGroupNodeAuthor = {
@@ -359,6 +370,16 @@ export type SitePageContextGroupNodeCategoriesNodes = {
   slug?: Maybe<Scalars['String']>;
 };
 
+export type SitePageContextGroupNodeTags = {
+  nodes?: Maybe<Array<Maybe<SitePageContextGroupNodeTagsNodes>>>;
+};
+
+export type SitePageContextGroupNodeTagsNodes = {
+  name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
 export type SitePageContextNode = {
   id?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -366,9 +387,20 @@ export type SitePageContextNode = {
   excerpt?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
+  featuredImage?: Maybe<SitePageContextNodeFeaturedImage>;
   author?: Maybe<SitePageContextNodeAuthor>;
   date?: Maybe<Scalars['String']>;
   categories?: Maybe<SitePageContextNodeCategories>;
+  tags?: Maybe<SitePageContextNodeTags>;
+};
+
+export type SitePageContextNodeFeaturedImage = {
+  node?: Maybe<SitePageContextNodeFeaturedImageNode>;
+};
+
+export type SitePageContextNodeFeaturedImageNode = {
+  sourceUrl?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextNodeAuthor = {
@@ -384,6 +416,16 @@ export type SitePageContextNodeCategories = {
 };
 
 export type SitePageContextNodeCategoriesNodes = {
+  name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextNodeTags = {
+  nodes?: Maybe<Array<Maybe<SitePageContextNodeTagsNodes>>>;
+};
+
+export type SitePageContextNodeTagsNodes = {
   name?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
@@ -1442,6 +1484,8 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the page type and the Comment type */
   comments?: Maybe<WpPageToCommentConnection>;
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Contact Details&quot; was set to Show in GraphQL. */
+  contactDetails?: Maybe<WpPage_Contactdetails>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -1617,6 +1661,16 @@ export type WpPage_Aboutdetail_Data = WpAcfFieldGroup & {
 export type WpPageToCommentConnection = {
   /** The nodes of the connection, without the edges */
   nodes?: Maybe<Array<Maybe<WpComment>>>;
+};
+
+/** Field Group */
+export type WpPage_Contactdetails = WpAcfFieldGroup & {
+  email?: Maybe<Scalars['String']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  github?: Maybe<Scalars['String']>;
+  linkedin?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
 };
 
 /** Field Group */
@@ -3173,6 +3227,7 @@ export type QueryWpPageArgs = {
   commentCount?: Maybe<IntQueryOperatorInput>;
   commentStatus?: Maybe<StringQueryOperatorInput>;
   comments?: Maybe<WpPageToCommentConnectionFilterInput>;
+  contactDetails?: Maybe<WpPage_ContactdetailsFilterInput>;
   content?: Maybe<StringQueryOperatorInput>;
   contentType?: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
   databaseId?: Maybe<IntQueryOperatorInput>;
@@ -4690,9 +4745,20 @@ export type SitePageContextGroupNodeFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   content?: Maybe<StringQueryOperatorInput>;
+  featuredImage?: Maybe<SitePageContextGroupNodeFeaturedImageFilterInput>;
   author?: Maybe<SitePageContextGroupNodeAuthorFilterInput>;
   date?: Maybe<StringQueryOperatorInput>;
   categories?: Maybe<SitePageContextGroupNodeCategoriesFilterInput>;
+  tags?: Maybe<SitePageContextGroupNodeTagsFilterInput>;
+};
+
+export type SitePageContextGroupNodeFeaturedImageFilterInput = {
+  node?: Maybe<SitePageContextGroupNodeFeaturedImageNodeFilterInput>;
+};
+
+export type SitePageContextGroupNodeFeaturedImageNodeFilterInput = {
+  sourceUrl?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextGroupNodeAuthorFilterInput = {
@@ -4717,6 +4783,20 @@ export type SitePageContextGroupNodeCategoriesNodesFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SitePageContextGroupNodeTagsFilterInput = {
+  nodes?: Maybe<SitePageContextGroupNodeTagsNodesFilterListInput>;
+};
+
+export type SitePageContextGroupNodeTagsNodesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextGroupNodeTagsNodesFilterInput>;
+};
+
+export type SitePageContextGroupNodeTagsNodesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageContextNodeFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   status?: Maybe<StringQueryOperatorInput>;
@@ -4724,9 +4804,20 @@ export type SitePageContextNodeFilterInput = {
   excerpt?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   content?: Maybe<StringQueryOperatorInput>;
+  featuredImage?: Maybe<SitePageContextNodeFeaturedImageFilterInput>;
   author?: Maybe<SitePageContextNodeAuthorFilterInput>;
   date?: Maybe<StringQueryOperatorInput>;
   categories?: Maybe<SitePageContextNodeCategoriesFilterInput>;
+  tags?: Maybe<SitePageContextNodeTagsFilterInput>;
+};
+
+export type SitePageContextNodeFeaturedImageFilterInput = {
+  node?: Maybe<SitePageContextNodeFeaturedImageNodeFilterInput>;
+};
+
+export type SitePageContextNodeFeaturedImageNodeFilterInput = {
+  sourceUrl?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextNodeAuthorFilterInput = {
@@ -4746,6 +4837,20 @@ export type SitePageContextNodeCategoriesNodesFilterListInput = {
 };
 
 export type SitePageContextNodeCategoriesNodesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextNodeTagsFilterInput = {
+  nodes?: Maybe<SitePageContextNodeTagsNodesFilterListInput>;
+};
+
+export type SitePageContextNodeTagsNodesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextNodeTagsNodesFilterInput>;
+};
+
+export type SitePageContextNodeTagsNodesFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
@@ -5032,6 +5137,7 @@ export type SitePageFieldsEnum =
   | 'context___node___content'
   | 'context___node___date'
   | 'context___node___categories___nodes'
+  | 'context___node___tags___nodes'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -5591,6 +5697,7 @@ export type WpPageFilterInput = {
   commentCount?: Maybe<IntQueryOperatorInput>;
   commentStatus?: Maybe<StringQueryOperatorInput>;
   comments?: Maybe<WpPageToCommentConnectionFilterInput>;
+  contactDetails?: Maybe<WpPage_ContactdetailsFilterInput>;
   content?: Maybe<StringQueryOperatorInput>;
   contentType?: Maybe<WpContentNodeToContentTypeConnectionEdgeFilterInput>;
   databaseId?: Maybe<IntQueryOperatorInput>;
@@ -5656,6 +5763,14 @@ export type WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput 
 
 export type WpPageToCommentConnectionFilterInput = {
   nodes?: Maybe<WpCommentFilterListInput>;
+};
+
+export type WpPage_ContactdetailsFilterInput = {
+  email?: Maybe<StringQueryOperatorInput>;
+  fieldGroupName?: Maybe<StringQueryOperatorInput>;
+  github?: Maybe<StringQueryOperatorInput>;
+  linkedin?: Maybe<StringQueryOperatorInput>;
+  location?: Maybe<StringQueryOperatorInput>;
 };
 
 export type WpNodeWithFeaturedImageToMediaItemConnectionEdgeFilterInput = {
@@ -7018,6 +7133,11 @@ export type WpUserFieldsEnum =
   | 'pages___nodes___commentCount'
   | 'pages___nodes___commentStatus'
   | 'pages___nodes___comments___nodes'
+  | 'pages___nodes___contactDetails___email'
+  | 'pages___nodes___contactDetails___fieldGroupName'
+  | 'pages___nodes___contactDetails___github'
+  | 'pages___nodes___contactDetails___linkedin'
+  | 'pages___nodes___contactDetails___location'
   | 'pages___nodes___content'
   | 'pages___nodes___databaseId'
   | 'pages___nodes___date'
@@ -8876,6 +8996,11 @@ export type WpPageFieldsEnum =
   | 'comments___nodes___internal___mediaType'
   | 'comments___nodes___internal___owner'
   | 'comments___nodes___internal___type'
+  | 'contactDetails___email'
+  | 'contactDetails___fieldGroupName'
+  | 'contactDetails___github'
+  | 'contactDetails___linkedin'
+  | 'contactDetails___location'
   | 'content'
   | 'contentType___node___archivePath'
   | 'contentType___node___canExport'
@@ -14866,6 +14991,9 @@ export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
 export type Unnamed_4_Query = { homePage: { edges: Array<{ node: (
         Pick<WpPage, 'slug'>
         & { mainHeading?: Maybe<Pick<WpPage_Mainheading, 'text'>> }
+      ) }> }, contactPage: { edges: Array<{ node: (
+        Pick<WpPage, 'slug'>
+        & { contactDetails?: Maybe<Pick<WpPage_Contactdetails, 'github' | 'location' | 'linkedin' | 'email'>> }
       ) }> }, aboutPage: { edges: Array<{ node: (
         Pick<WpPage, 'slug' | 'content'>
         & { featuredImage?: Maybe<{ node?: Maybe<(

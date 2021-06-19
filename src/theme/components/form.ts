@@ -27,6 +27,9 @@ export default css`
     &-field-error-text {
       font-size: 14px;
       color: ${props => props.theme.colors.reddit};
+      position: absolute;
+      left: 0;
+      bottom: -23px;
     }
   }
 `
