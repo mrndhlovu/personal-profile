@@ -48,30 +48,42 @@ interface Props {
 }
 
 const AlertBox = styled.div<Props>`
-  width: 100%;
-  margin: 20px auto;
-  padding: 15px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  min-width: 40vw;
   position: relative;
-  border-radius: 5px;
-  box-shadow: 0 0 15px 5px #ccc;
 
   background-color: ${props => {
     switch (props.variant) {
       case "danger":
-        return props.theme.colors?.foursquare
+        return props.theme.colors?.google
 
       case "success":
         return props.theme.colors?.delicious
       default:
-        return props.theme.colors?.bgDark
+        return props.theme.colors?.bitbucket
     }
   }};
+
+  span {
+    color: #fff;
+  }
 
   svg {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+    color: #fff;
+  }
+
+  @media ${props => props.theme.device.tablet} {
+    min-width: 80vw;
+  }
+
+  @media ${props => props.theme.device.mobileLg} {
+    min-width: 90vw;
   }
 `
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { FormikConfig } from "formik"
 
 import { FORM_VALIDATION } from "src/constants"
@@ -29,10 +29,12 @@ const ContactPage = () => {
 
   const [emailSent, setEmailSent] = useState<boolean>(false)
   const [submitting, setSubmitting] = useState<boolean>(false)
+  const [buttonText, setButtonText] = useState<string>("Send Mail")
   const formRef = useRef<any>()
 
   const submitHandler: FormRef["onSubmit"] = async data => {
     setSubmitting(prev => !prev)
+    setButtonText("Submitting...")
 
     await sendEmail({ ...data, type: "contact" })
       .then(res => {
@@ -40,13 +42,21 @@ const ContactPage = () => {
         setSubmitting(prev => !prev)
         formRef?.current?.handleReset()
         notify(res?.data?.message, undefined, "top-center")
+        setButtonText("Submitted")
       })
       .catch(err => {
         setSubmitting(prev => !prev)
+        setButtonText("Send Mail")
 
-        notify(err, "danger", "top-center")
+        notify(err, "danger")
       })
   }
+
+  useEffect(() => {
+    return () => {
+      setButtonText("Send Mail")
+    }
+  }, [])
 
   return (
     <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
@@ -92,9 +102,9 @@ const ContactPage = () => {
                 <div className="mi-form-field">
                   <UIForm.Button
                     formId="contact-form"
-                    buttonText="Send Mail"
+                    buttonText={buttonText}
                     type="submit"
-                    disabled={submitting}
+                    disabled={submitting || emailSent}
                   />
                 </div>
               </UIForm>

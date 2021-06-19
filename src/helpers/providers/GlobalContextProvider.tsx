@@ -71,7 +71,7 @@ const GlobalContextProvider = ({ children }: childrenInterface) => {
   }, [])
 
   const notify = useCallback(
-    (text, severity, placement = PLACEMENT_ENUMS.topLeft) =>
+    (text, severity, placement = "top-center") =>
       handleAlert(
         {
           severity,
