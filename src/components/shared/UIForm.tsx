@@ -19,6 +19,7 @@ type ButtonProps = {
   onClick?: () => void
   type?: "button" | "reset" | "submit" | undefined
   formId: string
+  disabled: boolean
 }
 
 const UIForm = forwardRef(
@@ -60,8 +61,15 @@ const UIFormButton = ({
   formId,
   onClick,
   type = "button",
+  disabled = false,
 }: ButtonProps) => (
-  <button form={formId} onClick={onClick} className="mi-button" type={type}>
+  <button
+    disabled={disabled}
+    form={formId}
+    onClick={onClick}
+    className="mi-button"
+    type={type}
+  >
     {buttonText}
   </button>
 )

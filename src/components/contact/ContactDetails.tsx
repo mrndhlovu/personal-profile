@@ -11,11 +11,16 @@ const ContactDetails = () => {
   return (
     <div className="col-lg-6">
       <div className="mi-contact-info">
-        {Object.values(contactDetails)?.map(stringValue => {
+        {Object.values(contactDetails)?.map((stringValue, index) => {
           const [label, detail, icon] = stringValue?.split(",")
 
           return (
-            <ContactCard label={label} icon={icon.trim()} detail={detail} />
+            <ContactCard
+              key={index}
+              label={label}
+              icon={icon.trim()}
+              detail={detail}
+            />
           )
         })}
       </div>

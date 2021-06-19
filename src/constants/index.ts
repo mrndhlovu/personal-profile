@@ -17,3 +17,18 @@ export const FORM_VALIDATION = {
     message: TEXT_VALIDATION,
   }),
 }
+
+export enum ALERT_SEVERITY {
+  SUCCESS = "success",
+  INFO = "primary",
+  ERROR = "danger",
+}
+
+export enum PLACEMENT_ENUMS {
+  topRight = "top-right",
+  topLeft = "top-left",
+  bottomLeft = "bottom-left",
+  bottomRight = "bottom-right",
+  topCenter = "top-center",
+  bottomCenter = "bottom-center",
+}

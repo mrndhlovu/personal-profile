@@ -91,14 +91,17 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "dev:gatsby": "gatsby develop",
-    "dev:type-check": "",
-    "develop": "npm-run-all --parallel dev:gatsby dev:type-check",
+    "develop": "gatsby develop",
     "start": "netlify dev",
     "test": "cypress open",
     "cy:open": "cypress run",
     "open:test": "start-server-and-test start 8888 cy:open",
-    "build": "yarn build:app",
-    "build:app": "gatsby build"
+    "build": "yarn build:app && yarn build:lambda",
+    "build:app": "cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
+    "build:lambda": "netlify-lambda build functions",
+    "postinstall": "cd functions && yarn && cd .."
   }
 }
+
+
+

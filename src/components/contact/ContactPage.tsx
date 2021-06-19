@@ -1,12 +1,14 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { FormikConfig } from "formik"
 
 import { FORM_VALIDATION } from "src/constants"
 import { SectionTitle } from "../shared"
+import { sendEmail } from "src/api/requests"
 import { UIForm } from "../shared"
+import { useGlobalContext } from "src/helpers/context"
 import ContactDetails from "./ContactDetails"
 
-type InputValues = {
+export type ContactValues = {
   name: string
   email: string
   subject: string
@@ -20,14 +22,30 @@ const initialState = {
   message: "",
 }
 
-export type FormRef = FormikConfig<InputValues>
+export type FormRef = FormikConfig<ContactValues>
 
 const ContactPage = () => {
-  const submitHandler: FormRef["onSubmit"] = data => {
-    console.log(
-      "🚀 ~ file: ContactPage.tsx ~ line 18 ~ submitHandler ~ data",
-      data
-    )
+  const { notify } = useGlobalContext()
+
+  const [emailSent, setEmailSent] = useState<boolean>(false)
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const formRef = useRef<any>()
+
+  const submitHandler: FormRef["onSubmit"] = async data => {
+    setSubmitting(prev => !prev)
+
+    await sendEmail({ ...data, type: "contact" })
+      .then(res => {
+        setEmailSent(prev => !prev)
+        setSubmitting(prev => !prev)
+        formRef?.current?.handleReset()
+        notify(res?.data?.message, undefined, "top-center")
+      })
+      .catch(err => {
+        setSubmitting(prev => !prev)
+
+        notify(err, "danger", "top-center")
+      })
   }
 
   return (
@@ -37,12 +55,15 @@ const ContactPage = () => {
         <div className="row">
           <div className="col-lg-6">
             <div className="mi-contact-formwrapper">
-              <h4>Get In Touch</h4>
+              <h4>
+                {emailSent ? "Thank you for reaching out." : "Get In Touch"}
+              </h4>
               <UIForm
                 submitHandler={submitHandler}
                 initialState={initialState}
                 validationSchema={FORM_VALIDATION.CONTACT}
                 id="contact-form"
+                ref={formRef}
               >
                 <UIForm.Input
                   required
@@ -73,6 +94,7 @@ const ContactPage = () => {
                     formId="contact-form"
                     buttonText="Send Mail"
                     type="submit"
+                    disabled={submitting}
                   />
                 </div>
               </UIForm>
