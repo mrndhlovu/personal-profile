@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { FormikConfig, FormikProps, FormikValues } from "formik"
+import { FormikConfig } from "formik"
 
 import { FORM_VALIDATION } from "src/constants"
 import { SectionTitle } from "../shared"
@@ -46,10 +46,29 @@ const ContactPage = () => {
                 validationSchema={FORM_VALIDATION.CONTACT}
                 id="contact-form"
               >
-                <UIForm.Input label="Enter your name" name="name" />
-                <UIForm.Input name="email" label="Enter your email" />
-                <UIForm.Input label="Enter your subject" name="subject" />
-                <UIForm.TextArea label="Enter your Message" name="message" />
+                <UIForm.Input
+                  required
+                  type="text"
+                  label="Enter your name"
+                  name="name"
+                />
+                <UIForm.Input
+                  required
+                  type="text"
+                  name="email"
+                  label="Enter your email"
+                />
+                <UIForm.Input
+                  type="text"
+                  label="Enter your subject"
+                  name="subject"
+                  required
+                />
+                <UIForm.TextArea
+                  required
+                  label="Enter your Message"
+                  name="message"
+                />
 
                 <div className="mi-form-field">
                   <UIForm.Button

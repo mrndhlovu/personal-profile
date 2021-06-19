@@ -1,6 +1,8 @@
 import React, { forwardRef, ReactNode } from "react"
+import { Formik, Form, FormikConfig } from "formik"
 
-import { Formik, Form, FormikValues, FormikConfig } from "formik"
+import FormInput from "./FormInput"
+import FormTextArea from "./FormTextArea"
 
 interface FormProps {
   initialState?: FormikConfig<any>["initialValues"]
@@ -10,34 +12,6 @@ interface FormProps {
   submitHandler: FormikConfig<any>["onSubmit"]
   validate?: () => void
   children?: ReactNode
-}
-
-type InputProps = {
-  label?: string
-  type?:
-    | "button"
-    | "checkbox"
-    | "color"
-    | "date"
-    | "datetime-local"
-    | "email"
-    | "file"
-    | "hidden"
-    | "image"
-    | "month"
-    | "number"
-    | "password"
-    | "radio"
-    | "range"
-    | "reset"
-    | "search"
-    | "submit"
-    | "tel"
-    | "text"
-    | "time"
-    | "url"
-    | "week"
-  name?: string
 }
 
 type ButtonProps = {
@@ -83,31 +57,17 @@ const UIForm = forwardRef(
 
 const UIFormButton = ({
   buttonText,
-  type = "button",
-  onClick,
   formId,
+  onClick,
+  type = "button",
 }: ButtonProps) => (
   <button form={formId} onClick={onClick} className="mi-button" type={type}>
     {buttonText}
   </button>
 )
 
-const UIFormInput = ({ label, type = "text", name }: InputProps) => (
-  <div className="mi-form-field">
-    <label htmlFor={`contact-form-${name}`}>{label}*</label>
-    <input type={type} name={name} id={`contact-form-${name}`} />
-  </div>
-)
-
-const UIFormTextArea = ({ label, name }: InputProps) => (
-  <div className="mi-form-field">
-    <label htmlFor={`contact-form-${name}`}>{label}*</label>
-    <textarea name={name} id={`contact-form-${name}`} cols={30} rows={6} />
-  </div>
-)
-
 export default Object.assign(UIForm, {
   Button: UIFormButton,
-  Input: UIFormInput,
-  TextArea: UIFormTextArea,
+  Input: FormInput,
+  TextArea: FormTextArea,
 })

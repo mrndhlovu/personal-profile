@@ -23,5 +23,10 @@ export default css`
         font-size: 1rem;
       }
     }
+
+    &-field-error-text {
+      font-size: 14px;
+      color: ${props => props.theme.colors.reddit};
+    }
   }
 `

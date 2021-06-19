@@ -11,7 +11,7 @@ export const EMAIL_VALIDATION = yup
 
 export const FORM_VALIDATION = {
   CONTACT: yup.object({
-    name: NAME_VALIDATION,
+    name: NAME_VALIDATION.required("Required field"),
     email: EMAIL_VALIDATION,
     subject: TEXT_VALIDATION,
     message: TEXT_VALIDATION,
