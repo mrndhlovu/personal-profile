@@ -1,8 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import { useLocation } from "@reach/router"
-
-import { Maybe, Scalars } from "../../../types/graphql-types"
+import { Maybe, Scalars } from "gatsby/gatsby-graphql"
 
 interface IProps {
   redirectTo?: Maybe<Scalars["String"]>

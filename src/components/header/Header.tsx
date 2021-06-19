@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import { useLocation } from "@reach/router"
+import React, { useCallback, useEffect, useState } from "react"
+import { usePrevious } from "src/helpers/hooks"
 import styled from "styled-components"
 
 import FooterCopyright from "./FooterCopyright"
@@ -112,7 +114,19 @@ const Container = styled.nav<NaProps>`
 const Header: React.FC = () => {
   const [navigationVisible, setNavigationVisible] = useState(false)
 
-  const togglerNavigation = () => setNavigationVisible(prev => !prev)
+  const { pathname } = useLocation()
+  const previousPath = usePrevious(pathname)
+
+  const togglerNavigation = useCallback(
+    () => setNavigationVisible(prev => !prev),
+    []
+  )
+
+  useEffect(() => {
+    if (previousPath !== pathname && navigationVisible) {
+      togglerNavigation()
+    }
+  }, [pathname, previousPath, navigationVisible, togglerNavigation])
 
   return (
     <Container className="mi-header" navigationVisible={navigationVisible}>

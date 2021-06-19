@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby"
+import { useEffect, useRef } from "react"
 
 type WPURLFunction = () => string
 
@@ -27,4 +28,12 @@ export const useRelativeUrl = (url: string) => {
   if (url.startsWith(`/`)) return url
   string = string.replace(WPURL, "")
   return string
+}
+
+export const usePrevious = (value: any) => {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
 }

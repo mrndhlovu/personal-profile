@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import { useHeaderQuery } from "src/utils/graphql"
 import styled from "styled-components"
 
@@ -69,7 +69,7 @@ const Container = styled.ul`
   }
 `
 
-const NavigationLinks: React.FC = () => {
+const NavigationLinks = (): ReactElement => {
   const { menu } = useHeaderQuery()
   const menuItems = menu?.edges?.[0]?.node?.menuItems?.nodes
 

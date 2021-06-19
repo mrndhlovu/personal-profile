@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react"
 import { uniqueId } from "lodash"
 
 import { childrenInterface } from "../../utils/types/interfaces"
-import { ALERT_SEVERITY, PLACEMENT_ENUMS } from "src/constants"
 import { GlobalContext } from "../context"
 import { getMessageString } from "src/utils"
 
@@ -49,6 +48,7 @@ const GlobalContextProvider = ({ children }: childrenInterface) => {
   const handleModeChange = () => setLightMode(prev => !prev)
 
   const dismissNotification = useCallback(id => {
+    if (id < 1) return setNotifications(notificationsInitialState)
     setNotifications(prev => ({
       ...prev,
       list: [...prev.list.filter(message => message?.id !== id)],
