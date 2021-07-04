@@ -60,3 +60,27 @@ export const createPages: GatsbyNode["createPages"] = async ({
     })
   })
 }
+
+export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = ({
+  actions,
+}) => {
+  const { createTypes } = actions
+  const typeDefs = `
+  type airtable implements Node {
+    data: AirtableData
+ }
+ type AirtableData {
+  Designation: String!
+ }
+
+ type AirtableData {
+  Detail: String!
+ }
+
+ type AirtableData {
+  Name: String!
+ }
+
+  `
+  createTypes(typeDefs)
+}

@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react"
+import { Maybe } from "yup/lib/types"
 import Slider from "react-slick"
 import styled from "styled-components"
 
-import { useAirtableQuery } from "src/utils/graphql"
+import { Airtable, AirtableData } from "gatsby/gatsby-graphql"
+
 import Testimonial from "./Testimonial"
 
 const StyledSlider = styled(Slider)`
@@ -94,9 +96,19 @@ const StyledSlider = styled(Slider)`
   }
 `
 
-const Reviews = (): ReactElement => {
-  const reviews = useAirtableQuery()?.reviews?.edges
+type ReviewNode = {
+  node: Pick<Airtable, "id"> & {
+    data?:
+      | Maybe<Pick<AirtableData, "Name" | "Detail" | "Designation">>
+      | undefined
+  }
+}
 
+interface Props {
+  reviews: ReviewNode[]
+}
+
+const Reviews = ({ reviews }: Props): ReactElement => {
   const sliderSettings = {
     dots: false,
     infinite: true,

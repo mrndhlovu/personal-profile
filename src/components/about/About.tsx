@@ -1,4 +1,6 @@
+import { isEmpty } from "lodash"
 import React, { ReactElement } from "react"
+import { useAirtableQuery } from "src/utils/graphql"
 import styled from "styled-components"
 
 import { SectionTitle } from "../shared"
@@ -40,6 +42,10 @@ const Container = styled.div`
 `
 
 const About = (): ReactElement => {
+  const reviews = useAirtableQuery()?.reviews?.edges || []
+
+  const hasReviews = !isEmpty(reviews)
+
   return (
     <Container className="mi-about-area mi-section mi-padding-top">
       <div className="container">
@@ -53,15 +59,18 @@ const About = (): ReactElement => {
           <Services />
         </div>
       </div>
+
       <div className="mi-review-area mi-section mi-padding-top mi-padding-bottom">
-        <div className="container">
-          <SectionTitle title="Reviews" />
-          <div className="row justify-content-center">
-            <div className="col-12">
-              <Reviews />
+        {hasReviews && (
+          <div className="container">
+            <SectionTitle title="Reviews" />
+            <div className="row justify-content-center">
+              <div className="col-12">
+                <Reviews reviews={reviews} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </Container>
   )
