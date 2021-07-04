@@ -20,7 +20,7 @@ const BlogCard = ({ id, featuredImage, title, date }: Props): ReactElement => {
   return (
     <div className="mi-blog">
       <div className="mi-blog-image">
-        <Link to={`${routes.blogDetail}/${id}}`}>
+        <Link to={`${routes.blogDetail}/${id}`}>
           <ProgressiveImage
             src={image}
             placeholder="/images/blog-image-placeholder.png"

@@ -7,7 +7,7 @@ const { formattedReturn } = require("./helpers")
 const handler = async event => {
   const paramMethods = ["PATCH", "POST"]
 
-  const { email = "", name, subject, message, type } = paramMethods.includes(
+  const { email, name, subject, message, type } = paramMethods.includes(
     event.httpMethod
   )
     ? JSON.parse(event?.body)
@@ -27,11 +27,12 @@ const handler = async event => {
                     email: process.env.GATSBY_DEFAULT_EMAIL,
                   },
                 ],
-                subject,
+                subject: `Website Contact: ${name} - ${subject}`,
               },
             ],
             from: {
               email,
+              name,
             },
             content: [
               {
