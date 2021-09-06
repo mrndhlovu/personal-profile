@@ -7,7 +7,7 @@ const ProjectsPage = () => {
   return (
     <div className="mi-about mi-section mi-padding-top mi-padding-bottom">
       <div className="container">
-        <SectionTitle title="Portfolios" />
+        <SectionTitle title="Projects" />
         <ProjectList />
         {/* {!(portfolios.length > portfoliosPerPage) ? null : (
           <Pagination

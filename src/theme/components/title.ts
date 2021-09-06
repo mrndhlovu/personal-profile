@@ -93,7 +93,7 @@ export default css`
 
   .mi-smalltitle {
     display: flex;
-    align-items: center;
+    align-items: end;
 
     h4 {
       font-weight: 700;

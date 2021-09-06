@@ -38,6 +38,10 @@ const reset = css`
     padding: 0;
   }
 
+  .container {
+    max-width: 960px;
+  }
+
   textarea {
     resize: vertical;
   }

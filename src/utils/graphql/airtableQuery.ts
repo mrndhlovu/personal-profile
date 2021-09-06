@@ -63,10 +63,10 @@ const airtableQuery: queryFunction = () =>
         }
       }
 
-      developerSkills: allAirtable(
+      frontend: allAirtable(
         filter: {
           table: { eq: "Skills" }
-          data: { Field: { eq: "developer" } }
+          data: { Field: { eq: "developer" }, category: { eq: "frontend" } }
         }
       ) {
         edges {
@@ -79,6 +79,21 @@ const airtableQuery: queryFunction = () =>
         }
       }
 
+      backend: allAirtable(
+        filter: {
+          table: { eq: "Skills" }
+          data: { Field: { eq: "developer" }, category: { eq: "backend" } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            data {
+              Name
+            }
+          }
+        }
+      }
       networkingSkills: allAirtable(
         filter: {
           table: { eq: "Skills" }

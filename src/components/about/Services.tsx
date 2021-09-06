@@ -11,7 +11,7 @@ const Services = () => {
       <div className="row mt-30-reverse">
         {services?.map(service => (
           <div
-            className="col-lg-4 col-md-6 col-12 mt-30"
+            className="col-lg-6 col-md-6 col-12 mt-30"
             key={service?.node?.id}
           >
             <Service

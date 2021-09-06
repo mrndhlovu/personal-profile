@@ -58,7 +58,6 @@
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.2.0",
-    "react-minimal-pie-chart": "^8.2.0",
     "react-mutation-observer": "^1.1.0",
     "react-progressive-image": "^0.6.0",
     "react-slick": "^0.28.1",
@@ -102,6 +101,3 @@
     "postinstall": "cd functions && yarn && cd .."
   }
 }
-
-
-

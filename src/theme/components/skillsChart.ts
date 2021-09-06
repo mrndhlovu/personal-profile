@@ -1,20 +1,13 @@
 import { css } from "styled-components"
 
 export default css`
-  .mi-skills-content {
+  .mi-skills {
     width: 100%;
-  }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-  .chart {
-    width: 100%;
-    max-height: 30vh;
-    ${props => props.theme.mixins.flex()};
-  }
-
-  .mi-skills-chart {
-    ${props => props.theme.mixins.flex("row", "space-between")};
-    width: 100%;
-    height: 100%;
-    vertical-align: top;
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+    }
   }
 `

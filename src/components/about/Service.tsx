@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import { Maybe } from "gatsby/gatsby-graphql"
 
-import { FiCode } from "react-icons/fi"
+import { FiMonitor, FiDatabase } from "react-icons/fi"
 import { RiPaletteLine } from "react-icons/ri"
 
 type ServiceProps = {
@@ -13,11 +13,11 @@ type ServiceProps = {
 const Service = ({ title, details, icon }: ServiceProps): ReactElement => {
   const Icon = () => {
     switch (icon) {
-      case "code":
-        return <FiCode />
+      case "monitor":
+        return <FiMonitor />
 
-      case "pallet":
-        return <RiPaletteLine />
+      case "db":
+        return <FiDatabase />
 
       default:
         return null

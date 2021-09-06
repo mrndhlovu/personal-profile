@@ -291,7 +291,6 @@ const typography = css`
     }
   }
 
-  /* Checkbox & Radio Styles */
   input[type="checkbox"],
   input[type="radio"] {
     visibility: hidden;

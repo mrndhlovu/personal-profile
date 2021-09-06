@@ -1,8 +1,13 @@
 import React, { ReactElement } from "react"
 import { Maybe } from "gatsby/gatsby-graphql"
 
-import { FiBriefcase, FiBook, FiCode } from "react-icons/fi"
-import { FaNetworkWired } from "react-icons/fa"
+import {
+  FiBriefcase,
+  FiBook,
+  FiCode,
+  FiMonitor,
+  FiDatabase,
+} from "react-icons/fi"
 
 interface Props {
   iconName?: Maybe<string> | undefined
@@ -21,11 +26,14 @@ const SmallTitle = ({ iconName, title }: Props): ReactElement => {
       case "code":
         return <FiCode />
 
-      case "network":
-        return <FaNetworkWired />
+      case "monitor":
+        return <FiMonitor />
+
+      case "db":
+        return <FiDatabase />
 
       default:
-        return <></>
+        return null
     }
   }
 

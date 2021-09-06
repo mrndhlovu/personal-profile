@@ -699,9 +699,13 @@ export type WpContentNode = {
   desiredSlug?: Maybe<Scalars['String']>;
   /** The RSS enclosure for the object */
   enclosure?: Maybe<Scalars['String']>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post->guid and the guid column in the "post_objects" database table. */
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -710,14 +714,14 @@ export type WpContentNode = {
   modified?: Maybe<Scalars['Date']>;
   /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
   modifiedGmt?: Maybe<Scalars['Date']>;
-  /** The uri slug for the post. This is equivalent to the WP_Post->post_name field and the post_name column in the database for the "post_objects" table. */
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<WpContentTemplate>;
-  /** URI path for the resource */
-  uri: Scalars['String'];
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -756,9 +760,20 @@ export type WpContentNodeModifiedGmtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type WpUniformResourceIdentifiable = {
+  /** The unique resource identifier path */
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+};
+
 /** Connection between the ContentNode type and the ContentType type */
 export type WpContentNodeToContentTypeConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpContentType>;
 };
 
@@ -787,10 +802,14 @@ export type WpContentType = Node & WpNode & WpUniformResourceIdentifiable & {
   /** Whether the content type is hierarchical, for example pages. */
   hierarchical?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether this page is set to the static front page. */
   isFrontPage: Scalars['Boolean'];
   /** Whether this page is set to the blog posts page. */
   isPostsPage: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Display name of the content type. */
   label?: Maybe<Scalars['String']>;
   /** Details about the content type labels. */
@@ -827,13 +846,6 @@ export type WpContentType = Node & WpNode & WpUniformResourceIdentifiable & {
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-};
-
-export type WpUniformResourceIdentifiable = {
-  /** The unique resource identifier path */
-  id: Scalars['ID'];
-  /** The unique resource identifier path */
-  uri?: Maybe<Scalars['String']>;
 };
 
 /** Connection between the ContentType type and the Taxonomy type */
@@ -964,7 +976,7 @@ export type WpPostTypeLabelDetails = {
 export type WpContentNodeToEditLockConnectionEdge = {
   /** The timestamp for when the node was last edited */
   lockTimestamp?: Maybe<Scalars['String']>;
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpUser>;
 };
 
@@ -989,6 +1001,10 @@ export type WpUser = Node & WpNode & WpUniformResourceIdentifiable & WpCommenter
   /** First name of the user. This is equivalent to the WP_User-&gt;user_first_name property. */
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property. */
   lastName?: Maybe<Scalars['String']>;
   /** The preferred language locale set for the user. Value derived from get_user_locale(). */
@@ -1130,19 +1146,19 @@ export type WpCommentDateGmtArgs = {
 
 /** Connection between the Comment type and the Commenter type */
 export type WpCommentToCommenterConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpCommenter>;
 };
 
 /** Connection between the Comment type and the ContentNode type */
 export type WpCommentToContentNodeConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpContentNode>;
 };
 
 /** Connection between the Comment type and the Comment type */
 export type WpCommentToParentCommentConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpComment>;
 };
 
@@ -1153,7 +1169,7 @@ export type WpCommentToCommentConnection = {
 };
 
 /** The mediaItem type */
-export type WpMediaItem = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithAuthor & WpNodeWithComments & WpHierarchicalContentNode & {
+export type WpMediaItem = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithAuthor & WpNodeWithComments & WpHierarchicalContentNode & {
   /** Alternative text to display when resource is not displayed */
   altText?: Maybe<Scalars['String']>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
@@ -1176,7 +1192,7 @@ export type WpMediaItem = Node & WpNode & WpContentNode & WpDatabaseIdentifier &
   comments?: Maybe<WpMediaItemToCommentConnection>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<WpContentNodeToContentTypeConnectionEdge>;
-  /** The ID of the node in the database. */
+  /** The unique identifier stored in the database */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
   date?: Maybe<Scalars['Date']>;
@@ -1193,6 +1209,10 @@ export type WpMediaItem = Node & WpNode & WpContentNode & WpDatabaseIdentifier &
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -1227,12 +1247,12 @@ export type WpMediaItem = Node & WpNode & WpContentNode & WpDatabaseIdentifier &
   srcSet?: Maybe<Scalars['String']>;
   /** The current status of the object */
   status?: Maybe<Scalars['String']>;
-  /** The template assigned to a node of content */
+  /** The template assigned to the node */
   template?: Maybe<WpContentTemplate>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
-  /** URI path for the resource */
-  uri: Scalars['String'];
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   /** @deprecated MediaItem.remoteFile was renamed to localFile */
   remoteFile?: Maybe<File>;
@@ -1324,7 +1344,7 @@ export type WpContentTemplate = {
 
 /** Connection between the NodeWithAuthor type and the User type */
 export type WpNodeWithAuthorToUserConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpUser>;
 };
 
@@ -1342,7 +1362,7 @@ export type WpHierarchicalContentNodeToContentNodeChildrenConnection = {
 
 /** Connection between the HierarchicalContentNode type and the ContentNode type */
 export type WpHierarchicalContentNodeToParentContentNodeConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpContentNode>;
 };
 
@@ -1354,7 +1374,7 @@ export type WpMediaItemToCommentConnection = {
 
 /** Connection between the ContentNode type and the User type */
 export type WpContentNodeToEditLastConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpUser>;
 };
 
@@ -1465,7 +1485,7 @@ export type WpUserToPageConnection = {
 };
 
 /** The page type */
-export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
+export type WpPage = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithComments & WpNodeWithRevisions & WpNodeWithPageAttributes & WpHierarchicalContentNode & WpMenuItemLinkable & {
   /** Added to the GraphQL Schema because the ACF Field Group &quot;About Detail&quot; was set to Show in GraphQL. */
   aboutDetail?: Maybe<WpPage_Aboutdetail>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
@@ -1490,7 +1510,7 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<WpContentNodeToContentTypeConnectionEdge>;
-  /** The ID of the node in the database. */
+  /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
   date?: Maybe<Scalars['Date']>;
@@ -1509,6 +1529,8 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** Whether this page is set to the static front page. */
   isFrontPage: Scalars['Boolean'];
   /** Whether this page is set to the blog posts page. */
@@ -1517,6 +1539,8 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   isPrivacyPage: Scalars['Boolean'];
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -1545,8 +1569,8 @@ export type WpPage = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   template?: Maybe<WpContentTemplate>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
-  /** URI path for the resource */
-  uri: Scalars['String'];
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -1595,12 +1619,48 @@ export type WpNodeWithContentEditor = {
 };
 
 export type WpNodeWithFeaturedImage = {
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<WpContentNodeToContentTypeConnectionEdge>;
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['Date']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['Date']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']>;
   /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
   featuredImage?: Maybe<WpNodeWithFeaturedImageToMediaItemConnectionEdge>;
   /** The database identifier for the featured image node assigned to the content node */
   featuredImageDatabaseId?: Maybe<Scalars['Int']>;
   /** Globally unique ID of the featured image assigned to the node */
   featuredImageId?: Maybe<Scalars['ID']>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']>;
+  /** The unique resource identifier path */
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['Date']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['Date']>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']>;
+  /** The template assigned to a node of content */
+  template?: Maybe<WpContentTemplate>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
 };
 
 export type WpNodeWithRevisions = {
@@ -1619,18 +1679,18 @@ export type WpMenuItemLinkable = {
   /** The unique resource identifier path */
   id: Scalars['ID'];
   /** The unique resource identifier path */
-  uri: Scalars['String'];
+  uri?: Maybe<Scalars['String']>;
 };
 
 /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
 export type WpNodeWithFeaturedImageToMediaItemConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpMediaItem>;
 };
 
 /** Connection between the NodeWithRevisions type and the ContentNode type */
 export type WpNodeWithRevisionsToContentNodeConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpContentNode>;
 };
 
@@ -1687,7 +1747,7 @@ export type WpUserToPostConnection = {
 };
 
 /** The post type */
-export type WpPost = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNodeWithTemplate & WpUniformResourceIdentifiable & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithExcerpt & WpNodeWithComments & WpNodeWithTrackbacks & WpNodeWithRevisions & WpMenuItemLinkable & {
+export type WpPost = Node & WpNode & WpContentNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpNodeWithTemplate & WpNodeWithTitle & WpNodeWithContentEditor & WpNodeWithAuthor & WpNodeWithFeaturedImage & WpNodeWithExcerpt & WpNodeWithComments & WpNodeWithTrackbacks & WpNodeWithRevisions & WpMenuItemLinkable & {
   /** Connection between the NodeWithAuthor type and the User type */
   author?: Maybe<WpNodeWithAuthorToUserConnectionEdge>;
   /** The database identifier of the author of the node */
@@ -1706,7 +1766,7 @@ export type WpPost = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<WpContentNodeToContentTypeConnectionEdge>;
-  /** The ID of the node in the database. */
+  /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
   date?: Maybe<Scalars['Date']>;
@@ -1727,10 +1787,14 @@ export type WpPost = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
   guid?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
   /** True if the node is a revision of another node */
   isRevision?: Maybe<Scalars['Boolean']>;
   /** Whether this page is sticky */
   isSticky: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The user that most recently edited the node */
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdge>;
   /** The permalink of the post */
@@ -1761,8 +1825,8 @@ export type WpPost = Node & WpNode & WpContentNode & WpDatabaseIdentifier & WpNo
   title?: Maybe<Scalars['String']>;
   /** URLs queued to be pinged. */
   toPing?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** URI path for the resource */
-  uri: Scalars['String'];
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -1826,7 +1890,7 @@ export type WpPostToCategoryConnection = {
 };
 
 /** The category type */
-export type WpCategory = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpUniformResourceIdentifiable & WpHierarchicalTermNode & WpMenuItemLinkable & {
+export type WpCategory = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpHierarchicalTermNode & WpMenuItemLinkable & {
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<WpCategoryToAncestorsCategoryConnection>;
   /** Connection between the category type and the category type */
@@ -1835,11 +1899,15 @@ export type WpCategory = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpU
   contentNodes?: Maybe<WpCategoryToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
-  /** Identifies the primary key from the database. */
+  /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** The description of the object */
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -1863,7 +1931,7 @@ export type WpCategory = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpU
   /** The taxonomy ID that the object is associated with */
   termTaxonomyId?: Maybe<Scalars['Int']>;
   /** The unique resource identifier path */
-  uri: Scalars['String'];
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -1897,7 +1965,7 @@ export type WpCategoryToContentNodeConnection = {
 
 /** Connection between the category type and the category type */
 export type WpCategoryToParentCategoryConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpCategory>;
 };
 
@@ -1941,7 +2009,7 @@ export type WpSeoTaxonomySchema = {
 
 /** Connection between the category type and the Taxonomy type */
 export type WpCategoryToTaxonomyConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpTaxonomy>;
 };
 
@@ -1958,16 +2026,20 @@ export type WpPostToPostFormatConnection = {
 };
 
 /** The postFormat type */
-export type WpPostFormat = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpUniformResourceIdentifiable & {
+export type WpPostFormat = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & {
   /** Connection between the postFormat type and the ContentNode type */
   contentNodes?: Maybe<WpPostFormatToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
-  /** Identifies the primary key from the database. */
+  /** The unique identifier stored in the database */
   databaseId: Scalars['Int'];
   /** The description of the object */
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -1985,7 +2057,7 @@ export type WpPostFormat = Node & WpNode & WpTermNode & WpDatabaseIdentifier & W
   /** The taxonomy ID that the object is associated with */
   termTaxonomyId?: Maybe<Scalars['Int']>;
   /** The unique resource identifier path */
-  uri: Scalars['String'];
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2006,7 +2078,7 @@ export type WpPostFormatToPostConnection = {
 
 /** Connection between the postFormat type and the Taxonomy type */
 export type WpPostFormatToTaxonomyConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpTaxonomy>;
 };
 
@@ -2017,16 +2089,20 @@ export type WpPostToTagConnection = {
 };
 
 /** The tag type */
-export type WpTag = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpUniformResourceIdentifiable & WpMenuItemLinkable & {
+export type WpTag = Node & WpNode & WpTermNode & WpUniformResourceIdentifiable & WpDatabaseIdentifier & WpMenuItemLinkable & {
   /** Connection between the tag type and the ContentNode type */
   contentNodes?: Maybe<WpTagToContentNodeConnection>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
-  /** Identifies the primary key from the database. */
+  /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** The description of the object */
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -2044,7 +2120,7 @@ export type WpTag = Node & WpNode & WpTermNode & WpDatabaseIdentifier & WpUnifor
   /** The taxonomy ID that the object is associated with */
   termTaxonomyId?: Maybe<Scalars['Int']>;
   /** The unique resource identifier path */
-  uri: Scalars['String'];
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2065,7 +2141,7 @@ export type WpTagToPostConnection = {
 
 /** Connection between the tag type and the Taxonomy type */
 export type WpTagToTaxonomyConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpTaxonomy>;
 };
 
@@ -2250,7 +2326,7 @@ export type WpMenuItem = Node & WpNode & WpDatabaseIdentifier & {
   /** The globally unique identifier of the parent nav menu item object. */
   parentId?: Maybe<Scalars['ID']>;
   /** Path for the resource. Relative path for internal resources. Absolute path for external resources. */
-  path: Scalars['String'];
+  path?: Maybe<Scalars['String']>;
   /** Target attribute for the menu item link. */
   target?: Maybe<Scalars['String']>;
   /** Title attribute for the menu item link */
@@ -2271,13 +2347,13 @@ export type WpMenuItemToMenuItemConnection = {
 
 /** Connection between the MenuItem type and the MenuItemLinkable type */
 export type WpMenuItemToMenuItemLinkableConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpMenuItemLinkable>;
 };
 
 /** Connection between the MenuItem type and the Menu type */
 export type WpMenuItemToMenuConnectionEdge = {
-  /** The nodes of the connection, without the edges */
+  /** The node of the connection, without the edges */
   node?: Maybe<WpMenu>;
 };
 
@@ -2510,24 +2586,23 @@ export type Wp = Node & {
 };
 
 export type Airtable = Node & {
+  data?: Maybe<AirtableData>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  table?: Maybe<Scalars['String']>;
-  recordId?: Maybe<Scalars['String']>;
-  data?: Maybe<AirtableData>;
 };
 
 export type AirtableData = {
-  Detail?: Maybe<Scalars['String']>;
+  Designation: Scalars['String'];
+  Detail: Scalars['String'];
+  Name: Scalars['String'];
   Icon_Name?: Maybe<Scalars['String']>;
   Title?: Maybe<Scalars['String']>;
-  Name?: Maybe<Scalars['String']>;
-  Designation?: Maybe<Scalars['String']>;
   Location?: Maybe<Scalars['String']>;
   Type?: Maybe<Scalars['String']>;
   Year?: Maybe<Scalars['String']>;
+  Received?: Maybe<Scalars['String']>;
   Description?: Maybe<Scalars['String']>;
   Item_Number?: Maybe<Scalars['Int']>;
   Technologies?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -2537,13 +2612,15 @@ export type AirtableData = {
   Skills?: Maybe<Array<Maybe<Airtable>>>;
   Live_URL?: Maybe<Scalars['String']>;
   Field?: Maybe<Scalars['String']>;
+  category?: Maybe<Array<Maybe<Scalars['String']>>>;
   Project?: Maybe<Array<Maybe<Scalars['String']>>>;
   Name__from_Project_?: Maybe<Array<Maybe<Scalars['String']>>>;
-  Received?: Maybe<Scalars['String']>;
 };
 
 export type AirtableDataImage = {
   id?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
   url?: Maybe<Scalars['String']>;
   filename?: Maybe<Scalars['String']>;
   size?: Maybe<Scalars['Int']>;
@@ -2573,6 +2650,16 @@ export type AirtableDataImageThumbnailsFull = {
   url?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
+};
+
+export type Airtable = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  table?: Maybe<Scalars['String']>;
+  recordId?: Maybe<Scalars['String']>;
+  data?: Maybe<AirtableData>;
 };
 
 export type SiteBuildMetadata = Node & {
@@ -2705,6 +2792,10 @@ export type WpTermNode = {
   /** The description of the object */
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
   /** The link to the term */
   link?: Maybe<Scalars['String']>;
   /** The human friendly name of the object. */
@@ -2716,7 +2807,7 @@ export type WpTermNode = {
   /** The taxonomy ID that the object is associated with */
   termTaxonomyId?: Maybe<Scalars['Int']>;
   /** The unique resource identifier path */
-  uri: Scalars['String'];
+  uri?: Maybe<Scalars['String']>;
   nodeType?: Maybe<Scalars['String']>;
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2982,6 +3073,8 @@ export type QueryWpContentNodeArgs = {
   enclosure?: Maybe<StringQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
@@ -3018,8 +3111,10 @@ export type QueryWpContentTypeArgs = {
   hasArchive?: Maybe<BooleanQueryOperatorInput>;
   hierarchical?: Maybe<BooleanQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isFrontPage?: Maybe<BooleanQueryOperatorInput>;
   isPostsPage?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   label?: Maybe<StringQueryOperatorInput>;
   labels?: Maybe<WpPostTypeLabelDetailsFilterInput>;
   menuIcon?: Maybe<StringQueryOperatorInput>;
@@ -3098,6 +3193,8 @@ export type QueryWpUserArgs = {
   extraCapabilities?: Maybe<StringQueryOperatorInput>;
   firstName?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastName?: Maybe<StringQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -3180,6 +3277,8 @@ export type QueryWpMediaItemArgs = {
   fileSize?: Maybe<IntQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   mediaDetails?: Maybe<WpMediaDetailsFilterInput>;
@@ -3240,10 +3339,12 @@ export type QueryWpPageArgs = {
   featuredImageId?: Maybe<IdQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isFrontPage?: Maybe<BooleanQueryOperatorInput>;
   isPostsPage?: Maybe<BooleanQueryOperatorInput>;
   isPrivacyPage?: Maybe<BooleanQueryOperatorInput>;
   isRevision?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   mainHeading?: Maybe<WpPage_MainheadingFilterInput>;
@@ -3295,8 +3396,10 @@ export type QueryWpPostArgs = {
   featuredImageId?: Maybe<IdQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isRevision?: Maybe<BooleanQueryOperatorInput>;
   isSticky?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
@@ -3333,6 +3436,8 @@ export type QueryWpTermNodeArgs = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
@@ -3362,6 +3467,8 @@ export type QueryWpCategoryArgs = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   wpParent?: Maybe<WpCategoryToParentCategoryConnectionEdgeFilterInput>;
@@ -3395,6 +3502,8 @@ export type QueryWpPostFormatArgs = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   posts?: Maybe<WpPostFormatToPostConnectionFilterInput>;
@@ -3425,6 +3534,8 @@ export type QueryWpTagArgs = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   posts?: Maybe<WpTagToPostConnectionFilterInput>;
@@ -5471,8 +5582,10 @@ export type WpContentTypeFilterInput = {
   hasArchive?: Maybe<BooleanQueryOperatorInput>;
   hierarchical?: Maybe<BooleanQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isFrontPage?: Maybe<BooleanQueryOperatorInput>;
   isPostsPage?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   label?: Maybe<StringQueryOperatorInput>;
   labels?: Maybe<WpPostTypeLabelDetailsFilterInput>;
   menuIcon?: Maybe<StringQueryOperatorInput>;
@@ -5555,6 +5668,8 @@ export type WpContentNodeFilterInput = {
   enclosure?: Maybe<StringQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
@@ -5584,6 +5699,8 @@ export type WpUserFilterInput = {
   extraCapabilities?: Maybe<StringQueryOperatorInput>;
   firstName?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastName?: Maybe<StringQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -5710,10 +5827,12 @@ export type WpPageFilterInput = {
   featuredImageId?: Maybe<IdQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isFrontPage?: Maybe<BooleanQueryOperatorInput>;
   isPostsPage?: Maybe<BooleanQueryOperatorInput>;
   isPrivacyPage?: Maybe<BooleanQueryOperatorInput>;
   isRevision?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   mainHeading?: Maybe<WpPage_MainheadingFilterInput>;
@@ -5798,6 +5917,8 @@ export type WpMediaItemFilterInput = {
   fileSize?: Maybe<IntQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   mediaDetails?: Maybe<WpMediaDetailsFilterInput>;
@@ -5952,8 +6073,10 @@ export type WpPostFilterInput = {
   featuredImageId?: Maybe<IdQueryOperatorInput>;
   guid?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
   isRevision?: Maybe<BooleanQueryOperatorInput>;
   isSticky?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   lastEditedBy?: Maybe<WpContentNodeToEditLastConnectionEdgeFilterInput>;
   link?: Maybe<StringQueryOperatorInput>;
   modified?: Maybe<DateQueryOperatorInput>;
@@ -5992,6 +6115,8 @@ export type WpCategoryFilterInput = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   wpParent?: Maybe<WpCategoryToParentCategoryConnectionEdgeFilterInput>;
@@ -6083,6 +6208,8 @@ export type WpPostFormatFilterInput = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   posts?: Maybe<WpPostFormatToPostConnectionFilterInput>;
@@ -6124,6 +6251,8 @@ export type WpTagFilterInput = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   posts?: Maybe<WpTagToPostConnectionFilterInput>;
@@ -6164,6 +6293,8 @@ export type WpTermNodeFilterInput = {
   databaseId?: Maybe<IntQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
+  isContentNode?: Maybe<BooleanQueryOperatorInput>;
+  isTermNode?: Maybe<BooleanQueryOperatorInput>;
   link?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
@@ -6307,8 +6438,10 @@ export type WpContentNodeFieldsEnum =
   | 'contentType___node___hasArchive'
   | 'contentType___node___hierarchical'
   | 'contentType___node___id'
+  | 'contentType___node___isContentNode'
   | 'contentType___node___isFrontPage'
   | 'contentType___node___isPostsPage'
+  | 'contentType___node___isTermNode'
   | 'contentType___node___label'
   | 'contentType___node___labels___addNew'
   | 'contentType___node___labels___addNewItem'
@@ -6370,6 +6503,8 @@ export type WpContentNodeFieldsEnum =
   | 'enclosure'
   | 'guid'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'lastEditedBy___node___avatar___default'
   | 'lastEditedBy___node___avatar___extraAttr'
   | 'lastEditedBy___node___avatar___forceDefault'
@@ -6389,6 +6524,8 @@ export type WpContentNodeFieldsEnum =
   | 'lastEditedBy___node___extraCapabilities'
   | 'lastEditedBy___node___firstName'
   | 'lastEditedBy___node___id'
+  | 'lastEditedBy___node___isContentNode'
+  | 'lastEditedBy___node___isTermNode'
   | 'lastEditedBy___node___lastName'
   | 'lastEditedBy___node___locale'
   | 'lastEditedBy___node___name'
@@ -6620,6 +6757,8 @@ export type WpContentTypeFieldsEnum =
   | 'contentNodes___nodes___enclosure'
   | 'contentNodes___nodes___guid'
   | 'contentNodes___nodes___id'
+  | 'contentNodes___nodes___isContentNode'
+  | 'contentNodes___nodes___isTermNode'
   | 'contentNodes___nodes___link'
   | 'contentNodes___nodes___modified'
   | 'contentNodes___nodes___modifiedGmt'
@@ -6649,8 +6788,10 @@ export type WpContentTypeFieldsEnum =
   | 'hasArchive'
   | 'hierarchical'
   | 'id'
+  | 'isContentNode'
   | 'isFrontPage'
   | 'isPostsPage'
+  | 'isTermNode'
   | 'label'
   | 'labels___addNew'
   | 'labels___addNewItem'
@@ -6852,8 +6993,10 @@ export type WpTaxonomyFieldsEnum =
   | 'connectedContentTypes___nodes___hasArchive'
   | 'connectedContentTypes___nodes___hierarchical'
   | 'connectedContentTypes___nodes___id'
+  | 'connectedContentTypes___nodes___isContentNode'
   | 'connectedContentTypes___nodes___isFrontPage'
   | 'connectedContentTypes___nodes___isPostsPage'
+  | 'connectedContentTypes___nodes___isTermNode'
   | 'connectedContentTypes___nodes___label'
   | 'connectedContentTypes___nodes___labels___addNew'
   | 'connectedContentTypes___nodes___labels___addNewItem'
@@ -7119,6 +7262,8 @@ export type WpUserFieldsEnum =
   | 'extraCapabilities'
   | 'firstName'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'lastName'
   | 'locale'
   | 'name'
@@ -7148,10 +7293,12 @@ export type WpUserFieldsEnum =
   | 'pages___nodes___featuredImageId'
   | 'pages___nodes___guid'
   | 'pages___nodes___id'
+  | 'pages___nodes___isContentNode'
   | 'pages___nodes___isFrontPage'
   | 'pages___nodes___isPostsPage'
   | 'pages___nodes___isPrivacyPage'
   | 'pages___nodes___isRevision'
+  | 'pages___nodes___isTermNode'
   | 'pages___nodes___link'
   | 'pages___nodes___mainHeading___fieldGroupName'
   | 'pages___nodes___mainHeading___text'
@@ -7219,8 +7366,10 @@ export type WpUserFieldsEnum =
   | 'posts___nodes___featuredImageId'
   | 'posts___nodes___guid'
   | 'posts___nodes___id'
+  | 'posts___nodes___isContentNode'
   | 'posts___nodes___isRevision'
   | 'posts___nodes___isSticky'
+  | 'posts___nodes___isTermNode'
   | 'posts___nodes___link'
   | 'posts___nodes___modified'
   | 'posts___nodes___modifiedGmt'
@@ -7472,6 +7621,8 @@ export type WpCommentFieldsEnum =
   | 'commentedOn___node___enclosure'
   | 'commentedOn___node___guid'
   | 'commentedOn___node___id'
+  | 'commentedOn___node___isContentNode'
+  | 'commentedOn___node___isTermNode'
   | 'commentedOn___node___link'
   | 'commentedOn___node___modified'
   | 'commentedOn___node___modifiedGmt'
@@ -7713,6 +7864,8 @@ export type WpMediaItemFieldsEnum =
   | 'ancestors___nodes___enclosure'
   | 'ancestors___nodes___guid'
   | 'ancestors___nodes___id'
+  | 'ancestors___nodes___isContentNode'
+  | 'ancestors___nodes___isTermNode'
   | 'ancestors___nodes___link'
   | 'ancestors___nodes___modified'
   | 'ancestors___nodes___modifiedGmt'
@@ -7753,6 +7906,8 @@ export type WpMediaItemFieldsEnum =
   | 'author___node___extraCapabilities'
   | 'author___node___firstName'
   | 'author___node___id'
+  | 'author___node___isContentNode'
+  | 'author___node___isTermNode'
   | 'author___node___lastName'
   | 'author___node___locale'
   | 'author___node___name'
@@ -7796,6 +7951,8 @@ export type WpMediaItemFieldsEnum =
   | 'wpChildren___nodes___enclosure'
   | 'wpChildren___nodes___guid'
   | 'wpChildren___nodes___id'
+  | 'wpChildren___nodes___isContentNode'
+  | 'wpChildren___nodes___isTermNode'
   | 'wpChildren___nodes___link'
   | 'wpChildren___nodes___modified'
   | 'wpChildren___nodes___modifiedGmt'
@@ -7859,8 +8016,10 @@ export type WpMediaItemFieldsEnum =
   | 'contentType___node___hasArchive'
   | 'contentType___node___hierarchical'
   | 'contentType___node___id'
+  | 'contentType___node___isContentNode'
   | 'contentType___node___isFrontPage'
   | 'contentType___node___isPostsPage'
+  | 'contentType___node___isTermNode'
   | 'contentType___node___label'
   | 'contentType___node___labels___addNew'
   | 'contentType___node___labels___addNewItem'
@@ -7924,6 +8083,8 @@ export type WpMediaItemFieldsEnum =
   | 'fileSize'
   | 'guid'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'lastEditedBy___node___avatar___default'
   | 'lastEditedBy___node___avatar___extraAttr'
   | 'lastEditedBy___node___avatar___forceDefault'
@@ -7943,6 +8104,8 @@ export type WpMediaItemFieldsEnum =
   | 'lastEditedBy___node___extraCapabilities'
   | 'lastEditedBy___node___firstName'
   | 'lastEditedBy___node___id'
+  | 'lastEditedBy___node___isContentNode'
+  | 'lastEditedBy___node___isTermNode'
   | 'lastEditedBy___node___lastName'
   | 'lastEditedBy___node___locale'
   | 'lastEditedBy___node___name'
@@ -8011,6 +8174,8 @@ export type WpMediaItemFieldsEnum =
   | 'wpParent___node___enclosure'
   | 'wpParent___node___guid'
   | 'wpParent___node___id'
+  | 'wpParent___node___isContentNode'
+  | 'wpParent___node___isTermNode'
   | 'wpParent___node___link'
   | 'wpParent___node___modified'
   | 'wpParent___node___modifiedGmt'
@@ -8065,6 +8230,8 @@ export type WpMediaItemFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -8228,6 +8395,8 @@ export type WpMediaItemFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -8863,6 +9032,8 @@ export type WpPageFieldsEnum =
   | 'ancestors___nodes___enclosure'
   | 'ancestors___nodes___guid'
   | 'ancestors___nodes___id'
+  | 'ancestors___nodes___isContentNode'
+  | 'ancestors___nodes___isTermNode'
   | 'ancestors___nodes___link'
   | 'ancestors___nodes___modified'
   | 'ancestors___nodes___modifiedGmt'
@@ -8903,6 +9074,8 @@ export type WpPageFieldsEnum =
   | 'author___node___extraCapabilities'
   | 'author___node___firstName'
   | 'author___node___id'
+  | 'author___node___isContentNode'
+  | 'author___node___isTermNode'
   | 'author___node___lastName'
   | 'author___node___locale'
   | 'author___node___name'
@@ -8945,6 +9118,8 @@ export type WpPageFieldsEnum =
   | 'wpChildren___nodes___enclosure'
   | 'wpChildren___nodes___guid'
   | 'wpChildren___nodes___id'
+  | 'wpChildren___nodes___isContentNode'
+  | 'wpChildren___nodes___isTermNode'
   | 'wpChildren___nodes___link'
   | 'wpChildren___nodes___modified'
   | 'wpChildren___nodes___modifiedGmt'
@@ -9014,8 +9189,10 @@ export type WpPageFieldsEnum =
   | 'contentType___node___hasArchive'
   | 'contentType___node___hierarchical'
   | 'contentType___node___id'
+  | 'contentType___node___isContentNode'
   | 'contentType___node___isFrontPage'
   | 'contentType___node___isPostsPage'
+  | 'contentType___node___isTermNode'
   | 'contentType___node___label'
   | 'contentType___node___labels___addNew'
   | 'contentType___node___labels___addNewItem'
@@ -9093,6 +9270,8 @@ export type WpPageFieldsEnum =
   | 'featuredImage___node___fileSize'
   | 'featuredImage___node___guid'
   | 'featuredImage___node___id'
+  | 'featuredImage___node___isContentNode'
+  | 'featuredImage___node___isTermNode'
   | 'featuredImage___node___link'
   | 'featuredImage___node___mediaDetails___file'
   | 'featuredImage___node___mediaDetails___height'
@@ -9229,10 +9408,12 @@ export type WpPageFieldsEnum =
   | 'featuredImageId'
   | 'guid'
   | 'id'
+  | 'isContentNode'
   | 'isFrontPage'
   | 'isPostsPage'
   | 'isPrivacyPage'
   | 'isRevision'
+  | 'isTermNode'
   | 'lastEditedBy___node___avatar___default'
   | 'lastEditedBy___node___avatar___extraAttr'
   | 'lastEditedBy___node___avatar___forceDefault'
@@ -9252,6 +9433,8 @@ export type WpPageFieldsEnum =
   | 'lastEditedBy___node___extraCapabilities'
   | 'lastEditedBy___node___firstName'
   | 'lastEditedBy___node___id'
+  | 'lastEditedBy___node___isContentNode'
+  | 'lastEditedBy___node___isTermNode'
   | 'lastEditedBy___node___lastName'
   | 'lastEditedBy___node___locale'
   | 'lastEditedBy___node___name'
@@ -9297,6 +9480,8 @@ export type WpPageFieldsEnum =
   | 'wpParent___node___enclosure'
   | 'wpParent___node___guid'
   | 'wpParent___node___id'
+  | 'wpParent___node___isContentNode'
+  | 'wpParent___node___isTermNode'
   | 'wpParent___node___link'
   | 'wpParent___node___modified'
   | 'wpParent___node___modifiedGmt'
@@ -9351,6 +9536,8 @@ export type WpPageFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -9514,6 +9701,8 @@ export type WpPageFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -9818,6 +10007,8 @@ export type WpPostFieldsEnum =
   | 'author___node___extraCapabilities'
   | 'author___node___firstName'
   | 'author___node___id'
+  | 'author___node___isContentNode'
+  | 'author___node___isTermNode'
   | 'author___node___lastName'
   | 'author___node___locale'
   | 'author___node___name'
@@ -9860,6 +10051,8 @@ export type WpPostFieldsEnum =
   | 'categories___nodes___databaseId'
   | 'categories___nodes___description'
   | 'categories___nodes___id'
+  | 'categories___nodes___isContentNode'
+  | 'categories___nodes___isTermNode'
   | 'categories___nodes___link'
   | 'categories___nodes___name'
   | 'categories___nodes___parentDatabaseId'
@@ -9947,8 +10140,10 @@ export type WpPostFieldsEnum =
   | 'contentType___node___hasArchive'
   | 'contentType___node___hierarchical'
   | 'contentType___node___id'
+  | 'contentType___node___isContentNode'
   | 'contentType___node___isFrontPage'
   | 'contentType___node___isPostsPage'
+  | 'contentType___node___isTermNode'
   | 'contentType___node___label'
   | 'contentType___node___labels___addNew'
   | 'contentType___node___labels___addNewItem'
@@ -10027,6 +10222,8 @@ export type WpPostFieldsEnum =
   | 'featuredImage___node___fileSize'
   | 'featuredImage___node___guid'
   | 'featuredImage___node___id'
+  | 'featuredImage___node___isContentNode'
+  | 'featuredImage___node___isTermNode'
   | 'featuredImage___node___link'
   | 'featuredImage___node___mediaDetails___file'
   | 'featuredImage___node___mediaDetails___height'
@@ -10163,8 +10360,10 @@ export type WpPostFieldsEnum =
   | 'featuredImageId'
   | 'guid'
   | 'id'
+  | 'isContentNode'
   | 'isRevision'
   | 'isSticky'
+  | 'isTermNode'
   | 'lastEditedBy___node___avatar___default'
   | 'lastEditedBy___node___avatar___extraAttr'
   | 'lastEditedBy___node___avatar___forceDefault'
@@ -10184,6 +10383,8 @@ export type WpPostFieldsEnum =
   | 'lastEditedBy___node___extraCapabilities'
   | 'lastEditedBy___node___firstName'
   | 'lastEditedBy___node___id'
+  | 'lastEditedBy___node___isContentNode'
+  | 'lastEditedBy___node___isTermNode'
   | 'lastEditedBy___node___lastName'
   | 'lastEditedBy___node___locale'
   | 'lastEditedBy___node___name'
@@ -10227,6 +10428,8 @@ export type WpPostFieldsEnum =
   | 'postFormats___nodes___databaseId'
   | 'postFormats___nodes___description'
   | 'postFormats___nodes___id'
+  | 'postFormats___nodes___isContentNode'
+  | 'postFormats___nodes___isTermNode'
   | 'postFormats___nodes___link'
   | 'postFormats___nodes___name'
   | 'postFormats___nodes___posts___nodes'
@@ -10300,6 +10503,8 @@ export type WpPostFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -10463,6 +10668,8 @@ export type WpPostFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -10604,6 +10811,8 @@ export type WpPostFieldsEnum =
   | 'tags___nodes___databaseId'
   | 'tags___nodes___description'
   | 'tags___nodes___id'
+  | 'tags___nodes___isContentNode'
+  | 'tags___nodes___isTermNode'
   | 'tags___nodes___link'
   | 'tags___nodes___name'
   | 'tags___nodes___posts___nodes'
@@ -10652,6 +10861,8 @@ export type WpPostFieldsEnum =
   | 'terms___nodes___databaseId'
   | 'terms___nodes___description'
   | 'terms___nodes___id'
+  | 'terms___nodes___isContentNode'
+  | 'terms___nodes___isTermNode'
   | 'terms___nodes___link'
   | 'terms___nodes___name'
   | 'terms___nodes___slug'
@@ -10826,6 +11037,8 @@ export type WpTermNodeFieldsEnum =
   | 'databaseId'
   | 'description'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'link'
   | 'name'
   | 'slug'
@@ -10987,6 +11200,8 @@ export type WpCategoryFieldsEnum =
   | 'ancestors___nodes___databaseId'
   | 'ancestors___nodes___description'
   | 'ancestors___nodes___id'
+  | 'ancestors___nodes___isContentNode'
+  | 'ancestors___nodes___isTermNode'
   | 'ancestors___nodes___link'
   | 'ancestors___nodes___name'
   | 'ancestors___nodes___parentDatabaseId'
@@ -11039,6 +11254,8 @@ export type WpCategoryFieldsEnum =
   | 'wpChildren___nodes___databaseId'
   | 'wpChildren___nodes___description'
   | 'wpChildren___nodes___id'
+  | 'wpChildren___nodes___isContentNode'
+  | 'wpChildren___nodes___isTermNode'
   | 'wpChildren___nodes___link'
   | 'wpChildren___nodes___name'
   | 'wpChildren___nodes___parentDatabaseId'
@@ -11091,6 +11308,8 @@ export type WpCategoryFieldsEnum =
   | 'contentNodes___nodes___enclosure'
   | 'contentNodes___nodes___guid'
   | 'contentNodes___nodes___id'
+  | 'contentNodes___nodes___isContentNode'
+  | 'contentNodes___nodes___isTermNode'
   | 'contentNodes___nodes___link'
   | 'contentNodes___nodes___modified'
   | 'contentNodes___nodes___modifiedGmt'
@@ -11116,6 +11335,8 @@ export type WpCategoryFieldsEnum =
   | 'databaseId'
   | 'description'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'link'
   | 'name'
   | 'wpParent___node___ancestors___nodes'
@@ -11125,6 +11346,8 @@ export type WpCategoryFieldsEnum =
   | 'wpParent___node___databaseId'
   | 'wpParent___node___description'
   | 'wpParent___node___id'
+  | 'wpParent___node___isContentNode'
+  | 'wpParent___node___isTermNode'
   | 'wpParent___node___link'
   | 'wpParent___node___name'
   | 'wpParent___node___parentDatabaseId'
@@ -11189,8 +11412,10 @@ export type WpCategoryFieldsEnum =
   | 'posts___nodes___featuredImageId'
   | 'posts___nodes___guid'
   | 'posts___nodes___id'
+  | 'posts___nodes___isContentNode'
   | 'posts___nodes___isRevision'
   | 'posts___nodes___isSticky'
+  | 'posts___nodes___isTermNode'
   | 'posts___nodes___link'
   | 'posts___nodes___modified'
   | 'posts___nodes___modifiedGmt'
@@ -11272,6 +11497,8 @@ export type WpCategoryFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -11432,6 +11659,8 @@ export type WpCategoryFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -11758,6 +11987,8 @@ export type WpPostFormatFieldsEnum =
   | 'contentNodes___nodes___enclosure'
   | 'contentNodes___nodes___guid'
   | 'contentNodes___nodes___id'
+  | 'contentNodes___nodes___isContentNode'
+  | 'contentNodes___nodes___isTermNode'
   | 'contentNodes___nodes___link'
   | 'contentNodes___nodes___modified'
   | 'contentNodes___nodes___modifiedGmt'
@@ -11783,6 +12014,8 @@ export type WpPostFormatFieldsEnum =
   | 'databaseId'
   | 'description'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'link'
   | 'name'
   | 'posts___nodes'
@@ -11803,8 +12036,10 @@ export type WpPostFormatFieldsEnum =
   | 'posts___nodes___featuredImageId'
   | 'posts___nodes___guid'
   | 'posts___nodes___id'
+  | 'posts___nodes___isContentNode'
   | 'posts___nodes___isRevision'
   | 'posts___nodes___isSticky'
+  | 'posts___nodes___isTermNode'
   | 'posts___nodes___link'
   | 'posts___nodes___modified'
   | 'posts___nodes___modifiedGmt'
@@ -11886,6 +12121,8 @@ export type WpPostFormatFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -12046,6 +12283,8 @@ export type WpPostFormatFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -12372,6 +12611,8 @@ export type WpTagFieldsEnum =
   | 'contentNodes___nodes___enclosure'
   | 'contentNodes___nodes___guid'
   | 'contentNodes___nodes___id'
+  | 'contentNodes___nodes___isContentNode'
+  | 'contentNodes___nodes___isTermNode'
   | 'contentNodes___nodes___link'
   | 'contentNodes___nodes___modified'
   | 'contentNodes___nodes___modifiedGmt'
@@ -12397,6 +12638,8 @@ export type WpTagFieldsEnum =
   | 'databaseId'
   | 'description'
   | 'id'
+  | 'isContentNode'
+  | 'isTermNode'
   | 'link'
   | 'name'
   | 'posts___nodes'
@@ -12417,8 +12660,10 @@ export type WpTagFieldsEnum =
   | 'posts___nodes___featuredImageId'
   | 'posts___nodes___guid'
   | 'posts___nodes___id'
+  | 'posts___nodes___isContentNode'
   | 'posts___nodes___isRevision'
   | 'posts___nodes___isSticky'
+  | 'posts___nodes___isTermNode'
   | 'posts___nodes___link'
   | 'posts___nodes___modified'
   | 'posts___nodes___modifiedGmt'
@@ -12500,6 +12745,8 @@ export type WpTagFieldsEnum =
   | 'seo___opengraphImage___fileSize'
   | 'seo___opengraphImage___guid'
   | 'seo___opengraphImage___id'
+  | 'seo___opengraphImage___isContentNode'
+  | 'seo___opengraphImage___isTermNode'
   | 'seo___opengraphImage___link'
   | 'seo___opengraphImage___mediaDetails___file'
   | 'seo___opengraphImage___mediaDetails___height'
@@ -12660,6 +12907,8 @@ export type WpTagFieldsEnum =
   | 'seo___twitterImage___fileSize'
   | 'seo___twitterImage___guid'
   | 'seo___twitterImage___id'
+  | 'seo___twitterImage___isContentNode'
+  | 'seo___twitterImage___isTermNode'
   | 'seo___twitterImage___link'
   | 'seo___twitterImage___mediaDetails___file'
   | 'seo___twitterImage___mediaDetails___height'
@@ -14025,6 +14274,8 @@ export type WpFieldsEnum =
   | 'seo___openGraph___defaultImage___fileSize'
   | 'seo___openGraph___defaultImage___guid'
   | 'seo___openGraph___defaultImage___id'
+  | 'seo___openGraph___defaultImage___isContentNode'
+  | 'seo___openGraph___defaultImage___isTermNode'
   | 'seo___openGraph___defaultImage___link'
   | 'seo___openGraph___defaultImage___mediaItemUrl'
   | 'seo___openGraph___defaultImage___mediaType'
@@ -14064,6 +14315,8 @@ export type WpFieldsEnum =
   | 'seo___schema___companyLogo___fileSize'
   | 'seo___schema___companyLogo___guid'
   | 'seo___schema___companyLogo___id'
+  | 'seo___schema___companyLogo___isContentNode'
+  | 'seo___schema___companyLogo___isTermNode'
   | 'seo___schema___companyLogo___link'
   | 'seo___schema___companyLogo___mediaItemUrl'
   | 'seo___schema___companyLogo___mediaType'
@@ -14099,6 +14352,8 @@ export type WpFieldsEnum =
   | 'seo___schema___logo___fileSize'
   | 'seo___schema___logo___guid'
   | 'seo___schema___logo___id'
+  | 'seo___schema___logo___isContentNode'
+  | 'seo___schema___logo___isTermNode'
   | 'seo___schema___logo___link'
   | 'seo___schema___logo___mediaItemUrl'
   | 'seo___schema___logo___mediaType'
@@ -14131,6 +14386,8 @@ export type WpFieldsEnum =
   | 'seo___schema___personLogo___fileSize'
   | 'seo___schema___personLogo___guid'
   | 'seo___schema___personLogo___id'
+  | 'seo___schema___personLogo___isContentNode'
+  | 'seo___schema___personLogo___isTermNode'
   | 'seo___schema___personLogo___link'
   | 'seo___schema___personLogo___mediaItemUrl'
   | 'seo___schema___personLogo___mediaType'
@@ -14288,14 +14545,15 @@ export type WpSortInput = {
 };
 
 export type AirtableDataFilterInput = {
+  Designation?: Maybe<StringQueryOperatorInput>;
   Detail?: Maybe<StringQueryOperatorInput>;
+  Name?: Maybe<StringQueryOperatorInput>;
   Icon_Name?: Maybe<StringQueryOperatorInput>;
   Title?: Maybe<StringQueryOperatorInput>;
-  Name?: Maybe<StringQueryOperatorInput>;
-  Designation?: Maybe<StringQueryOperatorInput>;
   Location?: Maybe<StringQueryOperatorInput>;
   Type?: Maybe<StringQueryOperatorInput>;
   Year?: Maybe<StringQueryOperatorInput>;
+  Received?: Maybe<StringQueryOperatorInput>;
   Description?: Maybe<StringQueryOperatorInput>;
   Item_Number?: Maybe<IntQueryOperatorInput>;
   Technologies?: Maybe<StringQueryOperatorInput>;
@@ -14305,9 +14563,9 @@ export type AirtableDataFilterInput = {
   Skills?: Maybe<AirtableFilterListInput>;
   Live_URL?: Maybe<StringQueryOperatorInput>;
   Field?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   Project?: Maybe<StringQueryOperatorInput>;
   Name__from_Project_?: Maybe<StringQueryOperatorInput>;
-  Received?: Maybe<StringQueryOperatorInput>;
 };
 
 export type AirtableDataImageFilterListInput = {
@@ -14316,6 +14574,8 @@ export type AirtableDataImageFilterListInput = {
 
 export type AirtableDataImageFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
   filename?: Maybe<StringQueryOperatorInput>;
   size?: Maybe<IntQueryOperatorInput>;
@@ -14495,20 +14755,23 @@ export type AirtableFieldsEnum =
   | 'internal___type'
   | 'table'
   | 'recordId'
+  | 'data___Designation'
   | 'data___Detail'
+  | 'data___Name'
   | 'data___Icon_Name'
   | 'data___Title'
-  | 'data___Name'
-  | 'data___Designation'
   | 'data___Location'
   | 'data___Type'
   | 'data___Year'
+  | 'data___Received'
   | 'data___Description'
   | 'data___Item_Number'
   | 'data___Technologies'
   | 'data___Role'
   | 'data___Image'
   | 'data___Image___id'
+  | 'data___Image___width'
+  | 'data___Image___height'
   | 'data___Image___url'
   | 'data___Image___filename'
   | 'data___Image___size'
@@ -14531,14 +14794,15 @@ export type AirtableFieldsEnum =
   | 'data___Skills___internal___type'
   | 'data___Skills___table'
   | 'data___Skills___recordId'
+  | 'data___Skills___data___Designation'
   | 'data___Skills___data___Detail'
+  | 'data___Skills___data___Name'
   | 'data___Skills___data___Icon_Name'
   | 'data___Skills___data___Title'
-  | 'data___Skills___data___Name'
-  | 'data___Skills___data___Designation'
   | 'data___Skills___data___Location'
   | 'data___Skills___data___Type'
   | 'data___Skills___data___Year'
+  | 'data___Skills___data___Received'
   | 'data___Skills___data___Description'
   | 'data___Skills___data___Item_Number'
   | 'data___Skills___data___Technologies'
@@ -14548,14 +14812,14 @@ export type AirtableFieldsEnum =
   | 'data___Skills___data___Skills'
   | 'data___Skills___data___Live_URL'
   | 'data___Skills___data___Field'
+  | 'data___Skills___data___category'
   | 'data___Skills___data___Project'
   | 'data___Skills___data___Name__from_Project_'
-  | 'data___Skills___data___Received'
   | 'data___Live_URL'
   | 'data___Field'
+  | 'data___category'
   | 'data___Project'
-  | 'data___Name__from_Project_'
-  | 'data___Received';
+  | 'data___Name__from_Project_';
 
 export type AirtableGroupConnection = {
   totalCount: Scalars['Int'];
@@ -14966,7 +15230,10 @@ export type Unnamed_2_Query = { services: { edges: Array<{ node: (
           Pick<AirtableData, 'Name' | 'Github_Link' | 'Live_URL'>
           & { Image?: Maybe<Array<Maybe<{ thumbnails?: Maybe<{ full?: Maybe<Pick<AirtableDataImageThumbnailsFull, 'url'>>, large?: Maybe<Pick<AirtableDataImageThumbnailsLarge, 'url'>> }> }>>>, Skills?: Maybe<Array<Maybe<{ data?: Maybe<Pick<AirtableData, 'Name'>> }>>> }
         )> }
-      ) }> }, developerSkills: { edges: Array<{ node: (
+      ) }> }, frontend: { edges: Array<{ node: (
+        Pick<Airtable, 'id'>
+        & { data?: Maybe<Pick<AirtableData, 'Name'>> }
+      ) }> }, backend: { edges: Array<{ node: (
         Pick<Airtable, 'id'>
         & { data?: Maybe<Pick<AirtableData, 'Name'>> }
       ) }> }, networkingSkills: { edges: Array<{ node: (
